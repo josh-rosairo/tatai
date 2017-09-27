@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800">
+<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+	<center>
+	
+	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+	
+	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
+	        <Text text="Statistics"/>
+	    </HBox>
+		<HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" fx:id="statsPanel">
+		
+		</HBox>
+	</GridPane>
+	</center>
+	<bottom>
+	<HBox alignment="center_right">
+    	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" />
+    </HBox>
+    </bottom>
+	<stylesheets>
+    	<URL value="@styles.css" />
+    </stylesheets>
+    
+</BorderPane>

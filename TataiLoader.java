@@ -24,7 +24,7 @@ public class TataiLoader extends FXMLLoader {
 	
 	private void loadScenes() {
 		
-		List<String> scenes = new ArrayList<String>(Arrays.asList("menu", "level", "endlevel"));
+		List<String> scenes = new ArrayList<String>(Arrays.asList("menu", "level", "endlevel", "statistics"));
 		
 		// Load each scene from their FXML files and put them into the hashmap.
 		for(String sceneName: scenes) {

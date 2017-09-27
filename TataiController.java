@@ -15,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
@@ -52,6 +53,7 @@ public class TataiController {
 	@FXML private Text announceRecording;
 	@FXML private Text numberCorrect;
 	@FXML private Button nextLevelButton;
+	@FXML private HBox statsPanel;
 	
 	public TataiController(Stage stage) {
 		_stage = stage;
@@ -280,6 +282,13 @@ public class TataiController {
     	numberCorrect.setText(Integer.toString(numCorrect) + "/" + NUM_QUESTIONS);
     	
     	Scene scene = _loader.getScene("endlevel");
+    	_stage.setScene(scene);
+        _stage.show();
+    }
+    
+    @FXML private void showStatistics() {
+    	
+    	Scene scene = _loader.getScene("statistics");
     	_stage.setScene(scene);
         _stage.show();
     }

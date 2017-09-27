@@ -15,16 +15,15 @@
 	    <Text text="Welcome to Tatai!" 
 	        GridPane.columnIndex="0" GridPane.rowIndex="0"
 	        GridPane.columnSpan="2"/>
-	        
-	    <Text text="Please choose numbers to practice:" 
-	        GridPane.columnIndex="0" GridPane.rowIndex="1"
-	        GridPane.columnSpan="2"/>
 	 
-	    <Button text="1 - 9"
-	    	GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="level1Button" onAction="#showLevel1" />
+	    <Button text="Practice numbers 1 - 9"
+	    	GridPane.columnIndex="0" GridPane.rowIndex="1" fx:id="level1Button" onAction="#showLevel1" />
 	    	
-	    <Button text="1 - 99"
-	    	GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="level2Button" onAction="#showLevel2"/>
+	    <Button text="Practice numbers 1 - 99"
+	    	GridPane.columnIndex="0" GridPane.rowIndex="2" fx:id="level2Button" onAction="#showLevel2"/>
+	    	
+	    <Button text="Statistics"
+	    	GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="statisticsButton" onAction="#showStatistics"/>
 
 	</GridPane>
 	</center>

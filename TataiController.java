@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -15,6 +17,9 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -24,24 +29,28 @@ import javafx.stage.Stage;
 public class TataiController {
 	// Stage to swap scenes in and out of.
 	private Stage _stage = null;
-	// Scenes
+	// Scenes.
 	private TataiLoader _loader;
-	// Current level
+	// Current level.
 	private int _level = 0;
-	// Total number of questions
+	// Total number of questions.
 	final static private int NUM_QUESTIONS = 10;
-	// Current question number up to
+	// Current question number up to.
 	private int _currentQuestionNumber = 0;
-	// Number of correct answers this level
+	// Number of correct answers this level.
 	private int _numCorrect = 0;
-	// Number of previous attempts
+	// Number of previous attempts.
 	private int _tries = 0;
-	// Player
+	// Player.
 	private MediaPlayer _mediaPlayer;
-	// Filename
+	// Filename.
 	final static private String FILENAME = "recording.mp3";
-	// Filename
+	// Filename.
 	final static private String FILENAMEBASE = "recording";
+	// List of statistics.
+	private List<TataiStatistic> _statistics = new ArrayList<TataiStatistic>();
+	// Statistics table to update.
+	private TableView<TataiStatistic> _table = new TableView<TataiStatistic>();
 
 	@FXML private Button recordButton;
 	@FXML private Button returnButton;
@@ -80,6 +89,26 @@ public class TataiController {
 	}
 	
 	public void init() {
+		// Initialize the statistics page with a table.
+		
+    	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
+    	TableColumn timeCol = new TableColumn("Time completed");
+    	timeCol.setMinWidth(100);
+    	timeCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("time"));
+    	TableColumn scoreCol = new TableColumn("Score");
+    	scoreCol.setMinWidth(100);
+		scoreCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("score"));
+		TableColumn levelCol = new TableColumn("Level");
+		levelCol.setMinWidth(100);
+		levelCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("level"));
+		
+		_table.setItems(data);
+        _table.getColumns().addAll(timeCol, scoreCol, levelCol);
+        
+        // Add the table to the panel.
+        statsPanel.getChildren().addAll(_table);
+		
+        // Show menu.
 		Scene scene = _loader.getScene("menu");
 	    
         _stage.setTitle("Welcome to Tatai!");
@@ -278,8 +307,14 @@ public class TataiController {
     		nextLevelButton.setManaged(false);
     	}
     	
-    	// Show number correct
+    	// Show number correct.
     	numberCorrect.setText(Integer.toString(numCorrect) + "/" + NUM_QUESTIONS);
+    	
+    	// Create a new TataiStatistic entry.
+    	TataiStatistic entry = new TataiStatistic(numCorrect, _level);
+    	
+    	// Add it to the statistics list.
+    	_statistics.add(entry);
     	
     	Scene scene = _loader.getScene("endlevel");
     	_stage.setScene(scene);
@@ -287,7 +322,9 @@ public class TataiController {
     }
     
     @FXML private void showStatistics() {
-    	
+    	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
+    	_table.setItems(data);
+    		
     	Scene scene = _loader.getScene("statistics");
     	_stage.setScene(scene);
         _stage.show();

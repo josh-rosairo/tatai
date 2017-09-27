@@ -21,11 +21,11 @@
 	    </HBox>
 	    
 	 
-	 	<HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
+	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
 	 		<Button text="Replay this level" fx:id="replayButton" onAction="#replay"/>
 	    	<Button text="Next level" fx:id="nextLevelButton" onAction="#nextLevel"/>
 	    	<Button text="Return to menu" fx:id="returnButton" onAction="#showMenu"/>
-	    </HBox>
+	    </VBox>
 	    
 	</GridPane>
 	</center>

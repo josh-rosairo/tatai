@@ -1,22 +1,25 @@
 package tatai;
  
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Stack;
 
 import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
-@SuppressWarnings("unused")
 public class TataiController {
 	// Stage to swap scenes in and out of.
 	private Stage _stage = null;
@@ -32,6 +35,10 @@ public class TataiController {
 	private int _numCorrect = 0;
 	// Number of previous attempts
 	private int _tries = 0;
+	// Player
+	private MediaPlayer _mediaPlayer;
+	// Filename
+	final static private String FILENAME = "recording.mp3";
 
 	@FXML private Button recordButton;
 	@FXML private Button returnButton;
@@ -56,7 +63,6 @@ public class TataiController {
 		try {
 			Process process = builder.start();
 			InputStream stdout = process.getInputStream();
-			InputStream stderr = process.getErrorStream();
 			BufferedReader stdoutBuffered = new BufferedReader(new InputStreamReader(stdout));
 			String line = null;
 			while ((line = stdoutBuffered.readLine()) != null ) {
@@ -94,6 +100,7 @@ public class TataiController {
     }
     
     @FXML protected void showMenu(ActionEvent event) {
+    	stopSound();
     	Scene scene = _loader.getScene("menu");
     	_stage.setScene(scene);
         _stage.show();
@@ -143,17 +150,45 @@ public class TataiController {
     }
     
     @FXML protected void redo(ActionEvent event) {
+    	stopSound();
     	_tries++;
     	record(null);
     }
     
     @FXML protected void play(ActionEvent event) {
     	// Play audio here.
+    	String filename = FILENAME;
     	
+    	// Ensure GUI concurrency by doing in background
+		Task<Void> task = new Task<Void>() {
+			@Override public Void call(){
+				// Create new MediaPlayer
+				Media sound = new Media(new File(filename).toURI().toString());
+				_mediaPlayer = new MediaPlayer(sound);
+				return null;
+		    }
+		};
+		new Thread(task).start();
+		
+		// When audio has finished loading.
+		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	        @Override
+	        public void handle(WorkerStateEvent t) {
+	        	_mediaPlayer.play();
+	        }
+	    });
+    }
+    
+    // Stop any currently playing sounds.
+    private void stopSound() {
+    	if (_mediaPlayer != null) {
+    		_mediaPlayer.stop();
+    	}
     }
     
     @FXML protected void next(ActionEvent event) {
     	_tries = 0;
+    	stopSound();
     	if(_currentQuestionNumber >= NUM_QUESTIONS) {
     		showEndLevel(_numCorrect);
     	}
@@ -176,6 +211,7 @@ public class TataiController {
     
     // Show a question for this level.
     private void showLevel() {
+    	stopSound();
     	Scene scene = _loader.getScene("level");
     	// Show record button
     	recordButton.setVisible(true);

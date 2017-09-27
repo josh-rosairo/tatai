@@ -1,12 +1,14 @@
 package tatai;
  
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -159,7 +161,7 @@ public class TataiController {
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
-				executeCommand("ffmpeg -f alsa -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav");
+				executeCommand("ffmpeg -f alsa -ar 44100 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
 				executeCommand("ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
 				return null;
 		    }
@@ -169,6 +171,11 @@ public class TataiController {
 		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	        @Override
 	        public void handle(WorkerStateEvent t) {
+	        	try {
+					TimeUnit.SECONDS.sleep(3);
+				} catch (InterruptedException e) {
+					;
+				}
 	        	announceRecording.setVisible(false);
 	    		announceRecording.setManaged(false);
 	        	

@@ -1,23 +1,25 @@
 package tatai;
  
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
-import java.util.Stack;
 
 import javafx.application.Platform;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
-@SuppressWarnings("unused")
 public class TataiController {
 	// Stage to swap scenes in and out of.
 	private Stage _stage = null;
@@ -33,8 +35,10 @@ public class TataiController {
 	private int _numCorrect = 0;
 	// Number of previous attempts
 	private int _tries = 0;
-	// Number that user has to pronounce in Maori
-	private int _numToSay = 0;
+	// Player
+	private MediaPlayer _mediaPlayer;
+	// Filename
+	final static private String FILENAME = "recording.mp3";
 
 	@FXML private Button recordButton;
 	@FXML private Button returnButton;
@@ -44,7 +48,6 @@ public class TataiController {
 	@FXML private Text announceRight;
 	@FXML private Text announceWrong;
 	@FXML private Text numberCorrect;
-	@FXML private Text number;
 	@FXML private Button nextLevelButton;
 	
 	public TataiController(Stage stage) {
@@ -60,7 +63,6 @@ public class TataiController {
 		try {
 			Process process = builder.start();
 			InputStream stdout = process.getInputStream();
-			InputStream stderr = process.getErrorStream();
 			BufferedReader stdoutBuffered = new BufferedReader(new InputStreamReader(stdout));
 			String line = null;
 			while ((line = stdoutBuffered.readLine()) != null ) {
@@ -98,6 +100,7 @@ public class TataiController {
     }
     
     @FXML protected void showMenu(ActionEvent event) {
+    	stopSound();
     	Scene scene = _loader.getScene("menu");
     	_stage.setScene(scene);
         _stage.show();
@@ -147,17 +150,45 @@ public class TataiController {
     }
     
     @FXML protected void redo(ActionEvent event) {
+    	stopSound();
     	_tries++;
     	record(null);
     }
     
     @FXML protected void play(ActionEvent event) {
     	// Play audio here.
+    	String filename = FILENAME;
     	
+    	// Ensure GUI concurrency by doing in background
+		Task<Void> task = new Task<Void>() {
+			@Override public Void call(){
+				// Create new MediaPlayer
+				Media sound = new Media(new File(filename).toURI().toString());
+				_mediaPlayer = new MediaPlayer(sound);
+				return null;
+		    }
+		};
+		new Thread(task).start();
+		
+		// When audio has finished loading.
+		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	        @Override
+	        public void handle(WorkerStateEvent t) {
+	        	_mediaPlayer.play();
+	        }
+	    });
+    }
+    
+    // Stop any currently playing sounds.
+    private void stopSound() {
+    	if (_mediaPlayer != null) {
+    		_mediaPlayer.stop();
+    	}
     }
     
     @FXML protected void next(ActionEvent event) {
     	_tries = 0;
+    	stopSound();
     	if(_currentQuestionNumber >= NUM_QUESTIONS) {
     		showEndLevel(_numCorrect);
     	}
@@ -180,6 +211,7 @@ public class TataiController {
     
     // Show a question for this level.
     private void showLevel() {
+    	stopSound();
     	Scene scene = _loader.getScene("level");
     	// Show record button
     	recordButton.setVisible(true);
@@ -199,10 +231,6 @@ public class TataiController {
     	announceWrong.setVisible(false);
     	
     	// Question setup here.
-    	
-    	_numToSay = generateNum(); // generate number to test for current question
-    	number.setText(Integer.toString(_numToSay)); // edit display text for number to say
-    	
     	
     	_stage.setScene(scene);
         _stage.show();
@@ -229,24 +257,6 @@ public class TataiController {
     
     @FXML protected void quit() {
     	Platform.exit();
-    }
-    
-    private int generateNum() {
-    	// define Random object and boundaries for random number generation
-    	Random rand = new Random();
-    	int upperLimit = 1;
-    	int lowerLimit = 1;
-    	
-    	// if on level 1, set upper boundary to 9
-    	if (_level == 1) {
-    		upperLimit = 9;
-    	} // if level 2, set upper boundary to 99
-    	else if (_level == 2) {
-    		upperLimit = 99;
-    	}
-    	
-    	// return randomly generated integer within boundaries (inclusive)
-    	return rand.nextInt(upperLimit) + lowerLimit;
     }
 
 }

@@ -24,6 +24,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
@@ -94,20 +95,22 @@ public class TataiController {
 		
     	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
     	TableColumn timeCol = new TableColumn("Time completed");
-    	timeCol.setMinWidth(200);
+    	timeCol.setMinWidth(195);
     	timeCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("time"));
     	TableColumn scoreCol = new TableColumn("Score");
-    	scoreCol.setMinWidth(100);
+    	scoreCol.setMinWidth(95);
 		scoreCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("score"));
 		TableColumn levelCol = new TableColumn("Level");
-		levelCol.setMinWidth(200);
+		levelCol.setMinWidth(195);
 		levelCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("level"));
 		
 		_table.setItems(data);
         _table.getColumns().addAll(timeCol, scoreCol, levelCol);
         // Add placeholder text while empty.
         _table.setPlaceholder(new Label("No scores to display."));
-        
+        // Prevent horizontal scrollbars.
+        _table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         // Add the table to the panel.
         statsPanel.getChildren().addAll(_table);
 		

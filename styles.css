@@ -11,10 +11,9 @@
 	-fx-background-color: #607D8B;
 	-fx-text-fill: #fafafa;
 	-fx-border-radius: 5px;
-	-fx-font-weight: lighter;
 	-fx-cursor: hand;
-	-fx-font-size:20px;
-  	-fx-padding: 10px 20px 10px 20px;
+	-fx-font-size:24px;
+  	-fx-padding: 12px 12px 12px 12px;
 }
 
 .button:hover {
@@ -23,6 +22,7 @@
 
 * {
 	-fx-font-size: 18px;
+	-fx-font-family: "Roboto";
 }
 
 #number {
@@ -31,8 +31,14 @@
 
 .announce{
 	-fx-font-size:56px;
+	-fx-font-family: "Roboto Thin";
+}
+
+#numberCorrect{
+	-fx-font-family: "Roboto";
 }
 
 .heading{
 	-fx-font-size:42px;
+	-fx-font-family: "Roboto Thin";
 }

@@ -30,7 +30,7 @@ public class TataiStatistic {
 		if (_level == 1) {
 			return "1 - 9";
 		}
-		else if (_level == 1) {
+		else if (_level == 2) {
 			return "1 - 99";
 		}
 		else {

@@ -8,6 +8,7 @@ import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.text.Font;
 
 // Handles all scenes and loading.
 public class TataiLoader extends FXMLLoader {

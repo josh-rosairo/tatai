@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -53,7 +54,10 @@ public class TataiController {
 	private List<TataiStatistic> _statistics = new ArrayList<TataiStatistic>();
 	// Statistics table to update.
 	private TableView<TataiStatistic> _table = new TableView<TataiStatistic>();
-
+	// Number that user has to pronounce in Maori
+	private int _numToSay = 0;
+	
+	@FXML private Text number;
 	@FXML private Button recordButton;
 	@FXML private Button returnButton;
 	@FXML private Button redoButton;
@@ -298,6 +302,9 @@ public class TataiController {
     	
     	// Question setup here.
     	
+    	_numToSay = generateNum(); // generate number to test for current question
+    	number.setText(Integer.toString(_numToSay)); // edit display text for number to say
+    	
     	_stage.setScene(scene);
         _stage.show();
     }
@@ -339,5 +346,23 @@ public class TataiController {
     @FXML protected void quit() {
     	Platform.exit();
     }
+    
+    private int generateNum() {
+    	     	// define Random object and boundaries for random number generation
+    	     	Random rand = new Random();
+    	    	int upperLimit = 1;
+    	     	int lowerLimit = 1;
+    	     	
+    	     	// if on level 1, set upper boundary to 9
+    	     	if (_level == 1) {
+    	     		upperLimit = 9;
+    	     	} // if level 2, set upper boundary to 99
+    	     	else if (_level == 2) {
+    	     		upperLimit = 99;
+    	     	}
+    	     	
+    	     	// return randomly generated integer within boundaries (inclusive)
+    	     	return rand.nextInt(upperLimit) + lowerLimit;
+    	     }
 
 }

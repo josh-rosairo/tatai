@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800">
+<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+	<center>
+	
+	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+	
+	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
+		    <padding>
+	            <Insets bottom="25.0" left="0" right="0" top="0" />
+	       </padding>
+	        <Text text="You scored " styleClass="announce"/><Text text="0" fx:id="numberCorrect" styleClass="announce"/><Text text="/10" styleClass="announce"/>
+	    </HBox>
+	    
+	 
+	 	<HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
+	 		<Button text="Replay this level" fx:id="replayButton" onAction="#replay"/>
+	    	<Button text="Next level" fx:id="nextLevelButton" onAction="#nextLevel"/>
+	    	<Button text="Return to menu" fx:id="returnButton" onAction="#showMenu"/>
+	    </HBox>
+	    
+	</GridPane>
+	</center>
+	<bottom>
+	<HBox alignment="center_right">
+    	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" />
+    </HBox>
+    </bottom>
+	<stylesheets>
+    	<URL value="@styles.css" />
+    </stylesheets>
+    
+</BorderPane>

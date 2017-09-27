@@ -1,0 +1,27 @@
+.root {
+	-fx-background-color: #F1F1F1;
+}
+
+.button {
+	-fx-background-color: #009688;
+	-fx-text-fill: #F1F1F1;
+	-fx-border-radius: 0px;
+	-fx-font-weight: lighter;
+	-fx-cursor: hand;
+}
+
+.button:hover {
+	-fx-background-color: #00695C;
+}
+
+* {
+	-fx-font-size: 18px;
+}
+
+#number {
+	-fx-font-size:72px;
+}
+
+.announce{
+	-fx-font-size:56px;
+}

@@ -17,7 +17,7 @@
 		    <padding>
 	            <Insets bottom="25.0" left="0" right="0" top="0" />
 	       </padding>
-	        <Text text="You scored " styleClass="announce"/><Text text="0" fx:id="numberCorrect" styleClass="announce"/><Text text="/10" styleClass="announce"/>
+	        <Text text="You scored " styleClass="announce"/><Text text="0" fx:id="numberCorrect" styleClass="announce"/>
 	    </HBox>
 	    
 	 

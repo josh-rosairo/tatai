@@ -30,6 +30,8 @@ public class TataiController {
 	private int _currentQuestionNumber = 0;
 	// Number of correct answers this level
 	private int _numCorrect = 0;
+	// Number of previous attempts
+	private int _tries = 0;
 
 	@FXML private Button recordButton;
 	@FXML private Button returnButton;
@@ -87,6 +89,7 @@ public class TataiController {
     private void initLevel() {
     	_numCorrect = 0;
     	_currentQuestionNumber = 1;
+    	_tries = 0;
     	showLevel();
     }
     
@@ -99,7 +102,7 @@ public class TataiController {
     @FXML protected void record(ActionEvent event) {
     	// Record and process here.
     	
-    	boolean isCorrect = true;
+    	boolean isCorrect = false;
     	
     	// If correct, hide the redo button and increase the number correct.
     	if (isCorrect) {
@@ -116,8 +119,14 @@ public class TataiController {
     		announceWrong.setManaged(true);
     		announceRight.setVisible(false);
     		announceRight.setManaged(false);
-    		redoButton.setVisible(true);
-    		redoButton.setManaged(true);
+    		// If you this is your first time, you get to try again.
+    		if (_tries == 0) {
+    			redoButton.setVisible(true);
+        		redoButton.setManaged(true);
+    		} else {
+    			redoButton.setVisible(false);
+        		redoButton.setManaged(false);
+    		}
     	}
     	
     	// Always show the play button and the next button and hide the record button.
@@ -133,12 +142,18 @@ public class TataiController {
     	
     }
     
+    @FXML protected void redo(ActionEvent event) {
+    	_tries++;
+    	record(null);
+    }
+    
     @FXML protected void play(ActionEvent event) {
     	// Play audio here.
     	
     }
     
     @FXML protected void next(ActionEvent event) {
+    	_tries = 0;
     	if(_currentQuestionNumber >= NUM_QUESTIONS) {
     		showEndLevel(_numCorrect);
     	}
@@ -197,8 +212,7 @@ public class TataiController {
     	}
     	
     	// Show number correct
-    	numberCorrect.setText(Integer.toString(numCorrect));
-    	
+    	numberCorrect.setText(Integer.toString(numCorrect) + "/" + NUM_QUESTIONS);
     	
     	Scene scene = _loader.getScene("endlevel");
     	_stage.setScene(scene);

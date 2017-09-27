@@ -24,7 +24,7 @@
 	 	<HBox GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" alignment="center" spacing="10">
 	    	<Button text="Play" fx:id="playButton" onAction="#play"/>
 	    	<Button text="Record" fx:id="recordButton" onAction="#record"/>
-	    	<Button text="Redo" fx:id="redoButton" onAction="#record"/>
+	    	<Button text="Redo" fx:id="redoButton" onAction="#redo"/>
 	    </HBox>
 	    
 	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center">

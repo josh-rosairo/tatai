@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -71,6 +72,8 @@ public class TataiController {
 	@FXML private Text numberCorrect;
 	@FXML private Button nextLevelButton;
 	@FXML private HBox statsPanel;
+	@FXML private Text questionNumber;
+	@FXML private ProgressBar progressBar;
 	
 	public TataiController(Stage stage) {
 		_stage = stage;
@@ -154,30 +157,31 @@ public class TataiController {
     
     @FXML protected void record(ActionEvent event) {
     	// Hide recording button, show recording dialog.
-    	recordButton.setVisible(false);
-		recordButton.setManaged(false);
+    	minimizeButtons();
 		announceRecording.setVisible(true);
 		announceRecording.setManaged(true);
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
+				// Record the user with ffmpeg.
 				executeCommand("ffmpeg -f alsa -ar 44100 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
 				executeCommand("ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
+				// Wait for user to finish recording.
+				try {
+					TimeUnit.SECONDS.sleep(3);
+				} catch (InterruptedException e) {
+					;
+				}
 				return null;
 		    }
 		};
 		new Thread(task).start();
 		
+		// When recording has finished:
 		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	        @Override
 	        public void handle(WorkerStateEvent t) {
-	        	try {
-					TimeUnit.SECONDS.sleep(3);
-				} catch (InterruptedException e) {
-					;
-				}
-	        	announceRecording.setVisible(false);
-	    		announceRecording.setManaged(false);
+	        	minimizeButtons();
 	        	
 	        	// TODO Process here.
 	        	
@@ -188,23 +192,14 @@ public class TataiController {
 	        		_numCorrect++;
 	        		announceRight.setVisible(true);
 	        		announceRight.setManaged(true);
-	        		announceWrong.setVisible(false);
-	        		announceWrong.setManaged(false);
-	        		redoButton.setVisible(false);
-	        		redoButton.setManaged(false);
 	        	}
 	        	else {
 	        		announceWrong.setVisible(true);
 	        		announceWrong.setManaged(true);
-	        		announceRight.setVisible(false);
-	        		announceRight.setManaged(false);
-	        		// If you this is your first time, you get to try again.
+	        		// If this is your first time wrong, you get to try again.
 	        		if (_tries == 0) {
 	        			redoButton.setVisible(true);
 	            		redoButton.setManaged(true);
-	        		} else {
-	        			redoButton.setVisible(false);
-	            		redoButton.setManaged(false);
 	        		}
 	        	}
 	        	
@@ -215,9 +210,6 @@ public class TataiController {
 	        	// Show play button.
 	        	playButton.setVisible(true);
 	        	playButton.setManaged(true);
-	        	// Hide record button.
-	        	recordButton.setVisible(false);
-	        	recordButton.setManaged(false);
 	        }
 	    });
     	
@@ -283,22 +275,19 @@ public class TataiController {
     	initLevel();
     }
     
-    // Show a question for this level.
-    private void showLevel() {
-    	stopSound();
-    	Scene scene = _loader.getScene("level");
-    	// Show record button
-    	recordButton.setVisible(true);
-    	recordButton.setManaged(true);
+    // Function to minimize all the buttons. Show as necessary.
+    private void minimizeButtons() {
     	// Hide redo button.
     	redoButton.setVisible(false);
     	redoButton.setManaged(false);
     	// Hide next button.
     	nextButton.setVisible(false);
-    	//nextButton.setManaged(false);
+    	nextButton.setManaged(false);
     	// Hide play button.
     	playButton.setVisible(false);
     	playButton.setManaged(false);
+    	recordButton.setVisible(false);
+    	recordButton.setManaged(false);
     	// Hide announcements.
     	announceRight.setVisible(false);
     	announceRight.setManaged(false);
@@ -307,10 +296,27 @@ public class TataiController {
     	announceWrong.setVisible(false);
     	announceWrong.setManaged(false);
     	
+    }
+    
+    // Show a question for this level.
+    private void showLevel() {
+    	stopSound();
+    	Scene scene = _loader.getScene("level");
+    	minimizeButtons();
+    	// Show record button
+    	recordButton.setVisible(true);
+    	recordButton.setManaged(true);
+    	
     	// Question setup here.
     	
     	_numToSay = generateNum(); // generate number to test for current question
     	number.setText(Integer.toString(_numToSay)); // edit display text for number to say
+    	
+    	// Show progress bar.
+    	progressBar.setProgress((float) _currentQuestionNumber/NUM_QUESTIONS);
+    	
+    	// Show question number.
+    	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/" + Integer.toString(NUM_QUESTIONS));
     	
     	_stage.setScene(scene);
         _stage.show();
@@ -355,21 +361,21 @@ public class TataiController {
     }
     
     private int generateNum() {
-    	     	// define Random object and boundaries for random number generation
-    	     	Random rand = new Random();
-    	    	int upperLimit = 1;
-    	     	int lowerLimit = 1;
-    	     	
-    	     	// if on level 1, set upper boundary to 9
-    	     	if (_level == 1) {
-    	     		upperLimit = 9;
-    	     	} // if level 2, set upper boundary to 99
-    	     	else if (_level == 2) {
-    	     		upperLimit = 99;
-    	     	}
-    	     	
-    	     	// return randomly generated integer within boundaries (inclusive)
-    	     	return rand.nextInt(upperLimit) + lowerLimit;
-    	     }
+     	// define Random object and boundaries for random number generation
+     	Random rand = new Random();
+    	int upperLimit = 1;
+     	int lowerLimit = 1;
+     	
+     	// if on level 1, set upper boundary to 9
+     	if (_level == 1) {
+     		upperLimit = 9;
+     	} // if level 2, set upper boundary to 99
+     	else if (_level == 2) {
+     		upperLimit = 99;
+     	}
+     	
+     	// return randomly generated integer within boundaries (inclusive)
+     	return rand.nextInt(upperLimit) + lowerLimit;
+     }
 
 }

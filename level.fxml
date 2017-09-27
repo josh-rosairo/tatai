@@ -17,17 +17,17 @@
 	        <Text text="0" fx:id="number"/>
 	    </HBox>
 	    
-	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center">
-	        <Text text="Correct" fx:id="announceRight"/><Text text="Incorrect" fx:id="announceWrong"/>
+	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" prefHeight ="40">
+	        <Text text="Correct" fx:id="announceRight"/><Text text="Incorrect" fx:id="announceWrong"/><Text text="Recording..." fx:id="announceRecording"/>
 	    </HBox>
 	 
-	 	<HBox GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" alignment="center" spacing="10">
+	 	<HBox GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" alignment="center" spacing="10" prefHeight="40">
 	    	<Button text="Play" fx:id="playButton" onAction="#play"/>
 	    	<Button text="Record" fx:id="recordButton" onAction="#record"/>
 	    	<Button text="Redo" fx:id="redoButton" onAction="#redo"/>
 	    </HBox>
 	    
-	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center">
+	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center" prefHeight ="40">
 	    	<Button text="Next" fx:id="nextButton" onAction="#next"/>
 	    </HBox>
 	    

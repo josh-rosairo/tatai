@@ -39,6 +39,8 @@ public class TataiController {
 	private MediaPlayer _mediaPlayer;
 	// Filename
 	final static private String FILENAME = "recording.mp3";
+	// Filename
+	final static private String FILENAMEBASE = "recording";
 
 	@FXML private Button recordButton;
 	@FXML private Button returnButton;
@@ -47,6 +49,7 @@ public class TataiController {
 	@FXML private Button nextButton;
 	@FXML private Text announceRight;
 	@FXML private Text announceWrong;
+	@FXML private Text announceRecording;
 	@FXML private Text numberCorrect;
 	@FXML private Button nextLevelButton;
 	
@@ -107,45 +110,68 @@ public class TataiController {
     }
     
     @FXML protected void record(ActionEvent event) {
-    	// Record and process here.
-    	
-    	boolean isCorrect = false;
-    	
-    	// If correct, hide the redo button and increase the number correct.
-    	if (isCorrect) {
-    		_numCorrect++;
-    		announceRight.setVisible(true);
-    		announceRight.setManaged(true);
-    		announceWrong.setVisible(false);
-    		announceWrong.setManaged(false);
-    		redoButton.setVisible(false);
-    		redoButton.setManaged(false);
-    	}
-    	else {
-    		announceWrong.setVisible(true);
-    		announceWrong.setManaged(true);
-    		announceRight.setVisible(false);
-    		announceRight.setManaged(false);
-    		// If you this is your first time, you get to try again.
-    		if (_tries == 0) {
-    			redoButton.setVisible(true);
-        		redoButton.setManaged(true);
-    		} else {
-    			redoButton.setVisible(false);
-        		redoButton.setManaged(false);
-    		}
-    	}
-    	
-    	// Always show the play button and the next button and hide the record button.
-    	// Show next button.
-    	nextButton.setVisible(true);
-    	nextButton.setManaged(true);
-    	// Show play button.
-    	playButton.setVisible(true);
-    	playButton.setManaged(true);
-    	// Hide record button.
+    	// Hide recording button, show recording dialog.
     	recordButton.setVisible(false);
-    	recordButton.setManaged(false);
+		recordButton.setManaged(false);
+		announceRecording.setVisible(true);
+		announceRecording.setManaged(true);
+    	// Ensure GUI concurrency by doing in background
+		Task<Void> task = new Task<Void>() {
+			@Override public Void call(){
+				executeCommand("ffmpeg -f alsa -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav");
+				executeCommand("ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
+				return null;
+		    }
+		};
+		new Thread(task).start();
+		
+		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
+	        @Override
+	        public void handle(WorkerStateEvent t) {
+	        	announceRecording.setVisible(false);
+	    		announceRecording.setManaged(false);
+	        	
+	        	// TODO Process here.
+	        	
+	        	boolean isCorrect = false;
+	        	
+	        	// If correct, hide the redo button and increase the number correct.
+	        	if (isCorrect) {
+	        		_numCorrect++;
+	        		announceRight.setVisible(true);
+	        		announceRight.setManaged(true);
+	        		announceWrong.setVisible(false);
+	        		announceWrong.setManaged(false);
+	        		redoButton.setVisible(false);
+	        		redoButton.setManaged(false);
+	        	}
+	        	else {
+	        		announceWrong.setVisible(true);
+	        		announceWrong.setManaged(true);
+	        		announceRight.setVisible(false);
+	        		announceRight.setManaged(false);
+	        		// If you this is your first time, you get to try again.
+	        		if (_tries == 0) {
+	        			redoButton.setVisible(true);
+	            		redoButton.setManaged(true);
+	        		} else {
+	        			redoButton.setVisible(false);
+	            		redoButton.setManaged(false);
+	        		}
+	        	}
+	        	
+	        	// Always show the play button and the next button and hide the record button.
+	        	// Show next button.
+	        	nextButton.setVisible(true);
+	        	nextButton.setManaged(true);
+	        	// Show play button.
+	        	playButton.setVisible(true);
+	        	playButton.setManaged(true);
+	        	// Hide record button.
+	        	recordButton.setVisible(false);
+	        	recordButton.setManaged(false);
+	        }
+	    });
     	
     }
     
@@ -221,14 +247,17 @@ public class TataiController {
     	redoButton.setManaged(false);
     	// Hide next button.
     	nextButton.setVisible(false);
-    	nextButton.setManaged(false);
+    	//nextButton.setManaged(false);
     	// Hide play button.
     	playButton.setVisible(false);
     	playButton.setManaged(false);
-    	// Hide announcements, but make sure the gap remains.
+    	// Hide announcements.
     	announceRight.setVisible(false);
     	announceRight.setManaged(false);
+    	announceRecording.setVisible(false);
+		announceRecording.setManaged(false);
     	announceWrong.setVisible(false);
+    	announceWrong.setManaged(false);
     	
     	// Question setup here.
     	

@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -93,17 +94,19 @@ public class TataiController {
 		
     	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
     	TableColumn timeCol = new TableColumn("Time completed");
-    	timeCol.setMinWidth(100);
+    	timeCol.setMinWidth(200);
     	timeCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("time"));
     	TableColumn scoreCol = new TableColumn("Score");
     	scoreCol.setMinWidth(100);
 		scoreCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("score"));
 		TableColumn levelCol = new TableColumn("Level");
-		levelCol.setMinWidth(100);
+		levelCol.setMinWidth(200);
 		levelCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("level"));
 		
 		_table.setItems(data);
         _table.getColumns().addAll(timeCol, scoreCol, levelCol);
+        // Add placeholder text while empty.
+        _table.setPlaceholder(new Label("No scores to display."));
         
         // Add the table to the panel.
         statsPanel.getChildren().addAll(_table);

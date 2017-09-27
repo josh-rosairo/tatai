@@ -1,17 +1,24 @@
 .root {
-	-fx-background-color: #F1F1F1;
+	-fx-background-color: #37474F;
+}
+
+.content {
+	-fx-background-color: #fafafa;
+	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0.4, 0, 7);
 }
 
 .button {
-	-fx-background-color: #009688;
-	-fx-text-fill: #F1F1F1;
-	-fx-border-radius: 0px;
+	-fx-background-color: #607D8B;
+	-fx-text-fill: #fafafa;
+	-fx-border-radius: 5px;
 	-fx-font-weight: lighter;
 	-fx-cursor: hand;
+	-fx-font-size:20px;
+  	-fx-padding: 10px 20px 10px 20px;
 }
 
 .button:hover {
-	-fx-background-color: #00695C;
+	-fx-background-color: #455A64;
 }
 
 * {
@@ -24,4 +31,8 @@
 
 .announce{
 	-fx-font-size:56px;
+}
+
+.heading{
+	-fx-font-size:42px;
 }

@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 // Handles all scenes and loading.
 public class TataiLoader extends FXMLLoader {
 	
-	private final static int WIDTH = 800;
+	private final static int WIDTH = 600;
 	private final static int HEIGHT = 600;
 	private HashMap<String,Scene> _scenes = new HashMap<String, Scene>();
 	TataiController _controller;

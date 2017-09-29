@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root">
 <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
@@ -23,8 +25,8 @@
 	    
 	 
 	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
-	 		<Button text="Replay this level" fx:id="replayButton" onAction="#replay"/>
-	    	<Button text="Next level" fx:id="nextLevelButton" onAction="#nextLevel"/>
+	 		<Button text="Replay this level" fx:id="replayButton" onAction="#replay" styleClass="greenbutton" />
+	    	<Button text="Next level" fx:id="nextLevelButton" onAction="#nextLevel" styleClass="greenbutton"/>
 	    	<Button text="Return to menu" fx:id="returnButton" onAction="#showMenu"/>
 	    </VBox>
 	    
@@ -33,7 +35,7 @@
 	<bottom>
 	<HBox alignment="center_right">
 	<padding><Insets top="25" right="0" bottom="0" left="25"/></padding>
-    	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" />
+    	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" styleClass="darkbutton" />
     </HBox>
     </bottom>
 	<stylesheets>

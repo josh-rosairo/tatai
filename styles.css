@@ -8,16 +8,50 @@
 }
 
 .button {
-	-fx-background-color: #607D8B;
+	-fx-background-color: #2196F3;
 	-fx-text-fill: #fafafa;
 	-fx-border-radius: 5px;
 	-fx-cursor: hand;
 	-fx-font-size:24px;
-  	-fx-padding: 12px 12px 12px 12px;
+  	-fx-padding: 8px 8px 6px 8px;
+  	-fx-border-style: none none solid none;
+  	-fx-border-width: 0 0 4px 0;
+  	-fx-border-color: #1E88E5;
 }
 
 .button:hover {
+	-fx-background-color: #1565C0;
+	-fx-border-color: #1565C0;
+}
+
+.greenbutton {
+	-fx-background-color: #4CAF50;
+	-fx-border-color: #43A047;
+}
+
+.greenbutton:hover{
+	-fx-background-color: #2E7D32;
+	-fx-border-color: #2E7D32;
+}
+
+.darkbutton {
+	-fx-background-color: #607D8B;
+	-fx-border-color: #546E7A;
+}
+
+.darkbutton:hover {
 	-fx-background-color: #455A64;
+	-fx-border-color: #455A64;
+}
+
+.orangebutton {
+	-fx-background-color: #FF9800;
+	-fx-border-color: #FB8C00;
+}
+
+.orangebutton:hover {
+	-fx-background-color: #F57C00;
+	-fx-border-color: #F57C00;
 }
 
 * {
@@ -46,4 +80,51 @@
 .heading2{
 	-fx-font-size:28px;
 	-fx-font-family: "Roboto Thin";
+}
+
+#progressBar {
+	-fx-accent: #2196F3;
+}
+
+#playButton {
+	-fx-background-image:url('../../src/tatai/images/play.png');
+}
+
+#redoButton, #replayButton {
+	-fx-background-image:url('../../src/tatai/images/redo.png');
+}
+
+#nextButton, #level1Button, #level2Button {
+	-fx-background-image:url('../../src/tatai/images/next.png');
+}
+
+#nextLevelButton {
+	-fx-background-image:url('../../src/tatai/images/up.png');
+}
+
+#returnButton {
+	-fx-background-image:url('../../src/tatai/images/menu.png');
+}
+
+#quitButton {
+	-fx-background-image:url('../../src/tatai/images/exit.png');
+}
+
+#statisticsButton {
+	-fx-background-image:url('../../src/tatai/images/stats.png');
+}
+
+#recordButton {
+	-fx-background-image:url('../../src/tatai/images/record.png');
+}
+
+#playButton, #redoButton, #replayButton, #nextButton, #nextLevelButton, #quitButton, #returnButton, #level1Button, #level2Button, #statisticsButton, #recordButton {
+	-fx-background-position:right 8px center;
+	-fx-background-size:18px 18px;
+  	-fx-padding: 8px 32px 6px 8px;
+  	-fx-background-repeat:no-repeat;
+}
+
+#redoButton, #replayButton {
+	-fx-background-size:15px 18px;
 }

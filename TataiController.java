@@ -163,6 +163,9 @@ public class TataiController {
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
+				// Remove any previous recording files so overwrite prompt doesn't hold up thread
+				executeCommand("rm "+FILENAMEBASE+".wav ");
+				executeCommand("rm "+FILENAMEBASE+".mp3 ");
 				// Record the user with ffmpeg.
 				executeCommand("ffmpeg -f alsa -ar 44100 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
 				executeCommand("ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
@@ -229,8 +232,11 @@ public class TataiController {
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
 				// Create new MediaPlayer
+				
 				Media sound = new Media(new File(filename).toURI().toString());
+				
 				_mediaPlayer = new MediaPlayer(sound);
+				System.out.println("make media");
 				return null;
 		    }
 		};

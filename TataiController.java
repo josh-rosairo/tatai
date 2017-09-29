@@ -25,8 +25,6 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -61,8 +59,6 @@ public class TataiController {
 	private TableView<TataiStatistic> _table = new TableView<TataiStatistic>();
 	// Number that user has to pronounce in Maori
 	private int _numToSay = 0;
-	// Boolean to determine if sounds should stop loading. If not on the same page as it was when it started loading, it will not play the sound.
-	private boolean _samePage = true;
 	
 	@FXML private Text number;
 	@FXML private Button recordButton;
@@ -78,9 +74,6 @@ public class TataiController {
 	@FXML private HBox statsPanel;
 	@FXML private Text questionNumber;
 	@FXML private ProgressBar progressBar;
-	@FXML private ImageView imageRight;
-	@FXML private ImageView imageWrong;
-	@FXML private BorderPane root;
 	
 	public TataiController(Stage stage) {
 		_stage = stage;
@@ -177,12 +170,11 @@ public class TataiController {
 				executeCommand("ffmpeg -f alsa -ar 44100 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
 				executeCommand("ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
 				// Wait for user to finish recording.
-				/*
 				try {
 					TimeUnit.SECONDS.sleep(3);
 				} catch (InterruptedException e) {
 					;
-				}*/
+				}
 				return null;
 		    }
 		};
@@ -196,25 +188,17 @@ public class TataiController {
 	        	
 	        	// TODO Process here.
 	        	
-	        	// Equivalent of pseudo-randomly allocating a correctness. This is only for testing while the speech recognition is being developed.
-	        	// TODO Finish speech recognition and remove this.
-	        	boolean isCorrect = _numToSay % 2 == 0;
+	        	boolean isCorrect = false;
 	        	
 	        	// If correct, hide the redo button and increase the number correct.
 	        	if (isCorrect) {
 	        		_numCorrect++;
 	        		announceRight.setVisible(true);
 	        		announceRight.setManaged(true);
-	        		imageRight.setVisible(true);
-	        		imageRight.setManaged(true);
-	        		root.setStyle("-fx-background-color:#388E3C;");
 	        	}
 	        	else {
 	        		announceWrong.setVisible(true);
 	        		announceWrong.setManaged(true);
-	        		imageWrong.setVisible(true);
-	        		imageWrong.setManaged(true);
-	        		root.setStyle("-fx-background-color:#D32F2F;");
 	        		// If this is your first time wrong, you get to try again.
 	        		if (_tries == 0) {
 	        			redoButton.setVisible(true);
@@ -247,7 +231,6 @@ public class TataiController {
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
-				_samePage = true;
 				// Create new MediaPlayer
 				
 				Media sound = new Media(new File(filename).toURI().toString());
@@ -263,16 +246,13 @@ public class TataiController {
 		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
 	        @Override
 	        public void handle(WorkerStateEvent t) {
-	        	if (_samePage) {
-	        		_mediaPlayer.play();
-	        	}
+	        	_mediaPlayer.play();
 	        }
 	    });
     }
     
     // Stop any currently playing sounds.
     private void stopSound() {
-    	_samePage = false;
     	if (_mediaPlayer != null) {
     		_mediaPlayer.stop();
     	}
@@ -321,21 +301,14 @@ public class TataiController {
 		announceRecording.setManaged(false);
     	announceWrong.setVisible(false);
     	announceWrong.setManaged(false);
-    	// Hide images.
-    	imageRight.setVisible(false);
-    	imageRight.setManaged(false);
-    	imageWrong.setVisible(false);
-    	imageWrong.setManaged(false);
+    	
     }
     
     // Show a question for this level.
     private void showLevel() {
     	stopSound();
     	Scene scene = _loader.getScene("level");
-    	// Hide all buttons.
     	minimizeButtons();
-    	// Reset colour of background.
-    	root.setStyle("-fx-background-color:#37474F;");
     	// Show record button
     	recordButton.setVisible(true);
     	recordButton.setManaged(true);

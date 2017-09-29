@@ -6,10 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.paint.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root" fx:id="root">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root">
 <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 	<center>
 	
@@ -22,36 +20,20 @@
 	    </VBox>
 		<HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center">
 		<padding><Insets top="16" right="0" bottom="28" left="0"/></padding>
-			<Text text="Say in Maori:" styleClass="heading2"/>
+			<Text text="Pronounce in Maori:" styleClass="heading2"/>
 		</HBox>
 	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2" alignment="center">
 	        <Text text="0" fx:id="number"/>
 	    </HBox>
 	    
-	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center" prefHeight ="40" spacing="8">
-	        <Text text="Correct" fx:id="announceRight"/>
-
-	        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" fx:id="imageRight">
-	          <image>
-	            <Image url="file:./src/tatai/images/right.png" backgroundLoading="true" />
-	          </image>
-	        </ImageView>
-
-	        <Text text="Incorrect" fx:id="announceWrong"/>
-	        
-	        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" fx:id="imageWrong">
-	          <image>
-	            <Image url="file:./src/tatai/images/wrong.png" backgroundLoading="true" />
-	          </image>
-	        </ImageView>
-	        
-	        <Text text="Recording..." fx:id="announceRecording"/>
+	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center" prefHeight ="40">
+	        <Text text="Correct" fx:id="announceRight"/><Text text="Incorrect" fx:id="announceWrong"/><Text text="Recording..." fx:id="announceRecording"/>
 	    </HBox>
 	 
 	 	<HBox GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2" alignment="center" spacing="10" prefHeight="40">
-	    	<Button text="Play" fx:id="playButton" onAction="#play" styleClass="greenbutton" />
+	    	<Button text="Play" fx:id="playButton" onAction="#play"/>
 	    	<Button text="Record" fx:id="recordButton" onAction="#record"/>
-	    	<Button text="Redo" fx:id="redoButton" onAction="#redo" styleClass="orangebutton" />
+	    	<Button text="Redo" fx:id="redoButton" onAction="#redo"/>
 	    </HBox>
 	    
 	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2" alignment="center" prefHeight ="40">
@@ -63,7 +45,7 @@
 	<bottom>
 	<HBox alignment="center_right">
 		<padding><Insets top="25" right="0" bottom="0" left="25"/></padding>
-    	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" styleClass="darkbutton" />
+    	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" />
     </HBox>
     </bottom>
 	<stylesheets>

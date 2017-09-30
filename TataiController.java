@@ -54,10 +54,6 @@ public class TataiController {
 	private int _tries = 0;
 	// Player.
 	private MediaPlayer _mediaPlayer;
-	// Filename.
-	final static private String FILENAME = "recording.mp3";
-	// Filename.
-	final static private String FILENAMEBASE = "recording";
 	// List of statistics.
 	private List<TataiStatistic> _statistics = new ArrayList<TataiStatistic>();
 	// Statistics table to update.
@@ -66,11 +62,8 @@ public class TataiController {
 	private int _numToSay = 0;
 	// Boolean to determine if sounds should stop loading. If not on the same page as it was when it started loading, it will not play the sound.
 	private boolean _samePage = true;
-	// Speech Recognition Output
-	private List<String> _maoriRecogOutput;
-	// English Translations for each Maori Number from 1 to 10
-	private List<String> _maoriNumTranslations = Arrays.asList("tahi","rua", "toru", "whaa", "rima", "ono", "whitu", "waru", "iwa", "tekau");
-	
+	// Filename.
+	final static private String FILENAME = "recording.mp3";
 	
 	@FXML private Text number;
 	@FXML private Button recordButton;
@@ -93,25 +86,6 @@ public class TataiController {
 	public TataiController(Stage stage) {
 		_stage = stage;
     	_loader = new TataiLoader(this);
-	}
-	
-	// Executes some bash command received as an argument.
-	private List<String> executeCommand(String cmd) {
-		// Read output from the bash.
-		List<String> output = new ArrayList<>();
-		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-		try {
-			Process process = builder.start();
-			InputStream stdout = process.getInputStream();
-			BufferedReader stdoutBuffered = new BufferedReader(new InputStreamReader(stdout));
-			String line = null;
-			while ((line = stdoutBuffered.readLine()) != null ) {
-				output.add(line);
-			}
-		} catch (Exception e) {
-			
-		}
-		return output;
 	}
 	
 	public void init() {
@@ -177,19 +151,8 @@ public class TataiController {
 		announceRecording.setManaged(true);
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
-			@Override public Void call(){
-				// Remove any previous recording files so overwrite prompt doesn't hold up thread
-				executeCommand("rm "+FILENAMEBASE+".wav ");
-				executeCommand("rm "+FILENAMEBASE+".mp3 ");
-				// Record the user with ffmpeg.
-				executeCommand("ffmpeg -f alsa -ar 22050 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
-				// Run HVite and write output to file
-				executeCommand("mv " + FILENAMEBASE + ".wav /home/se206/Documents/HTK/MaoriNumbers/");
-				executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + FILENAMEBASE + ".wav ");
-				// convert wav file to mp3
-				executeCommand("cd -; ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
-				
-				
+			@Override public Void call(){				
+				SpeechHandler.recordAndProcess();
 				return null;
 		    }
 		};
@@ -201,60 +164,9 @@ public class TataiController {
 	        public void handle(WorkerStateEvent t) {
 	        	minimizeButtons();
 	        	
-	        	// TODO Process here.
-	        	// Process Recording
+	        	// Process recording.
 	        	
-	        	boolean isCorrect = false;
-	        	
-	        	// Get HVite Speech Recognition Output as a list of strings
-	        	_maoriRecogOutput = executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; cat recout.mlf");
-	        	executeCommand("cd -");
-	        	Iterator<String> it = _maoriRecogOutput.iterator();
-	        	
-	        	
-	        	String result = "";
-	        	// Iterate through the Output Strings, determining if recording matches correct Maori Pronunciation of Number
-	        	while(it.hasNext()){
-	        		
-	        		try {
-	        			// Get pronunciation output between silences
-	        			String str = it.next();
-	    	        	result = str;
-		        		while (!(str = it.next()).equals("sil")) {
-		        			result = result + " " + str;
-		        		}
-		        	}
-		        	catch (NoSuchElementException e) {
-		        		break;
-		        	}
-		        	
-	        		String maoriAnswer;
-		    		String prefix;
-		    		String suffix;
-		    		
-		    		// Determine is recording has correct pronunciation
-
-		    		if (_numToSay <= 10) {
-		    			maoriAnswer = _maoriNumTranslations.get(_numToSay-1);
-		    		}
-		    		else if (_numToSay%10 == 0) {
-		    			prefix = _maoriNumTranslations.get((_numToSay/10)-1);
-		    			maoriAnswer = prefix + " tekau";
-		    		}
-		    		else {
-		    			prefix = _maoriNumTranslations.get((_numToSay/10)-1);
-		    			suffix = _maoriNumTranslations.get((_numToSay%10)-1);
-		    			maoriAnswer = prefix + " tekau maa " + suffix;
-		    		}
-		    		
-		    		
-		    		if (result.equals(maoriAnswer)) {
-		    			isCorrect = true;
-		    			break;
-		    		}
-		    		
-	      		}
-	        	
+	        	boolean isCorrect = SpeechHandler.isRecordingCorrect(_numToSay);
 	        	
 	        	// If correct, hide the redo button and increase the number correct.
 	        	if (isCorrect) {

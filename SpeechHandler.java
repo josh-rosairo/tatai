@@ -43,15 +43,11 @@ public class SpeechHandler {
 	public static void recordAndProcess() {
 		// Remove any previous recording files so overwrite prompt doesn't hold up thread
 		executeCommand("rm "+FILENAMEBASE+".wav ");
-		executeCommand("rm "+FILENAMEBASE+".mp3 ");
 		// Record the user with ffmpeg.
 		executeCommand("ffmpeg -f alsa -ar 22050 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
-		// convert wav file to mp3
-		executeCommand("ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
 		// Run HVite and write output to file
-		executeCommand("mv " + FILENAMEBASE + ".wav /home/se206/Documents/HTK/MaoriNumbers/");
+		executeCommand("cp " + FILENAMEBASE + ".wav /home/se206/Documents/HTK/MaoriNumbers/");
 		executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + FILENAMEBASE + ".wav ");
-		
 		executeCommand("cd -");
 	}
 	

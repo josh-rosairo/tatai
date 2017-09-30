@@ -63,7 +63,7 @@ public class TataiController {
 	// Boolean to determine if sounds should stop loading. If not on the same page as it was when it started loading, it will not play the sound.
 	private boolean _samePage = true;
 	// Filename.
-	final static private String FILENAME = "recording.mp3";
+	final static private String FILENAME = "recording.wav";
 	
 	// FXML-injected nodes.
 	@FXML private Text number;
@@ -144,7 +144,7 @@ public class TataiController {
     }
     
     @FXML protected void showMenu(ActionEvent event) {
-    	stopSound();
+    	
     	Scene scene = _loader.getScene("menu");
     	_stage.setScene(scene);
         _stage.show();
@@ -201,52 +201,36 @@ public class TataiController {
     }
     
     @FXML protected void redo(ActionEvent event) {
-    	stopSound();
+    	
     	_tries++;
     	record(null);
     }
     
     @FXML protected void play(ActionEvent event) {
     	// Play audio here.
-    	String filename = FILENAME;
     	
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
-				_samePage = true;
-				// Create new MediaPlayer
 				
-				Media sound = new Media(new File(filename).toURI().toString());
-				
-				_mediaPlayer = new MediaPlayer(sound);
-				System.out.println("make media");
+				String cmd = "aplay " + FILENAME;
+				ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
+				try {
+					builder.start();
+				} catch (Exception e) {
+					
+				}
 				return null;
 		    }
 		};
 		new Thread(task).start();
-		
-		// When audio has finished loading.
-		task.setOnSucceeded(new EventHandler<WorkerStateEvent>() {
-	        @Override
-	        public void handle(WorkerStateEvent t) {
-	        	if (_samePage) {
-	        		_mediaPlayer.play();
-	        	}
-	        }
-	    });
+
     }
     
-    // Stop any currently playing sounds.
-    private void stopSound() {
-    	_samePage = false;
-    	if (_mediaPlayer != null) {
-    		_mediaPlayer.stop();
-    	}
-    }
     
     @FXML protected void next(ActionEvent event) {
     	_tries = 0;
-    	stopSound();
+    	
     	if(_currentQuestionNumber >= NUM_QUESTIONS) {
     		showEndLevel(_numCorrect);
     	}
@@ -288,7 +272,7 @@ public class TataiController {
     
     // Show a question for this level.
     private void showLevel() {
-    	stopSound();
+    	
     	Scene scene = _loader.getScene("level");
     	// Hide all buttons.
     	minimizeButtons();

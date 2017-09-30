@@ -6,7 +6,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
@@ -63,6 +66,11 @@ public class TataiController {
 	private int _numToSay = 0;
 	// Boolean to determine if sounds should stop loading. If not on the same page as it was when it started loading, it will not play the sound.
 	private boolean _samePage = true;
+	// Speech Recognition Output
+	private List<String> _maoriRecogOutput;
+	// English Translations for each Maori Number from 1 to 10
+	private List<String> _maoriNumTranslations = Arrays.asList("tahi","rua", "toru", "whaa", "rima", "ono", "whitu", "waru", "iwa", "tekau");
+	
 	
 	@FXML private Text number;
 	@FXML private Button recordButton;
@@ -194,10 +202,59 @@ public class TataiController {
 	        	minimizeButtons();
 	        	
 	        	// TODO Process here.
+	        	// Process Recording
 	        	
-	        	// Equivalent of pseudo-randomly allocating a correctness. This is only for testing while the speech recognition is being developed.
-	        	// TODO Finish speech recognition and remove this.
-	        	boolean isCorrect = _numToSay % 2 == 0;
+	        	boolean isCorrect = false;
+	        	
+	        	// Get HVite Speech Recognition Output as a list of strings
+	        	_maoriRecogOutput = executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; cat recout.mlf");
+	        	executeCommand("cd -");
+	        	Iterator<String> it = _maoriRecogOutput.iterator();
+	        	
+	        	
+	        	String result = "";
+	        	// Iterate through the Output Strings, determining if recording matches correct Maori Pronunciation of Number
+	        	while(it.hasNext()){
+	        		
+	        		try {
+	        			// Get pronunciation output between silences
+	        			String str = it.next();
+	    	        	result = str;
+		        		while (!(str = it.next()).equals("sil")) {
+		        			result = result + " " + str;
+		        		}
+		        	}
+		        	catch (NoSuchElementException e) {
+		        		break;
+		        	}
+		        	
+	        		String maoriAnswer;
+		    		String prefix;
+		    		String suffix;
+		    		
+		    		// Determine is recording has correct pronunciation
+
+		    		if (_numToSay <= 10) {
+		    			maoriAnswer = _maoriNumTranslations.get(_numToSay-1);
+		    		}
+		    		else if (_numToSay%10 == 0) {
+		    			prefix = _maoriNumTranslations.get((_numToSay/10)-1);
+		    			maoriAnswer = prefix + " tekau";
+		    		}
+		    		else {
+		    			prefix = _maoriNumTranslations.get((_numToSay/10)-1);
+		    			suffix = _maoriNumTranslations.get((_numToSay%10)-1);
+		    			maoriAnswer = prefix + " tekau maa " + suffix;
+		    		}
+		    		
+		    		
+		    		if (result.equals(maoriAnswer)) {
+		    			isCorrect = true;
+		    			break;
+		    		}
+		    		
+	      		}
+	        	
 	        	
 	        	// If correct, hide the redo button and increase the number correct.
 	        	if (isCorrect) {
@@ -325,6 +382,7 @@ public class TataiController {
     	imageRight.setManaged(false);
     	imageWrong.setVisible(false);
     	imageWrong.setManaged(false);
+    	
     }
     
     // Show a question for this level.

@@ -277,7 +277,8 @@ public class TataiController {
     	// Hide all buttons.
     	minimizeButtons();
     	// Reset colour of background.
-    	root.setStyle("-fx-background-color:#37474F;");
+    	// TODO Fix css and remove.
+    	root.setStyle("-fx-background-color:#FAFAFA;");
     	// Show record button
     	recordButton.setVisible(true);
     	

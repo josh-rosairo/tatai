@@ -22,6 +22,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
+    /**
+    ** Controller class. Controls behaviour of the application.
+    **/
 public class TataiController {
 	// Stage to swap scenes in and out of.
 	private Stage _stage = null;
@@ -69,11 +72,18 @@ public class TataiController {
 	@FXML private ImageView imageWrong;
 	@FXML private BorderPane root;
 	
+    /**
+    ** Constructor. Sets the stage to a private field so that it is usable everywhere. Loads the scenes.
+    ** @arg Stage stage The stage to display the application on.
+    **/
 	public TataiController(Stage stage) {
 		_stage = stage;
     	_loader = new TataiLoader(this);
 	}
 	
+    /**
+    ** Executed after initialization of FXML-injected nodes.
+    **/
 	@FXML private void initialize() {
 		// Bind "managed" to "visible", so that hiding a node also removes it from the flow of the scene.
 		if (recordButton != null) {
@@ -92,7 +102,10 @@ public class TataiController {
 			nextLevelButton.managedProperty().bind(nextLevelButton.visibleProperty());
 		}
 	}
-	
+
+    /**
+    ** Initialization script to show the main menu and set up scenes and data.
+    **/
 	public void init() {
 		
 		// Initialize the statistics page with a table.
@@ -110,17 +123,28 @@ public class TataiController {
         _stage.setScene(scene);
         _stage.show();
 	}
-	    
+
+    /**
+    ** Shows the first level.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void showLevel1(ActionEvent event) {
     	_level = 1;
     	initLevel();
     }
     
+    /**
+    ** Shows the second level.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void showLevel2(ActionEvent event) {
     	_level = 2;
     	initLevel();
     }
     
+    /**
+    ** Initializes each level at the start of a round.
+    **/
     private void initLevel() {
     	_numCorrect = 0;
     	_currentQuestionNumber = 1;
@@ -128,6 +152,10 @@ public class TataiController {
     	showLevel();
     }
     
+    /**
+    ** Shows the menu.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void showMenu(ActionEvent event) {
     	
     	Scene scene = _loader.getScene("menu");
@@ -135,6 +163,10 @@ public class TataiController {
         _stage.show();
     }
     
+    /**
+    ** Records the user and processes the recording.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void record(ActionEvent event) {
     	// Hide recording button, show recording dialog.
     	minimizeButtons();
@@ -155,7 +187,6 @@ public class TataiController {
 	        	minimizeButtons();
 	        	
 	        	// Process recording.
-	        	
 	        	boolean isCorrect = SpeechHandler.isRecordingCorrect(_numToSay);
 	        	
 	        	// If correct, hide the redo button and increase the number correct.
@@ -166,6 +197,7 @@ public class TataiController {
 	        		root.setStyle("-fx-background-color:#388E3C;");
 	        	}
 	        	else {
+                    // If wrong, show the redo button and allow the user to try again.
 	        		announceWrong.setVisible(true);
 	        		imageWrong.setVisible(true);
 	        		root.setStyle("-fx-background-color:#D32F2F;");
@@ -185,16 +217,24 @@ public class TataiController {
     	
     }
     
+    /**
+    ** Allows a user to redo their recording.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void redo(ActionEvent event) {
     	
     	_tries++;
     	record(null);
     }
     
+    /**
+    ** Plays audio.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void play(ActionEvent event) {
     	// Play audio here.
     	
-    	// Ensure GUI concurrency by doing in background
+    	// Ensure GUI concurrency by doing in background.
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
 				
@@ -213,9 +253,14 @@ public class TataiController {
     }
     
     
+    /**
+    ** Shows the next question, or the end level screen, depending on which question the user is on.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void next(ActionEvent event) {
     	_tries = 0;
     	
+        // If the current question number is the last question, show the end level screen.
     	if(_currentQuestionNumber >= NUM_QUESTIONS) {
     		showEndLevel(_numCorrect);
     	}
@@ -226,17 +271,25 @@ public class TataiController {
     	}
     }
     
-    // Shows the next level. Only two levels, so show level 2.
+    /**
+    ** Shows the next level. Only two levels, so show level 2.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void nextLevel(ActionEvent event) {
     	showLevel2(null);
     }
     
-    // Replay current level
+    /**
+    ** Replays the current level.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void replay(ActionEvent event) {
     	initLevel();
     }
     
-    // Function to minimize all the buttons. Show as necessary.
+    /**
+    ** Function to minimize all the buttons. Show as necessary.
+    **/
     private void minimizeButtons() {
     	// Hide redo button.
     	redoButton.setVisible(false);
@@ -255,7 +308,9 @@ public class TataiController {
     	
     }
     
-    // Show a question for this level.
+    /**
+    ** Show a question for this level.
+    **/
     private void showLevel() {
     	
     	Scene scene = _loader.getScene("level");
@@ -267,9 +322,8 @@ public class TataiController {
     	recordButton.setVisible(true);
     	
     	// Question setup here.
-    	
-    	_numToSay = TataiFactory.generateNum(_level); // generate number to test for current question
-    	number.setText(Integer.toString(_numToSay)); // edit display text for number to say
+    	_numToSay = TataiFactory.generateNum(_level); // Generate number to test for current question.
+    	number.setText(Integer.toString(_numToSay)); // Edit display text to display number to say.
     	
     	// Show progress bar.
     	progressBar.setProgress((float) _currentQuestionNumber/NUM_QUESTIONS);
@@ -281,6 +335,10 @@ public class TataiController {
         _stage.show();
     }
     
+    /**
+    ** Show the end level screen.
+    ** @arg int numCorrect The number correct to display.
+    **/
     private void showEndLevel(int numCorrect) {
     	// If on level 1 and number correct is greater than or equal to 8, show next level button, else hide it
     	if (_level == 1 && numCorrect >= 8) {
@@ -304,15 +362,25 @@ public class TataiController {
         _stage.show();
     }
     
+    /**
+    ** Show the statistics page.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML private void showStatistics() {
+        // Update the table with the new list of data.
     	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
     	_table.setItems(data);
-    		
+
+        // Show the scene.
     	Scene scene = _loader.getScene("statistics");
     	_stage.setScene(scene);
         _stage.show();
     }
     
+    /**
+    ** Quits the application.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
     @FXML protected void quit() {
     	Platform.exit();
     }

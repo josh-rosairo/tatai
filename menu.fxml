@@ -36,8 +36,4 @@
     	<Button text="Quit" GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="quitButton" onAction="#quit" styleClass="darkbutton" />
     </HBox>
     </bottom>
-    <stylesheets>
-    	<URL value="@roboto.css" />
-    	<URL value="@styles.css" />
-    </stylesheets>
 </BorderPane>

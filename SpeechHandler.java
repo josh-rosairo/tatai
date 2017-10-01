@@ -46,11 +46,13 @@ public class SpeechHandler {
 		executeCommand("rm "+FILENAMEBASE+".mp3 ");
 		// Record the user with ffmpeg.
 		executeCommand("ffmpeg -f alsa -ar 22050 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
+		// convert wav file to mp3
+		executeCommand("ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
 		// Run HVite and write output to file
 		executeCommand("mv " + FILENAMEBASE + ".wav /home/se206/Documents/HTK/MaoriNumbers/");
 		executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + FILENAMEBASE + ".wav ");
-		// convert wav file to mp3
-		executeCommand("cd -; ffmpeg -loglevel quiet -i "+FILENAMEBASE+".wav -f mp3 "+FILENAMEBASE+".mp3");
+		
+		executeCommand("cd -");
 	}
 	
 	public static boolean isRecordingCorrect(int numToSay) {

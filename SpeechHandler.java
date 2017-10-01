@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 public class SpeechHandler {
-	// Speech Recognition Output
-	private List<String> _maoriRecogOutput;
+
 	// English Translations for each Maori Number from 1 to 10
 	private static List<String> _maoriNumTranslations = Arrays.asList("tahi","rua", "toru", "whaa", "rima", "ono", "whitu", "waru", "iwa", "tekau");
 
@@ -59,9 +58,9 @@ public class SpeechHandler {
 		boolean isCorrect = false;
 		
     	// Get HVite Speech Recognition Output as a list of strings
-    	List<String> _maoriRecogOutput = executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; cat recout.mlf");
+    	List<String> maoriRecogOutput = executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; cat recout.mlf");
     	executeCommand("cd -");
-    	Iterator<String> it = _maoriRecogOutput.iterator();
+    	Iterator<String> it = maoriRecogOutput.iterator();
     	
     	
     	String result = "";

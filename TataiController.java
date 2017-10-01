@@ -65,6 +65,7 @@ public class TataiController {
 	// Filename.
 	final static private String FILENAME = "recording.mp3";
 	
+	// FXML-injected nodes.
 	@FXML private Text number;
 	@FXML private Button recordButton;
 	@FXML private Button returnButton;
@@ -88,27 +89,32 @@ public class TataiController {
     	_loader = new TataiLoader(this);
 	}
 	
+	@FXML private void initialize() {
+		// Bind "managed" to "visible", so that hiding a node also removes it from the flow of the scene.
+		if (recordButton != null) {
+			recordButton.managedProperty().bind(recordButton.visibleProperty());
+			returnButton.managedProperty().bind(returnButton.visibleProperty());
+			redoButton.managedProperty().bind(redoButton.visibleProperty());
+			playButton.managedProperty().bind(playButton.visibleProperty());
+			nextButton.managedProperty().bind(nextButton.visibleProperty());
+			announceRight.managedProperty().bind(announceRight.visibleProperty());
+			announceWrong.managedProperty().bind(announceWrong.visibleProperty());
+			announceRecording.managedProperty().bind(announceRecording.visibleProperty());
+			imageRight.managedProperty().bind(imageRight.visibleProperty());
+			imageWrong.managedProperty().bind(imageWrong.visibleProperty());
+		}
+		if (nextLevelButton != null) {
+			nextLevelButton.managedProperty().bind(nextLevelButton.visibleProperty());
+		}
+	}
+	
 	public void init() {
+		
 		// Initialize the statistics page with a table.
-		
     	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
-    	TableColumn timeCol = new TableColumn("Time completed");
-    	timeCol.setMinWidth(195);
-    	timeCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("time"));
-    	TableColumn scoreCol = new TableColumn("Score");
-    	scoreCol.setMinWidth(95);
-		scoreCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("score"));
-		TableColumn levelCol = new TableColumn("Level");
-		levelCol.setMinWidth(195);
-		levelCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("level"));
-		
+		_table = TataiFactory.makeTable();
 		_table.setItems(data);
-        _table.getColumns().addAll(timeCol, scoreCol, levelCol);
-        // Add placeholder text while empty.
-        _table.setPlaceholder(new Label("No scores to display."));
-        // Prevent horizontal scrollbars.
-        _table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-
+		
         // Add the table to the panel.
         statsPanel.getChildren().addAll(_table);
 		
@@ -148,7 +154,6 @@ public class TataiController {
     	// Hide recording button, show recording dialog.
     	minimizeButtons();
 		announceRecording.setVisible(true);
-		announceRecording.setManaged(true);
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){				
@@ -172,31 +177,24 @@ public class TataiController {
 	        	if (isCorrect) {
 	        		_numCorrect++;
 	        		announceRight.setVisible(true);
-	        		announceRight.setManaged(true);
 	        		imageRight.setVisible(true);
-	        		imageRight.setManaged(true);
 	        		root.setStyle("-fx-background-color:#388E3C;");
 	        	}
 	        	else {
 	        		announceWrong.setVisible(true);
-	        		announceWrong.setManaged(true);
 	        		imageWrong.setVisible(true);
-	        		imageWrong.setManaged(true);
 	        		root.setStyle("-fx-background-color:#D32F2F;");
 	        		// If this is your first time wrong, you get to try again.
 	        		if (_tries == 0) {
 	        			redoButton.setVisible(true);
-	            		redoButton.setManaged(true);
 	        		}
 	        	}
 	        	
 	        	// Always show the play button and the next button and hide the record button.
 	        	// Show next button.
 	        	nextButton.setVisible(true);
-	        	nextButton.setManaged(true);
 	        	// Show play button.
 	        	playButton.setVisible(true);
-	        	playButton.setManaged(true);
 	        }
 	    });
     	
@@ -273,27 +271,18 @@ public class TataiController {
     private void minimizeButtons() {
     	// Hide redo button.
     	redoButton.setVisible(false);
-    	redoButton.setManaged(false);
     	// Hide next button.
     	nextButton.setVisible(false);
-    	nextButton.setManaged(false);
     	// Hide play button.
     	playButton.setVisible(false);
-    	playButton.setManaged(false);
     	recordButton.setVisible(false);
-    	recordButton.setManaged(false);
     	// Hide announcements.
     	announceRight.setVisible(false);
-    	announceRight.setManaged(false);
     	announceRecording.setVisible(false);
-		announceRecording.setManaged(false);
     	announceWrong.setVisible(false);
-    	announceWrong.setManaged(false);
     	// Hide images.
     	imageRight.setVisible(false);
-    	imageRight.setManaged(false);
     	imageWrong.setVisible(false);
-    	imageWrong.setManaged(false);
     	
     }
     
@@ -307,11 +296,10 @@ public class TataiController {
     	root.setStyle("-fx-background-color:#37474F;");
     	// Show record button
     	recordButton.setVisible(true);
-    	recordButton.setManaged(true);
     	
     	// Question setup here.
     	
-    	_numToSay = generateNum(); // generate number to test for current question
+    	_numToSay = TataiFactory.generateNum(_level); // generate number to test for current question
     	number.setText(Integer.toString(_numToSay)); // edit display text for number to say
     	
     	// Show progress bar.
@@ -328,11 +316,9 @@ public class TataiController {
     	// If on level 1 and number correct is greater than or equal to 8, show next level button, else hide it
     	if (_level == 1 && numCorrect >= 8) {
     		nextLevelButton.setVisible(true);
-    		nextLevelButton.setManaged(true);
     	}
     	else {
     		nextLevelButton.setVisible(false);
-    		nextLevelButton.setManaged(false);
     	}
     	
     	// Show number correct.
@@ -361,23 +347,5 @@ public class TataiController {
     @FXML protected void quit() {
     	Platform.exit();
     }
-    
-    private int generateNum() {
-     	// define Random object and boundaries for random number generation
-     	Random rand = new Random();
-    	int upperLimit = 1;
-     	int lowerLimit = 1;
-     	
-     	// if on level 1, set upper boundary to 9
-     	if (_level == 1) {
-     		upperLimit = 9;
-     	} // if level 2, set upper boundary to 99
-     	else if (_level == 2) {
-     		upperLimit = 99;
-     	}
-     	
-     	// return randomly generated integer within boundaries (inclusive)
-     	return rand.nextInt(upperLimit) + lowerLimit;
-     }
 
 }

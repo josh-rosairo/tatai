@@ -36,7 +36,9 @@ public class TataiLoader extends FXMLLoader {
 			    
 				Scene scene = constructScene(root);
 				scene.getStylesheets().add (TataiLoader.class.getResource("styles.css").toExternalForm());
-				scene.getStylesheets().add (TataiLoader.class.getResource("roboto.css").toExternalForm());
+				Font.loadFont(getClass().getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
+				Font.loadFont(getClass().getResourceAsStream("fonts/Roboto-Thin.ttf"), 14);
+				Font.loadFont(getClass().getResourceAsStream("fonts/Roboto-Bold.ttf"), 14);
 				_scenes.put(sceneName, scene);
 			}
 			catch (Exception e) {

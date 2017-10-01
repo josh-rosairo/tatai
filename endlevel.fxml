@@ -38,9 +38,5 @@
     	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" styleClass="darkbutton" />
     </HBox>
     </bottom>
-	<stylesheets>
-		<URL value="@roboto.css" />
-    	<URL value="@styles.css" />
-    </stylesheets>
     
 </BorderPane>

@@ -87,35 +87,35 @@
 }
 
 #playButton {
-	-fx-background-image:url('../../src/tatai/images/play.png');
+	-fx-background-image:url('images/play.png');
 }
 
 #redoButton, #replayButton {
-	-fx-background-image:url('../../src/tatai/images/redo.png');
+	-fx-background-image:url('images/redo.png');
 }
 
 #nextButton, #level1Button, #level2Button {
-	-fx-background-image:url('../../src/tatai/images/next.png');
+	-fx-background-image:url('images/next.png');
 }
 
 #nextLevelButton {
-	-fx-background-image:url('../../src/tatai/images/up.png');
+	-fx-background-image:url('images/up.png');
 }
 
 #returnButton {
-	-fx-background-image:url('../../src/tatai/images/menu.png');
+	-fx-background-image:url('images/menu.png');
 }
 
 #quitButton {
-	-fx-background-image:url('../../src/tatai/images/exit.png');
+	-fx-background-image:url('images/exit.png');
 }
 
 #statisticsButton {
-	-fx-background-image:url('../../src/tatai/images/stats.png');
+	-fx-background-image:url('images/stats.png');
 }
 
 #recordButton {
-	-fx-background-image:url('../../src/tatai/images/record.png');
+	-fx-background-image:url('images/record.png');
 }
 
 #playButton, #redoButton, #replayButton, #nextButton, #nextLevelButton, #quitButton, #returnButton, #level1Button, #level2Button, #statisticsButton, #recordButton {

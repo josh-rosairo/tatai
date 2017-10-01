@@ -15,13 +15,13 @@ public class TataiFactory {
 	public static TableView<TataiStatistic> makeTable() {
 		TableView<TataiStatistic> table = new TableView<TataiStatistic>();
 		
-		TableColumn timeCol = new TableColumn("Time completed");
+		TableColumn<TataiStatistic, String> timeCol = new TableColumn<TataiStatistic, String>("Time completed");
     	timeCol.setMinWidth(195);
     	timeCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("time"));
-    	TableColumn scoreCol = new TableColumn("Score");
+    	TableColumn<TataiStatistic, String> scoreCol = new TableColumn<TataiStatistic, String>("Score");
     	scoreCol.setMinWidth(95);
 		scoreCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("score"));
-		TableColumn levelCol = new TableColumn("Level");
+		TableColumn<TataiStatistic, String> levelCol = new TableColumn<TataiStatistic, String>("Level");
 		levelCol.setMinWidth(195);
 		levelCol.setCellValueFactory(new PropertyValueFactory<TataiStatistic,String>("level"));
 		

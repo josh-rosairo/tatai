@@ -1,17 +1,7 @@
 package tatai;
  
-import java.io.BufferedReader;
-
-import java.io.File;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -23,17 +13,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Font;
+// import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
@@ -53,7 +38,7 @@ public class TataiController {
 	// Number of previous attempts.
 	private int _tries = 0;
 	// Player.
-	private MediaPlayer _mediaPlayer;
+	// private MediaPlayer _mediaPlayer;
 	// List of statistics.
 	private List<TataiStatistic> _statistics = new ArrayList<TataiStatistic>();
 	// Statistics table to update.
@@ -61,7 +46,7 @@ public class TataiController {
 	// Number that user has to pronounce in Maori
 	private int _numToSay = 0;
 	// Boolean to determine if sounds should stop loading. If not on the same page as it was when it started loading, it will not play the sound.
-	private boolean _samePage = true;
+	// private boolean _samePage = true;
 	// Filename.
 	final static private String FILENAME = "recording.wav";
 	

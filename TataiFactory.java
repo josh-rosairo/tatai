@@ -1,5 +1,7 @@
 package tatai;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import javafx.scene.control.Label;
@@ -15,6 +17,7 @@ public class TataiFactory {
 		
 	}
 
+	private List<String> _operands = Arrays.asList("addition", "subtraction", "multiplication", "divison");
     /**
     ** Creates the table to be used on the statistics page.
     ** @return TableView<TataiStatistic> The created table.
@@ -64,4 +67,43 @@ public class TataiFactory {
      	// Return randomly generated integer within boundaries (inclusive).
      	return rand.nextInt(upperLimit) + lowerLimit;
      }
+    
+    // method that generates questions and returns the answer. It takes as params: the operand desired (e.g. addition) as well as the level they are on.
+    public int generateQuestion(String operand, int level) {
+    	int num1 = generateNum(level);
+    	int num2 = generateNum(level);
+    	
+    	int answer;
+    	// if addition, make addition question
+    	if (operand.equals(_operands.get(0))) {
+    		answer = num1 + num2;
+    	}
+    	// if subtraction, make addition question
+    	else if (operand.equals(_operands.get(0))) {
+    		answer = num1 - num2;
+    	}
+    	// if multiplication, make addition question
+    	else if (operand.equals(_operands.get(0))) {
+    		while (num1*num2>99) {
+    			num1 = generateNum(level);
+    			num2 = generateNum(level);
+    		}
+    		answer = num1 * num2;
+    	}
+    	// else make division question
+    	else {
+    		while (num1 % 2 != 0 && num2 % 2 != 0) {
+    			num1 = generateNum(level);
+    			num2 = generateNum(level);
+    		}
+    		answer = num1 / num2;
+    	}
+    	
+    	
+    	//TODO Write functionality to record answer for equation
+    	
+    	return answer;
+    }
+     
+
 }

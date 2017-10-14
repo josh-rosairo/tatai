@@ -17,7 +17,7 @@ public class TataiFactory {
 		
 	}
 
-	private List<String> _operands = Arrays.asList("addition", "subtraction", "multiplication", "divison");
+	private static List<String> _operands = Arrays.asList("+", "-", "x", "/");
     /**
     ** Creates the table to be used on the statistics page.
     ** @return TableView<TataiStatistic> The created table.
@@ -68,26 +68,38 @@ public class TataiFactory {
      	return rand.nextInt(upperLimit) + lowerLimit;
      }
     
-    // method that generates questions and returns the answer. It takes as params: the operand desired (e.g. addition) as well as the level they are on.
-    public int generateQuestion(String operand, int level) {
+    // method that generates the numbers used in the question and returns them as a 1x3 list, the first two values are the numbers to be displayed with the question, 
+    // and the last number is the answer to be said. It takes as params: the operand desired (e.g. addition) as well as the level they are on.
+    public static int[] generateQuestionNums(String operand, int level) {
     	int num1 = generateNum(level);
     	int num2 = generateNum(level);
-    	
     	int answer;
+    	
     	// if addition, make addition question
     	if (operand.equals(_operands.get(0))) {
-    		answer = num1 + num2;
-    	}
-    	// if subtraction, make addition question
-    	else if (operand.equals(_operands.get(0))) {
-    		answer = num1 - num2;
-    	}
-    	// if multiplication, make addition question
-    	else if (operand.equals(_operands.get(0))) {
-    		while (num1*num2>99) {
+    		while ((num1 + num2)>99) {
     			num1 = generateNum(level);
     			num2 = generateNum(level);
     		}
+    		
+    		answer = num1 + num2;
+    	}
+    	// if subtraction, make addition question
+    	else if (operand.equals(_operands.get(1))) {
+    		while ((num1 - num2)< 1) {
+    			num1 = generateNum(level);
+    			num2 = generateNum(level);
+    		}
+
+    		answer = num1 - num2;
+    	}
+    	// if multiplication, make addition question
+    	else if (operand.equals(_operands.get(2))) {
+    		while ((num1*num2)>99) {
+    			num1 = generateNum(level);
+    			num2 = generateNum(level);
+    		}
+    		
     		answer = num1 * num2;
     	}
     	// else make division question
@@ -96,14 +108,13 @@ public class TataiFactory {
     			num1 = generateNum(level);
     			num2 = generateNum(level);
     		}
+    		
     		answer = num1 / num2;
     	}
     	
+    	int[] nums  = {num1,num2,answer};
     	
-    	//TODO Write functionality to record answer for equation
-    	
-    	return answer;
+    	return nums;
     }
      
-
 }

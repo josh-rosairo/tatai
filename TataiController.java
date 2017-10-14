@@ -1,7 +1,9 @@
 package tatai;
  
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -52,6 +54,8 @@ public class TataiController {
 	// private boolean _samePage = true;
 	// Filename.
 	final static private String FILENAME = "recording.wav";
+	// operands for possible questions
+	private List<String> _operands = Arrays.asList("+", "-", "x", "/");
 	
 	// FXML-injected nodes.
 	@FXML private Text number;
@@ -322,8 +326,14 @@ public class TataiController {
     	recordButton.setVisible(true);
     	
     	// Question setup here.
-    	_numToSay = TataiFactory.generateNum(_level); // Generate number to test for current question.
-    	number.setText(Integer.toString(_numToSay)); // Edit display text to display number to say.
+    	
+    	// temporarily making operation choice random
+    	Random rand = new Random();
+    	String operand = _operands.get(rand.nextInt(_operands.size()));
+    	
+    	int[] questionNums =  TataiFactory.generateQuestionNums(operand,_level); // Generate number to test for current question.
+    	_numToSay = questionNums[2];
+    	number.setText(Integer.toString(questionNums[0]) + " " + operand + " " + Integer.toString(questionNums[1]) ); // Edit display text to display question.
     	
     	// Show progress bar.
     	progressBar.setProgress((float) _currentQuestionNumber/NUM_QUESTIONS);

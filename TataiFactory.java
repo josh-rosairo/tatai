@@ -76,6 +76,7 @@ public class TataiFactory {
     	int answer;
     	
     	// if addition, make addition question
+    	
     	if (operand.equals(_operands.get(0))) {
     		while ((num1 + num2)>99) {
     			num1 = generateNum(level);
@@ -104,7 +105,7 @@ public class TataiFactory {
     	}
     	// else make division question
     	else {
-    		while (num1 % 2 != 0 && num2 % 2 != 0) {
+    		while (!(num1 % num2 == 0) || (num1 < num2)) {
     			num1 = generateNum(level);
     			num2 = generateNum(level);
     		}

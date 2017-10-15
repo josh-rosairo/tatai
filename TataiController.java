@@ -329,6 +329,8 @@ public class TataiController {
     	
     	// temporarily making operation choice random
     	Random rand = new Random();
+    	// Test Division TODO Make division have up to  99 as an answer
+    	// String operand = _operands.get(3);
     	String operand = _operands.get(rand.nextInt(_operands.size()));
     	
     	int[] questionNums =  TataiFactory.generateQuestionNums(operand,_level); // Generate number to test for current question.

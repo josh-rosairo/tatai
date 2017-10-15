@@ -73,44 +73,59 @@ public class TataiFactory {
     public static int[] generateQuestionNums(String operand, int level) {
     	int num1 = generateNum(level);
     	int num2 = generateNum(level);
-    	int answer;
+    	int answer = 100, upperLimit = 0;
+    	
+    	
+    	if (level == 1) {
+     		upperLimit = 9;
+     	} // If on level 2, set upper boundary to 99.
+     	else if (level == 2) {
+     		upperLimit = 99;
+     	}
     	
     	// if addition, make addition question
-    	
-    	if (operand.equals(_operands.get(0))) {
-    		while ((num1 + num2)>99) {
-    			num1 = generateNum(level);
+    	while (answer > upperLimit) {
+	    	if (operand.equals(_operands.get(0))) {
+	    		while ((num1 + num2)>upperLimit) {
+	    			num1 = generateNum(level);
+	    			num2 = generateNum(level);
+	    		}
+	    		
+	    		answer = num1 + num2;
+	    	}
+	    	// if subtraction, make addition question
+	    	else if (operand.equals(_operands.get(1))) {
+	    		while ((num1 - num2)< 1) {
+	    			num1 = generateNum(level);
+	    			num2 = generateNum(level);
+	    		}
+	
+	    		answer = num1 - num2;
+	    	}
+	    	// if multiplication, make addition question
+	    	else if (operand.equals(_operands.get(2))) {
+	    		while ((num1*num2)>upperLimit) {
+	    			num1 = generateNum(level);
+	    			num2 = generateNum(level);
+	    		}
+	    		
+	    		answer = num1 * num2;
+	    	}
+	    	// else make division question
+	    	else {
+	    		while (!(num1 % num2 == 0) || (num1 < num2)) {
+	    			num1 = generateNum(level);
+	    			num2 = generateNum(level);
+	    		}
+	    		
+	    		answer = num1 / num2;
+	    	}
+	    	
+	    	// break possible infinite loops
+	    	if (answer > upperLimit) {
+	    		num1 = generateNum(level);
     			num2 = generateNum(level);
-    		}
-    		
-    		answer = num1 + num2;
-    	}
-    	// if subtraction, make addition question
-    	else if (operand.equals(_operands.get(1))) {
-    		while ((num1 - num2)< 1) {
-    			num1 = generateNum(level);
-    			num2 = generateNum(level);
-    		}
-
-    		answer = num1 - num2;
-    	}
-    	// if multiplication, make addition question
-    	else if (operand.equals(_operands.get(2))) {
-    		while ((num1*num2)>99) {
-    			num1 = generateNum(level);
-    			num2 = generateNum(level);
-    		}
-    		
-    		answer = num1 * num2;
-    	}
-    	// else make division question
-    	else {
-    		while (!(num1 % num2 == 0) || (num1 < num2)) {
-    			num1 = generateNum(level);
-    			num2 = generateNum(level);
-    		}
-    		
-    		answer = num1 / num2;
+	    	}
     	}
     	
     	int[] nums  = {num1,num2,answer};

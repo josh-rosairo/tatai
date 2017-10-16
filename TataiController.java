@@ -33,7 +33,7 @@ public class TataiController {
 	// Scenes.
 	private TataiLoader _loader;
 	// Current level.
-	private int _level = 0;
+	private int _level = 1;
 	// Total number of questions.
 	final static private int NUM_QUESTIONS = 10;
 	// Current question number up to.
@@ -54,8 +54,8 @@ public class TataiController {
 	// private boolean _samePage = true;
 	// Filename.
 	final static private String FILENAME = "recording.wav";
-	// operands for possible questions
-	private List<String> _operands = Arrays.asList("+", "-", "x", "/");
+	// Mode.
+	private String _mode;
 	
 	// FXML-injected nodes.
 	@FXML private Text number;
@@ -327,22 +327,35 @@ public class TataiController {
     	
     	// Question setup here.
     	
-    	// temporarily making operation choice random
-    	Random rand = new Random();
-    	// Test Division TODO Make division have up to  99 as an answer
-    	// String operand = _operands.get(3);
-    	String operand = _operands.get(rand.nextInt(_operands.size()));
+    	// Numbers to test for current question.
+    	List<String> questionNums;
     	
-    	int[] questionNums =  TataiFactory.generateQuestionNums(operand,_level); // Generate number to test for current question.
-    	_numToSay = questionNums[2];
-    	number.setText(Integer.toString(questionNums[0]) + " " + operand + " " + Integer.toString(questionNums[1]) ); // Edit display text to display question.
+    	if (_mode == "assess") {
+    		// Show progress bar.
+        	progressBar.setProgress((float) _currentQuestionNumber/NUM_QUESTIONS);
+        	// Show question number.
+        	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/" + Integer.toString(NUM_QUESTIONS));
+        	
+        	// Test Division TODO Make division have up to  99 as an answer
+        	// Temporarily make operation choice random.
+        	Random rand = new Random();
+        	String operand = TataiFactory._operands.get(rand.nextInt(TataiFactory._operands.size()));
+        	// Generate assessment questions.
+        	questionNums =  TataiFactory.generateQuestionAssess(operand, _level); 
+    	} else {
+    		progressBar.setProgress((float) 0);
+    		// Show question number.
+        	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/?");
+        	
+        	// Generate assessment questions.
+        	questionNums =  TataiFactory.generateQuestionPractice(_level); 
+    	}
     	
-    	// Show progress bar.
-    	progressBar.setProgress((float) _currentQuestionNumber/NUM_QUESTIONS);
-    	
-    	// Show question number.
-    	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/" + Integer.toString(NUM_QUESTIONS));
-    	
+    	// Number to say.
+    	_numToSay = Integer.parseInt(questionNums.get(1));
+    	// Edit display text to display question.
+    	number.setText(questionNums.get(0)); 
+
     	_stage.setScene(scene);
         _stage.show();
     }
@@ -385,6 +398,37 @@ public class TataiController {
 
         // Show the scene.
     	Scene scene = _loader.getScene("statistics");
+    	_stage.setScene(scene);
+        _stage.show();
+    }
+    
+    /**
+    ** Show the practice level.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
+    @FXML private void showPractice() {
+        // Show the scene.
+    	_mode = "practice";
+    	initLevel();
+    }
+    
+    /**
+    ** Show the assess page.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
+    @FXML private void showAssess() {
+        // Show the scene.
+    	_mode = "assess";
+    	initLevel();
+    }
+    
+    /**
+    ** Show the settings page.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
+    @FXML private void showSettings() {
+        // Show the scene.
+    	Scene scene = _loader.getScene("settings");
     	_stage.setScene(scene);
         _stage.show();
     }

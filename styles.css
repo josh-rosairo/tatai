@@ -86,7 +86,7 @@
 	-fx-accent: #2196F3;
 }
 
-#playButton {
+#playButton, #settingsButton {
 	-fx-background-image:url('images/play.png');
 }
 
@@ -94,7 +94,7 @@
 	-fx-background-image:url('images/redo.png');
 }
 
-#nextButton, #level1Button, #level2Button {
+#nextButton, #level1Button, #level2Button, #practiceButton, #assessButton {
 	-fx-background-image:url('images/next.png');
 }
 
@@ -118,7 +118,7 @@
 	-fx-background-image:url('images/record.png');
 }
 
-#playButton, #redoButton, #replayButton, #nextButton, #nextLevelButton, #quitButton, #returnButton, #level1Button, #level2Button, #statisticsButton, #recordButton {
+#playButton, #redoButton, #replayButton, #nextButton, #nextLevelButton, #quitButton, #returnButton, #level1Button, #level2Button, #statisticsButton, #recordButton, #practiceButton, #assessButton, #settingsButton {
 	-fx-background-position:right 8px center;
 	-fx-background-size:18px 18px;
   	-fx-padding: 8px 32px 6px 8px;

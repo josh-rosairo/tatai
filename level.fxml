@@ -33,7 +33,7 @@
 
 	        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" fx:id="imageRight">
 	          <image>
-	            <Image url="file:./src/tatai/images/right.png" backgroundLoading="true" />
+	            <Image url="file:images/right.png" backgroundLoading="true" />
 	          </image>
 	        </ImageView>
 
@@ -41,7 +41,7 @@
 	        
 	        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" fx:id="imageWrong">
 	          <image>
-	            <Image url="file:./src/tatai/images/wrong.png" backgroundLoading="true" />
+	            <Image url="file:images/wrong.png" backgroundLoading="true" />
 	          </image>
 	        </ImageView>
 	        

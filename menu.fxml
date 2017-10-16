@@ -19,11 +19,12 @@
 	    </HBox>
 	 
 	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
-		    <Button text="Practice 1 - 9"
-		    	fx:id="level1Button" onAction="#showLevel1" maxWidth="Infinity" styleClass="greenbutton" />
+	 	
+		    <Button text="Practice" fx:id="practiceButton" onAction="#showPractice" maxWidth="Infinity" styleClass="greenbutton" />
 		    	
-		    <Button text="Practice 1 - 99"
-		    	fx:id="level2Button" onAction="#showLevel2" maxWidth="Infinity" styleClass="greenbutton" />
+	    	<Button text="Assess" fx:id="assessButton" onAction="#showAssess" maxWidth="Infinity" styleClass="greenbutton" />
+	    	
+	    	<Button text="Settings" fx:id="settingsButton" onAction="#showSettings" maxWidth="Infinity" styleClass="greenbutton" />
 		    	
 		    <Button text="Statistics"
 		    	fx:id="statisticsButton" onAction="#showStatistics" maxWidth="Infinity" />

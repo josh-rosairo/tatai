@@ -1,5 +1,6 @@
 package tatai;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +18,7 @@ public class TataiFactory {
 		
 	}
 
-	private static List<String> _operands = Arrays.asList("+", "-", "x", "/");
+	public static List<String> _operands = Arrays.asList("+", "-", "x", "/");
     /**
     ** Creates the table to be used on the statistics page.
     ** @return TableView<TataiStatistic> The created table.
@@ -70,10 +71,12 @@ public class TataiFactory {
     
     // method that generates the numbers used in the question and returns them as a 1x3 list, the first two values are the numbers to be displayed with the question, 
     // and the last number is the answer to be said. It takes as params: the operand desired (e.g. addition) as well as the level they are on.
-    public static int[] generateQuestionNums(String operand, int level) {
+    public static List<String> generateQuestionAssess(String operand, int level) {
     	int num1 = generateNum(level);
     	int num2 = generateNum(level);
     	int answer = 100, upperLimit = 0;
+    	
+    	
     	
     	
     	if (level == 1) {
@@ -128,8 +131,22 @@ public class TataiFactory {
 	    	}
     	}
     	
-    	int[] nums  = {num1,num2,answer};
-    	
+    	List<String> nums = new ArrayList<>();
+    	nums.add(Integer.toString(num1) + " " + operand + " " + Integer.toString(num2));
+    	nums.add(Integer.toString(answer));
+    	return nums;
+    }
+    
+    /**
+     * Generates a practice number.
+     * @param int level The level of the question to generate.
+     * @return List A list containing the number, repeated.
+     */
+    public static List<String> generateQuestionPractice(int level) {
+    	List<String> nums = new ArrayList<>();
+    	String num = Integer.toString(generateNum(level));
+    	nums.add(num);
+    	nums.add(num);
     	return nums;
     }
      

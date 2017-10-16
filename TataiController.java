@@ -58,6 +58,8 @@ public class TataiController {
 	final static private String FILENAME = "recording.wav";
 	// Mode.
 	private String _mode;
+	// Correct streak.
+	private int _streak;
 	
 	// Statistics.
 	private int _personalBest1 = 0;
@@ -123,16 +125,11 @@ public class TataiController {
 			nextLevelButton.managedProperty().bind(nextLevelButton.visibleProperty());
 		}
 		if(personalBest1 != null) {
-		    IntegerProperty __personalBest1 = new SimpleIntegerProperty(_personalBest1);
-		    personalBest1.textProperty().bind(__personalBest1.asString());
-		    IntegerProperty __personalBest2 = new SimpleIntegerProperty(_personalBest2);
-		    personalBest2.textProperty().bind(__personalBest2.asString());
-		    IntegerProperty __longestStreakPractice = new SimpleIntegerProperty(_longestStreakPractice);
-		    longestStreakPractice.textProperty().bind(__longestStreakPractice.asString());
-		    IntegerProperty __longestStreakAssess = new SimpleIntegerProperty(_longestStreakAssess);
-		    longestStreakAssess.textProperty().bind(__longestStreakAssess.asString());
-		    IntegerProperty __longestPractice = new SimpleIntegerProperty(_longestPractice);
-		    longestPractice.textProperty().bind(__longestPractice.asString());
+		    personalBest1.textProperty().bind(new SimpleIntegerProperty(_personalBest1).asString());
+		    personalBest2.textProperty().bind(new SimpleIntegerProperty(_personalBest2).asString());
+		    longestStreakPractice.textProperty().bind(new SimpleIntegerProperty(_longestStreakPractice).asString());
+		    longestStreakAssess.textProperty().bind(new SimpleIntegerProperty(_longestStreakAssess).asString());
+		    longestPractice.textProperty().bind(new SimpleIntegerProperty(_longestPractice).asString());
 		}
 	}
 
@@ -186,10 +183,23 @@ public class TataiController {
     }
     
     /**
+     ** Pops up an achievement unlocked modal box.
+     ** TODO Complete this.
+     **/
+    private void showAchievement(String achieved) {
+    	System.out.println(achieved);
+    }
+    
+    /**
     ** Shows the menu.
     ** @arg ActionEvent event The event that caused this method to be called.
     **/
     @FXML protected void showMenu(ActionEvent event) {
+    	// Check for achievements - practice length.
+    	if (_mode == "practice" && _currentQuestionNumber-1 > _longestPractice) {
+    		_longestPractice = _currentQuestionNumber;
+    		showAchievement("Longest practice session!");
+    	}
     	
     	Scene scene = _loader.getScene("menu");
     	_stage.setScene(scene);
@@ -224,12 +234,14 @@ public class TataiController {
 	        	
 	        	// If correct, hide the redo button and increase the number correct.
 	        	if (isCorrect) {
+	        		_streak++;
 	        		_numCorrect++;
 	        		announceRight.setVisible(true);
 	        		imageRight.setVisible(true);
 	        		root.setStyle("-fx-background-color:#388E3C;");
 	        	}
 	        	else {
+	        		_streak = 0;
                     // If wrong, show the redo button and allow the user to try again.
 	        		announceWrong.setVisible(true);
 	        		imageWrong.setVisible(true);
@@ -238,6 +250,16 @@ public class TataiController {
 	        		if (_tries == 0) {
 	        			redoButton.setVisible(true);
 	        		}
+	        	}
+	        	
+	        	// Check for achievements.
+	        	if(_mode == "practice" && _streak > _longestStreakPractice) {
+	        		_longestStreakPractice = _streak;
+	        		showAchievement("Longest streak of correct questions (practice mode)!");
+	        	}
+	        	if(_mode == "assess" && _streak > _longestStreakAssess) {
+	        		_longestStreakAssess = _streak;
+	        		showAchievement("Longest streak of correct questions (test mode)!");
 	        	}
 	        	
 	        	// Always show the play button and the next button and hide the record button.
@@ -292,7 +314,7 @@ public class TataiController {
     **/
     @FXML protected void next(ActionEvent event) {
     	_tries = 0;
-    	
+    	    	
         // If the current question number is the last question, show the end level screen.
     	if(_currentQuestionNumber >= NUM_QUESTIONS) {
     		showEndLevel(_numCorrect);
@@ -394,6 +416,16 @@ public class TataiController {
     ** @arg int numCorrect The number correct to display.
     **/
     private void showEndLevel(int numCorrect) {
+    	// Check for achievements - personal best.
+    	if (_level == 1 && _numCorrect > _personalBest2) {
+    		_personalBest1 = _numCorrect;
+    		showAchievement("Most correct questions for level 1!");
+    	}
+    	if (_level == 2 && _numCorrect > _personalBest2) {
+    		_personalBest1 = _numCorrect;
+    		showAchievement("Most correct questions for level 2!");
+    	}
+    	
     	// If on level 1 and number correct is greater than or equal to 8, show next level button, else hide it
     	if (_level == 1 && numCorrect >= 8) {
     		nextLevelButton.setVisible(true);

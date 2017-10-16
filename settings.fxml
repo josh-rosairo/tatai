@@ -15,18 +15,15 @@
 	<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
 		<padding><Insets top="25" right="0" bottom="25" left="0"/></padding>
-	    	<Text text="Welcome to Tātai!" styleClass="heading"/>
+	    	<Text text="Settings" styleClass="heading"/>
 	    </HBox>
 	 
 	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
-	 	
-		    <Button text="Practice" fx:id="practiceButton" onAction="#showPractice" maxWidth="Infinity" styleClass="greenbutton" />
-		    	
-	    	<Button text="Assess" fx:id="assessButton" onAction="#showAssess" maxWidth="Infinity" styleClass="greenbutton" />
-	    	
-	    	<Button text="Settings" fx:id="settingsButton" onAction="#showSettings" maxWidth="Infinity"/>
-		    	
-		    <Button text="Statistics" fx:id="statisticsButton" onAction="#showStatistics" maxWidth="Infinity" />
+	 		<Text text="Level" styleClass="heading2"/>
+	 		<HBox alignment = "center" spacing="10">
+	 		<Button text="Level 1 - 9" fx:id="chooseLevel1Button" onAction="#setLevel1"  styleClass="darkbutton" />
+	    	<Button text="Level 1 - 99" fx:id="chooseLevel2Button" onAction="#setLevel2" styleClass="darkbutton" />
+	 		</HBox>
 		</VBox>
 	</GridPane>
 	</center>

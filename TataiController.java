@@ -75,6 +75,8 @@ public class TataiController {
 	@FXML private ImageView imageRight;
 	@FXML private ImageView imageWrong;
 	@FXML private BorderPane root;
+	@FXML private Button chooseLevel1Button;
+	@FXML private Button chooseLevel2Button;
 	
     /**
     ** Constructor. Sets the stage to a private field so that it is usable everywhere. Loads the scenes.
@@ -429,8 +431,43 @@ public class TataiController {
     @FXML private void showSettings() {
         // Show the scene.
     	Scene scene = _loader.getScene("settings");
+    	
+    	if (_level == 1) {
+    		setLevel1();
+    	} else {
+    		setLevel2();
+    	}
+    	
     	_stage.setScene(scene);
         _stage.show();
+    }
+    
+    /**
+    ** Set the level to level 1. Make the level 1 button depressed and the level 2 button not depressed.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
+    @FXML private void setLevel1() {
+        // Show the scene.
+    	_level = 1;
+    	chooseLevel1Button.getStyleClass().clear();
+    	chooseLevel1Button.getStyleClass().add("button");
+    	chooseLevel1Button.getStyleClass().add("depressedbutton");
+    	chooseLevel2Button.getStyleClass().clear();
+    	chooseLevel2Button.getStyleClass().add("button");
+    }
+    
+    /**
+    ** Set the level to level 2. Make the level 2 button depressed and the level 2 button not depressed.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    **/
+    @FXML private void setLevel2() {
+        // Show the scene.
+    	_level = 2;
+    	chooseLevel1Button.getStyleClass().clear();
+    	chooseLevel1Button.getStyleClass().add("button");
+    	chooseLevel2Button.getStyleClass().clear();
+    	chooseLevel2Button.getStyleClass().add("button");
+    	chooseLevel2Button.getStyleClass().add("depressedbutton");
     }
     
     /**

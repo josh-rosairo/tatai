@@ -19,7 +19,7 @@
   	-fx-border-color: #1E88E5;
 }
 
-.button:hover {
+.button:hover, .depressedbutton {
 	-fx-background-color: #1565C0;
 	-fx-border-color: #1565C0;
 }
@@ -29,7 +29,7 @@
 	-fx-border-color: #43A047;
 }
 
-.greenbutton:hover{
+.greenbutton:hover, .depressedgreenbutton {
 	-fx-background-color: #2E7D32;
 	-fx-border-color: #2E7D32;
 }
@@ -39,7 +39,7 @@
 	-fx-border-color: #546E7A;
 }
 
-.darkbutton:hover {
+.darkbutton:hover, .depresseddarkbutton {
 	-fx-background-color: #455A64;
 	-fx-border-color: #455A64;
 }
@@ -49,7 +49,7 @@
 	-fx-border-color: #FB8C00;
 }
 
-.orangebutton:hover {
+.orangebutton:hover, .depressedorangebutton {
 	-fx-background-color: #F57C00;
 	-fx-border-color: #F57C00;
 }
@@ -123,6 +123,10 @@
 	-fx-background-size:18px 18px;
   	-fx-padding: 8px 32px 6px 8px;
   	-fx-background-repeat:no-repeat;
+}
+
+#chooseLevel1Button, #chooseLevel2Button {
+	-fx-padding: 8px 6px 6px 8px;
 }
 
 #redoButton, #replayButton {

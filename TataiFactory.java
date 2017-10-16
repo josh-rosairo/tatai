@@ -77,8 +77,6 @@ public class TataiFactory {
     	int answer = 100, upperLimit = 0;
     	
     	
-    	
-    	
     	if (level == 1) {
      		upperLimit = 9;
      	} // If on level 2, set upper boundary to 99.

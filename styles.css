@@ -86,7 +86,7 @@
 	-fx-accent: #2196F3;
 }
 
-#playButton, #settingsButton {
+#playButton{
 	-fx-background-image:url('images/play.png');
 }
 
@@ -116,6 +116,10 @@
 
 #recordButton {
 	-fx-background-image:url('images/record.png');
+}
+
+#settingsButton {
+	-fx-background-image:url('images/settings.png');
 }
 
 #playButton, #redoButton, #replayButton, #nextButton, #nextLevelButton, #quitButton, #returnButton, #level1Button, #level2Button, #statisticsButton, #recordButton, #practiceButton, #assessButton, #settingsButton {

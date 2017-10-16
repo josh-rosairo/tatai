@@ -143,7 +143,7 @@
 
 #achievement {
 	-fx-background-position:center;
-	-fx-background-size:300px 230px;
+	-fx-background-size:173px 225px;
   	-fx-background-repeat:no-repeat;
   	-fx-background-image:url('images/achievement.png');
 }

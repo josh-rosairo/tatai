@@ -9,19 +9,18 @@
 <?import javafx.scene.paint.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root">
-<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+<padding><Insets top="60" right="60" bottom="60" left="60"/></padding>
 	<center>
 	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="content">
-	<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
-		<padding><Insets top="25" right="0" bottom="25" left="0"/></padding>
-	    	<Text text="Achievement unlocked!" styleClass="heading"/>
+		<padding><Insets top="0" right="0" bottom="25" left="0"/></padding>
+	    	<Text text="Achievement unlocked" styleClass="heading2"/>
 	    </HBox>
 	 
-	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
-			<HBox fx:id="achievement"></HBox>
-			<Text text="Achievement unlocked!" fx:id="achievementText" styleClass="heading2"/>
-		    <Button text="Next" fx:id="closeAchievementButton" onAction="#returnToScene" maxWidth="Infinity" />
+	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="15">
+			<HBox fx:id="achievement" prefHeight="225" prefWidth="173"></HBox>
+			<Text text="Achievement unlocked!" fx:id="achievementText" styleClass="heading2,bold"/>
+		    <Button text="Next" fx:id="level1Button" onAction="#returnToScene"/>
 		</VBox>
 	</GridPane>
 	</center>

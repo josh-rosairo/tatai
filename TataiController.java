@@ -183,10 +183,10 @@ public class TataiController {
      ** Pops up an achievement unlocked modal box.
      **/
     private void showAchievement(String achieved) {
-    	System.out.println(achieved);
-    	Scene scene = _loader.getScene("achievement");
-    	achievementText.setText(achieved);
     	_returnScene = _stage.getScene();
+    	achievementText.setText(achieved);
+    	
+    	Scene scene = _loader.getScene("achievement");
     	_stage.setScene(scene);
         _stage.show();
     }
@@ -205,16 +205,17 @@ public class TataiController {
     ** @arg ActionEvent event The event that caused this method to be called.
     **/
     @FXML protected void showMenu(ActionEvent event) {
-    	// Check for achievements - practice length.
-    	if (_mode == "practice" && _currentQuestionNumber > _longestPractice) {
-    		_longestPractice = _currentQuestionNumber;
-    		showAchievement("Longest practice session!");
-    		longestPractice.setText(Integer.toString(_longestPractice));
-    	}
-    	
     	Scene scene = _loader.getScene("menu");
     	_stage.setScene(scene);
         _stage.show();
+        
+        // Check for achievements - practice length.
+    	if (_mode == "practice" && _currentQuestionNumber > _longestPractice) {
+    		_longestPractice = _currentQuestionNumber;
+    		longestPractice.setText(Integer.toString(_longestPractice));
+    		showAchievement("Longest practice session!");
+    		return;
+    	}
     }
     
     /**
@@ -263,23 +264,25 @@ public class TataiController {
 	        		}
 	        	}
 	        	
-	        	// Check for achievements.
-	        	if(_mode == "practice" && _streak > _longestStreakPractice) {
-	        		_longestStreakPractice = _streak;
-	        		showAchievement("Longest streak of correct questions (practice mode)!");
-	        		longestStreakPractice.setText(Integer.toString(_longestStreakPractice));
-	        	}
-	        	if(_mode == "assess" && _streak > _longestStreakAssess) {
-	        		_longestStreakAssess = _streak;
-	        		showAchievement("Longest streak of correct questions (test mode)!");
-	        		longestStreakAssess.setText(Integer.toString(_longestStreakAssess));
-	        	}
-	        	
 	        	// Always show the play button and the next button and hide the record button.
 	        	// Show next button.
 	        	nextButton.setVisible(true);
 	        	// Show play button.
 	        	playButton.setVisible(true);
+	        	
+	        	// Check for achievements.
+	        	if(_mode == "practice" && _streak > _longestStreakPractice) {
+	        		_longestStreakPractice = _streak;
+	        		showAchievement("Longest streak of correct questions (practice mode)!");
+	        		longestStreakPractice.setText(Integer.toString(_longestStreakPractice));
+	        		return;
+	        	}
+	        	if(_mode == "assess" && _streak > _longestStreakAssess) {
+	        		_longestStreakAssess = _streak;
+	        		showAchievement("Longest streak of correct questions (test mode)!");
+	        		longestStreakAssess.setText(Integer.toString(_longestStreakAssess));
+	        		return;
+	        	}
 	        }
 	    });
     	
@@ -429,18 +432,6 @@ public class TataiController {
     ** @arg int numCorrect The number correct to display.
     **/
     private void showEndLevel(int numCorrect) {
-    	// Check for achievements - personal best.
-    	if (_level == 1 && _numCorrect > _personalBest2) {
-    		_personalBest1 = _numCorrect;
-    		showAchievement("Most correct questions for level 1!");
-    		personalBest1.setText(Integer.toString(_personalBest1));
-    	}
-    	if (_level == 2 && _numCorrect > _personalBest2) {
-    		_personalBest1 = _numCorrect;
-    		showAchievement("Most correct questions for level 2!");
-    		personalBest2.setText(Integer.toString(_personalBest2));
-    	}
-    	
     	// If on level 1 and number correct is greater than or equal to 8, show next level button, else hide it
     	if (_level == 1 && numCorrect >= 8) {
     		nextLevelButton.setVisible(true);
@@ -461,6 +452,20 @@ public class TataiController {
     	Scene scene = _loader.getScene("endlevel");
     	_stage.setScene(scene);
         _stage.show();
+        
+        // Check for achievements - personal best.
+    	if (_level == 1 && _numCorrect > _personalBest2) {
+    		_personalBest1 = _numCorrect;
+    		showAchievement("Most correct questions for level 1!");
+    		personalBest1.setText(Integer.toString(_personalBest1));
+    		return;
+    	}
+    	if (_level == 2 && _numCorrect > _personalBest2) {
+    		_personalBest1 = _numCorrect;
+    		showAchievement("Most correct questions for level 2!");
+    		personalBest2.setText(Integer.toString(_personalBest2));
+    		return;
+    	}
     }
     
     /**

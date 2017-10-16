@@ -23,7 +23,7 @@
 		<HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" fx:id="statsPanel">
 		
 		</HBox>
-		<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="8" vgap="8" fx:id="bestPanel" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+		<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="20" vgap="8" fx:id="bestPanel" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
 	    	<Text text="Personal best: level 1 - 9" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="bold"/>
 	    	<Text text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="personalBest1" />
 	    	<Text text="Personal best: level 1 - 99" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="bold"/>

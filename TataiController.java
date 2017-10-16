@@ -124,13 +124,6 @@ public class TataiController {
 		if (nextLevelButton != null) {
 			nextLevelButton.managedProperty().bind(nextLevelButton.visibleProperty());
 		}
-		if(personalBest1 != null) {
-		    personalBest1.textProperty().bind(new SimpleIntegerProperty(_personalBest1).asString());
-		    personalBest2.textProperty().bind(new SimpleIntegerProperty(_personalBest2).asString());
-		    longestStreakPractice.textProperty().bind(new SimpleIntegerProperty(_longestStreakPractice).asString());
-		    longestStreakAssess.textProperty().bind(new SimpleIntegerProperty(_longestStreakAssess).asString());
-		    longestPractice.textProperty().bind(new SimpleIntegerProperty(_longestPractice).asString());
-		}
 	}
 
     /**
@@ -196,9 +189,10 @@ public class TataiController {
     **/
     @FXML protected void showMenu(ActionEvent event) {
     	// Check for achievements - practice length.
-    	if (_mode == "practice" && _currentQuestionNumber-1 > _longestPractice) {
+    	if (_mode == "practice" && _currentQuestionNumber > _longestPractice) {
     		_longestPractice = _currentQuestionNumber;
     		showAchievement("Longest practice session!");
+    		longestPractice.setText(Integer.toString(_longestPractice));
     	}
     	
     	Scene scene = _loader.getScene("menu");
@@ -256,10 +250,12 @@ public class TataiController {
 	        	if(_mode == "practice" && _streak > _longestStreakPractice) {
 	        		_longestStreakPractice = _streak;
 	        		showAchievement("Longest streak of correct questions (practice mode)!");
+	        		longestStreakPractice.setText(Integer.toString(_longestStreakPractice));
 	        	}
 	        	if(_mode == "assess" && _streak > _longestStreakAssess) {
 	        		_longestStreakAssess = _streak;
 	        		showAchievement("Longest streak of correct questions (test mode)!");
+	        		longestStreakAssess.setText(Integer.toString(_longestStreakAssess));
 	        	}
 	        	
 	        	// Always show the play button and the next button and hide the record button.
@@ -420,10 +416,12 @@ public class TataiController {
     	if (_level == 1 && _numCorrect > _personalBest2) {
     		_personalBest1 = _numCorrect;
     		showAchievement("Most correct questions for level 1!");
+    		personalBest1.setText(Integer.toString(_personalBest1));
     	}
     	if (_level == 2 && _numCorrect > _personalBest2) {
     		_personalBest1 = _numCorrect;
     		showAchievement("Most correct questions for level 2!");
+    		personalBest2.setText(Integer.toString(_personalBest2));
     	}
     	
     	// If on level 1 and number correct is greater than or equal to 8, show next level button, else hide it

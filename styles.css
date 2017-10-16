@@ -136,3 +136,7 @@
 #redoButton, #replayButton {
 	-fx-background-size:15px 18px;
 }
+
+.bold {
+	-fx-font-family: "Roboto Bold";
+}

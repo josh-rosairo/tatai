@@ -22,7 +22,7 @@
 	 	
 		    <Button text="Practice" fx:id="practiceButton" onAction="#showPractice" maxWidth="Infinity" styleClass="greenbutton" />
 		    	
-	    	<Button text="Assess" fx:id="assessButton" onAction="#showAssess" maxWidth="Infinity" styleClass="greenbutton" />
+	    	<Button text="Test" fx:id="assessButton" onAction="#showAssess" maxWidth="Infinity" styleClass="greenbutton" />
 	    	
 	    	<Button text="Settings" fx:id="settingsButton" onAction="#showSettings" maxWidth="Infinity"/>
 		    	

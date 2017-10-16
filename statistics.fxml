@@ -23,6 +23,23 @@
 		<HBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" fx:id="statsPanel">
 		
 		</HBox>
+		<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="8" vgap="8" fx:id="bestPanel" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="1">
+	    	<Text text="Personal best: level 1 - 9" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="bold"/>
+	    	<Text text="0" GridPane.columnIndex="1" GridPane.rowIndex="0" fx:id="personalBest1" />
+	    	<Text text="Personal best: level 1 - 99" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="bold"/>
+	    	<Text text="0" GridPane.columnIndex="1" GridPane.rowIndex="1" fx:id="personalBest2" />
+	    	<Text text="Longest streak (practice)" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="bold"/>
+	    	<Text text="0" GridPane.columnIndex="1" GridPane.rowIndex="2" fx:id="longestStreakPractice" />
+	    	<Text text="Longest streak (test)" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="bold"/>
+	    	<Text text="0" GridPane.columnIndex="1" GridPane.rowIndex="3" fx:id="longestStreakAssess" />
+	    	<Text text="Longest practice session" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="bold"/>
+	    	<Text text="0" GridPane.columnIndex="1" GridPane.rowIndex="4" fx:id="longestPractice" />
+		</GridPane>
+		<VBox GridPane.columnIndex="1" GridPane.rowIndex="3" GridPane.columnSpan="1" alignment="center">
+			<HBox alignment="center">
+		        <Text text="Achievements" styleClass="heading2"/>
+		    </HBox>
+	    </VBox>
 	</GridPane>
 	</center>
 	<bottom>

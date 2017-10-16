@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Random;
 
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -57,6 +59,13 @@ public class TataiController {
 	// Mode.
 	private String _mode;
 	
+	// Statistics.
+	private int _personalBest1 = 0;
+	private int _personalBest2 = 0;
+	private int _longestStreakPractice = 0;
+	private int _longestStreakAssess = 0;
+	private int _longestPractice = 0;
+	
 	// FXML-injected nodes.
 	@FXML private Text number;
 	@FXML private Button recordButton;
@@ -77,6 +86,12 @@ public class TataiController {
 	@FXML private BorderPane root;
 	@FXML private Button chooseLevel1Button;
 	@FXML private Button chooseLevel2Button;
+	
+	@FXML private Text personalBest1;
+	@FXML private Text personalBest2;
+	@FXML private Text longestStreakPractice;
+	@FXML private Text longestStreakAssess;
+	@FXML private Text longestPractice;
 	
     /**
     ** Constructor. Sets the stage to a private field so that it is usable everywhere. Loads the scenes.
@@ -106,6 +121,18 @@ public class TataiController {
 		}
 		if (nextLevelButton != null) {
 			nextLevelButton.managedProperty().bind(nextLevelButton.visibleProperty());
+		}
+		if(personalBest1 != null) {
+		    IntegerProperty __personalBest1 = new SimpleIntegerProperty(_personalBest1);
+		    personalBest1.textProperty().bind(__personalBest1.asString());
+		    IntegerProperty __personalBest2 = new SimpleIntegerProperty(_personalBest2);
+		    personalBest2.textProperty().bind(__personalBest2.asString());
+		    IntegerProperty __longestStreakPractice = new SimpleIntegerProperty(_longestStreakPractice);
+		    longestStreakPractice.textProperty().bind(__longestStreakPractice.asString());
+		    IntegerProperty __longestStreakAssess = new SimpleIntegerProperty(_longestStreakAssess);
+		    longestStreakAssess.textProperty().bind(__longestStreakAssess.asString());
+		    IntegerProperty __longestPractice = new SimpleIntegerProperty(_longestPractice);
+		    longestPractice.textProperty().bind(__longestPractice.asString());
 		}
 	}
 

@@ -60,6 +60,8 @@ public class TataiController {
 	private String _mode;
 	// Correct streak.
 	private int _streak;
+	// Scene to return to.
+	private Scene _returnScene;
 	
 	// Statistics.
 	private int _personalBest1 = 0;
@@ -94,6 +96,8 @@ public class TataiController {
 	@FXML private Text longestStreakPractice;
 	@FXML private Text longestStreakAssess;
 	@FXML private Text longestPractice;
+	
+	@FXML private Text achievementText;
 	
     /**
     ** Constructor. Sets the stage to a private field so that it is usable everywhere. Loads the scenes.
@@ -177,11 +181,24 @@ public class TataiController {
     
     /**
      ** Pops up an achievement unlocked modal box.
-     ** TODO Complete this.
      **/
     private void showAchievement(String achieved) {
     	System.out.println(achieved);
+    	Scene scene = _loader.getScene("achievement");
+    	achievementText.setText(achieved);
+    	_returnScene = _stage.getScene();
+    	_stage.setScene(scene);
+        _stage.show();
     }
+    
+    /**
+     ** Returns to the previously stored scene.
+     ** @arg ActionEvent event The event that caused this method to be called.
+     **/
+     @FXML protected void returnToScene(ActionEvent event) {
+    	 _stage.setScene(_returnScene);
+         _stage.show();
+     }
     
     /**
     ** Shows the menu.

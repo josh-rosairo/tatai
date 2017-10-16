@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root">
+<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+	<center>
+	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="content">
+	<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
+		<padding><Insets top="25" right="0" bottom="25" left="0"/></padding>
+	    	<Text text="Achievement unlocked!" styleClass="heading"/>
+	    </HBox>
+	 
+	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
+			<HBox fx:id="achievement"></HBox>
+			<Text text="Achievement unlocked!" fx:id="achievementText" styleClass="heading2"/>
+		    <Button text="Next" fx:id="closeAchievementButton" onAction="#returnToScene" maxWidth="Infinity" />
+		</VBox>
+	</GridPane>
+	</center>
+</BorderPane>

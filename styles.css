@@ -140,3 +140,10 @@
 .bold {
 	-fx-font-family: "Roboto Bold";
 }
+
+#achievement {
+	-fx-background-position:center;
+	-fx-background-size:300px 230px;
+  	-fx-background-repeat:no-repeat;
+  	-fx-background-image:url('images/achievement.png');
+}

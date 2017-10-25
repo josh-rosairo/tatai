@@ -265,13 +265,13 @@ public class TataiController {
 	        	// Check for achievements.
 	        	if(_mode == "practice" && _streak > _longestStreakPractice) {
 	        		_longestStreakPractice = _streak;
-	        		showAchievement("Longest streak of correct questions (practice mode)!");
+	        		showAchievement("Longest practice streak!");
 	        		longestStreakPractice.setText(Integer.toString(_longestStreakPractice));
 	        		return;
 	        	}
 	        	if(_mode == "assess" && _streak > _longestStreakAssess) {
 	        		_longestStreakAssess = _streak;
-	        		showAchievement("Longest streak of correct questions (test mode)!");
+	        		showAchievement("Longest test streak!");
 	        		longestStreakAssess.setText(Integer.toString(_longestStreakAssess));
 	        		return;
 	        	}
@@ -448,13 +448,13 @@ public class TataiController {
         // Check for achievements - personal best.
     	if (_level == 1 && _numCorrect > _personalBest2) {
     		_personalBest1 = _numCorrect;
-    		showAchievement("Most correct questions for level 1!");
+    		showAchievement("Most correct for level 1!");
     		personalBest1.setText(Integer.toString(_personalBest1));
     		return;
     	}
     	if (_level == 2 && _numCorrect > _personalBest2) {
     		_personalBest1 = _numCorrect;
-    		showAchievement("Most correct questions for level 2!");
+    		showAchievement("Most correct for level 2!");
     		personalBest2.setText(Integer.toString(_personalBest2));
     		return;
     	}

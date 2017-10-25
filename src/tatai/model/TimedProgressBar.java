@@ -64,7 +64,7 @@ public class TimedProgressBar extends ProgressBar {
     /**
      * Stops and hides the progress bar.
      */
-    private void stop() {
+    public void stop() {
     	this.setVisible(false);
     	this.setManaged(false);
     }

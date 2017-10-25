@@ -68,6 +68,8 @@ public class TataiController {
 	    put("DivisionQuestion",false);
 	    put("MultiplicationQuestion",true);
 	}};;
+	// Progress bar to display time for recording
+	TimedProgressBar _progress;
 	
 	// Statistics.
 	private int _personalBest1 = 0;
@@ -260,9 +262,9 @@ public class TataiController {
     	// Hide recording button, show recording dialog.
     	minimizeButtons();
     	
-    	TimedProgressBar progress = new TimedProgressBar(0);
-    	recordingArea.getChildren().addAll(progress);
-    	progress.start();
+    	_progress = new TimedProgressBar(0);
+    	recordingArea.getChildren().addAll(_progress);
+    	_progress.start();
     	
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
@@ -362,6 +364,7 @@ public class TataiController {
     		_currentQuestionNumber++;
     		showLevel();
     	}
+    	_progress.stop();
     }
     
     /**

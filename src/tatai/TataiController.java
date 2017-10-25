@@ -1,10 +1,11 @@
 package tatai;
  
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
+import java.util.Set;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -16,16 +17,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableView;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import tatai.generator.*;
  
 /**
 ** Controller class. Controls behaviour of the application.
@@ -62,10 +64,10 @@ public class TataiController {
 	private Scene _returnScene;
 	// Questions enabled.
 	private HashMap<String, Boolean> _questionTypes = new HashMap<String, Boolean>() {{
-	    put("addition",true);
-	    put("subtraction",true);
-	    put("division",false);
-	    put("multiplication",true);
+	    put("AdditionQuestion",true);
+	    put("SubtractionQuestion",true);
+	    put("DivisionQuestion",false);
+	    put("MultiplicationQuestion",true);
 	}};;
 	
 	// Statistics.
@@ -421,7 +423,7 @@ public class TataiController {
     	// Question setup here.
     	
     	// Numbers to test for current question.
-    	List<String> questionNums;
+    	Question question = new Question(_level);
     	
     	if (_mode == "assess") {
     		// Show progress bar.
@@ -429,25 +431,29 @@ public class TataiController {
         	// Show question number.
         	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/" + Integer.toString(NUM_QUESTIONS));
         	
-        	// Test Division TODO Make division have up to  99 as an answer
-        	// Temporarily make operation choice random.
-        	Random rand = new Random();
-        	String operand = TataiFactory._operands.get(rand.nextInt(TataiFactory._operands.size()));
         	// Generate assessment questions.
-        	questionNums =  TataiFactory.generateQuestionAssess(operand, _level); 
+        	try {
+        		// Get all the question types that are currently enabled.
+        		Set<String> questions = TataiFactory.getKeysByValue(_questionTypes, true);
+        		// Select a random question.
+        		String questionType = TataiFactory.getRandomString(questions);
+        		// Create a class.
+	        	Class<?> questionClass = Class.forName("tatai.generator." + questionType);
+	        	Constructor<?> constructorQuestion = questionClass.getConstructor(new Class<?>[]{Integer.TYPE});
+	        	question = (Question) constructorQuestion.newInstance(_level); 
+        	} catch (Exception e) {
+        		e.printStackTrace();
+        	}
     	} else {
-    		progressBar.setProgress((float) 0);
+    		progressBar.setProgress(0);
     		// Show question number.
         	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/?");
-        	
-        	// Generate assessment questions.
-        	questionNums =  TataiFactory.generateQuestionPractice(_level); 
     	}
     	
     	// Number to say.
-    	_numToSay = Integer.parseInt(questionNums.get(1));
+    	_numToSay = question.getAnswer();
     	// Edit display text to display question.
-    	number.setText(questionNums.get(0)); 
+    	number.setText(question.getQuestion()); 
 
     	_stage.setScene(scene);
         _stage.show();
@@ -556,16 +562,16 @@ public class TataiController {
     		setLevel2();
     	}
     	
-    	if (_questionTypes.get("addition")) {
+    	if (_questionTypes.get("AdditionQuestion")) {
     		setAddition(null);
     	}
-    	if (_questionTypes.get("subtraction")) {
+    	if (_questionTypes.get("SubtractionQuestion")) {
     		setSubtraction(null);
     	}
-    	if (_questionTypes.get("division")) {
+    	if (_questionTypes.get("DivisionQuestion")) {
     		setDivision(null);
     	}
-    	if (_questionTypes.get("multiplication")) {
+    	if (_questionTypes.get("MultiplicationQuestion")) {
     		setMultiplication(null);
     	}
     	
@@ -609,11 +615,11 @@ public class TataiController {
     	 chooseAdditionButton.getStyleClass().clear();
      	 chooseAdditionButton.getStyleClass().add("button");
      	
-    	 if (_questionTypes.get("addition") == false) {
-    	 	 _questionTypes.put("addition", true);
+    	 if (_questionTypes.get("AdditionQuestion") == false) {
+    	 	 _questionTypes.put("AdditionQuestion", true);
     	 	chooseAdditionButton.getStyleClass().add("depressedbutton");
     	 } else {
-    		 _questionTypes.put("addition", false);
+    		 _questionTypes.put("AdditionQuestion", false);
     	 }
      }
      
@@ -625,11 +631,11 @@ public class TataiController {
      	 chooseSubtractionButton.getStyleClass().clear();
       	 chooseSubtractionButton.getStyleClass().add("button");
       	
-     	 if (_questionTypes.get("subtraction") == false) {
-     	 	 _questionTypes.put("subtraction", true);
+     	 if (_questionTypes.get("SubtractionQuestion") == false) {
+     	 	 _questionTypes.put("SubtractionQuestion", true);
      	 	chooseSubtractionButton.getStyleClass().add("depressedbutton");
      	 } else {
-     		 _questionTypes.put("subtraction", false);
+     		 _questionTypes.put("SubtractionQuestion", false);
      	 }
       }
       
@@ -641,11 +647,11 @@ public class TataiController {
       	 chooseDivisionButton.getStyleClass().clear();
        	 chooseDivisionButton.getStyleClass().add("button");
        	
-      	 if (_questionTypes.get("division") == false) {
-      	 	 _questionTypes.put("division", true);
+      	 if (_questionTypes.get("DivisionQuestion") == false) {
+      	 	 _questionTypes.put("DivisionQuestion", true);
       	 	chooseDivisionButton.getStyleClass().add("depressedbutton");
       	 } else {
-      		 _questionTypes.put("division", false);
+      		 _questionTypes.put("DivisionQuestion", false);
       	 }
        }
        
@@ -657,11 +663,11 @@ public class TataiController {
        	 	chooseMultiplicationButton.getStyleClass().clear();
         	 chooseMultiplicationButton.getStyleClass().add("button");
         	
-       	 if (_questionTypes.get("multiplication") == false) {
-       	 	 _questionTypes.put("multiplication", true);
+       	 if (_questionTypes.get("MultiplicationQuestion") == false) {
+       	 	 _questionTypes.put("MultiplicationQuestion", true);
        	 	chooseMultiplicationButton.getStyleClass().add("depressedbutton");
        	 } else {
-       		 _questionTypes.put("multiplication", false);
+       		 _questionTypes.put("MultiplicationQuestion", false);
        	 }
         }
     

@@ -1,9 +1,13 @@
 package tatai;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
@@ -45,71 +49,32 @@ public class TataiFactory {
         
         return table;
 	}
-    
-    // method that generates the numbers used in the question and returns them as a 1x3 list, the first two values are the numbers to be displayed with the question, 
-    // and the last number is the answer to be said. It takes as params: the operand desired (e.g. addition) as well as the level they are on.
-    public static List<String> generateQuestionAssess(String operand, int level) {
-    	int num1 = generateNum(level);
-    	int num2 = generateNum(level);
-    	int answer = 100, upperLimit = 0;
-    	
-    	
-    	if (level == 1) {
-     		upperLimit = 9;
-     	} // If on level 2, set upper boundary to 99.
-     	else if (level == 2) {
-     		upperLimit = 99;
-     	}
-    	
-    	// if addition, make addition question
-    	while (answer > upperLimit) {
-	    	if (operand.equals(_operands.get(0))) {
-	    		while ((num1 + num2)>upperLimit) {
-	    			num1 = generateNum(level);
-	    			num2 = generateNum(level);
-	    		}
-	    		
-	    		answer = num1 + num2;
-	    	}
-	    	// if subtraction, make addition question
-	    	else if (operand.equals(_operands.get(1))) {
-	    		while ((num1 - num2)< 1) {
-	    			num1 = generateNum(level);
-	    			num2 = generateNum(level);
-	    		}
 	
-	    		answer = num1 - num2;
-	    	}
-	    	// if multiplication, make addition question
-	    	else if (operand.equals(_operands.get(2))) {
-	    		while ((num1*num2)>upperLimit) {
-	    			num1 = generateNum(level);
-	    			num2 = generateNum(level);
-	    		}
-	    		
-	    		answer = num1 * num2;
-	    	}
-	    	// else make division question
-	    	else {
-	    		while (!(num1 % num2 == 0) || (num1 < num2)) {
-	    			num1 = generateNum(level);
-	    			num2 = generateNum(level);
-	    		}
-	    		
-	    		answer = num1 / num2;
-	    	}
-	    	
-	    	// break possible infinite loops
-	    	if (answer > upperLimit) {
-	    		num1 = generateNum(level);
-    			num2 = generateNum(level);
-	    	}
-    	}
-    	
-    	List<String> nums = new ArrayList<>();
-    	nums.add(Integer.toString(num1) + " " + operand + " " + Integer.toString(num2));
-    	nums.add(Integer.toString(answer));
-    	return nums;
-    }
+	/**
+	 * Finds all values in a map where the value is a certain value.
+	 * @param map The map to search.
+	 * @param value The value to find.
+	 * @return A set of all the keys with this value.
+	 */
+	public static Set<String> getKeysByValue(Map<String, Boolean> map, Boolean value) {
+	    Set<String> keys = new HashSet<String>();
+	    for (Entry<String, Boolean> entry : map.entrySet()) {
+	        if (Objects.equals(value, entry.getValue())) {
+	            keys.add(entry.getKey());
+	        }
+	    }
+	    return keys;
+	}
+	
+	/**
+	 * Gets a random string from a set of strings.
+	 * @param from The set to search in.
+	 * @return Returns a random string.
+	 */
+	public static String getRandomString(Set<String> from) {
+		Random r = new Random();
+		int i = r.nextInt(from.size());
+		return (String) from.toArray()[i];
+	}
      
 }

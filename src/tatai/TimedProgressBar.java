@@ -3,13 +3,20 @@ package tatai;
 import javafx.concurrent.Task;
 import javafx.scene.control.ProgressBar;
 
+/**
+ * A timed progress bar that lasts for three seconds.
+ * Updates every 100 milliseconds.
+ * Extends the JavaFX progress bar.
+ * @author dli294
+ *
+ */
 class TimedProgressBar extends ProgressBar {
 
     private int _counter = 0;
     // Number of updates.
     private int _cycles = 30;
     // Number of milliseconds between updates.
-    private int _delay = 10;
+    private int _delay = 100;
     
     /**
      * Starts the progress bar.
@@ -21,6 +28,10 @@ class TimedProgressBar extends ProgressBar {
     	tick();
     }
     
+    /**
+     * Changes the progress.
+     * @param progress
+     */
     private void change(double progress) {
     	this.setProgress(progress);
     }

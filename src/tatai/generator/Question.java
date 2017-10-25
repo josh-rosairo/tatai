@@ -8,11 +8,14 @@ import java.util.Random;
  *
  */
 public class Question {
-	private String _answer;
-	private String _question;
-	private int _level;
+	protected int _answer;
+	protected String _question;
+	protected int _level;
 	
-	public String getAnswer() {
+	protected int _upperLimit = 1;
+ 	protected int _lowerLimit = 1;
+	
+	public int getAnswer() {
 		return _answer;
 	}
 	
@@ -25,8 +28,8 @@ public class Question {
 	 * Default is practice mode, i.e. number only.
 	 */
 	protected void generate() {
-		_question = Integer.toString(generateNum(_level));
-		_answer = _question;
+		_answer = generateNum(_level);
+		_question = Integer.toString(_answer);
 	}
 	
     /**
@@ -34,25 +37,27 @@ public class Question {
     ** @arg int level The level to generate numbers for.
     ** @return int The randomly generated number.
     **/
-    protected static int generateNum(int level) {
+    protected int generateNum(int level) {
      	// Define Random object and boundaries for random number generation.
      	Random rand = new Random();
-    	int upperLimit = 1;
-     	int lowerLimit = 1;
-     	
-     	// If on level 1, set upper boundary to 9.
-     	if (level == 1) {
-     		upperLimit = 9;
-     	} // If on level 2, set upper boundary to 99.
-     	else if (level == 2) {
-     		upperLimit = 99;
-     	}
      	
      	// Return randomly generated integer within boundaries (inclusive).
-     	return rand.nextInt(upperLimit) + lowerLimit;
+     	return rand.nextInt(_upperLimit) + _lowerLimit;
      }
 	
+    /**
+     * Constructor
+     * @param level The level to generate questions at.
+     */
 	public Question(int level) {
+		// If on level 1, set upper boundary to 9.
+     	if (level == 1) {
+     		_upperLimit = 9;
+     	} // If on level 2, set upper boundary to 99.
+     	else if (level == 2) {
+     		_upperLimit = 99;
+     	}
+		
 		this.generate();
 	}
 }

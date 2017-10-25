@@ -4,7 +4,8 @@ import java.util.Date;
 import java.text.DateFormat;
 
 /**
-**  Models a Tatai statistic, to be displayed on the statistics page.
+* Models a Tatai statistic, to be displayed on the statistics page.
+* @author dli294
 **/
 public class TataiStatistic {
 	// Time a level was completed.

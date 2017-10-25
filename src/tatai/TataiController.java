@@ -558,16 +558,15 @@ public class TataiController {
     	
     	if (_questionTypes.get("addition")) {
     		setAddition(null);
-    		chooseAdditionButton.getStyleClass().add("depressedbutton");
     	}
     	if (_questionTypes.get("subtraction")) {
-    		chooseSubtractionButton.getStyleClass().add("depressedbutton");
+    		setSubtraction(null);
     	}
     	if (_questionTypes.get("division")) {
-    		chooseDivisionButton.getStyleClass().add("depressedbutton");
+    		setDivision(null);
     	}
     	if (_questionTypes.get("multiplication")) {
-    		chooseMultiplicationButton.getStyleClass().add("depressedbutton");
+    		setMultiplication(null);
     	}
     	
     	_stage.setScene(scene);

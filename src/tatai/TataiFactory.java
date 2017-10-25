@@ -45,29 +45,6 @@ public class TataiFactory {
         
         return table;
 	}
-	
-    /**
-    ** Generates a random number based on the level.
-    ** @arg int level The level to generate numbers for.
-    ** @return int The randomly generated number.
-    **/
-    public static int generateNum(int level) {
-     	// Define Random object and boundaries for random number generation.
-     	Random rand = new Random();
-    	int upperLimit = 1;
-     	int lowerLimit = 1;
-     	
-     	// If on level 1, set upper boundary to 9.
-     	if (level == 1) {
-     		upperLimit = 9;
-     	} // If on level 2, set upper boundary to 99.
-     	else if (level == 2) {
-     		upperLimit = 99;
-     	}
-     	
-     	// Return randomly generated integer within boundaries (inclusive).
-     	return rand.nextInt(upperLimit) + lowerLimit;
-     }
     
     // method that generates the numbers used in the question and returns them as a 1x3 list, the first two values are the numbers to be displayed with the question, 
     // and the last number is the answer to be said. It takes as params: the operand desired (e.g. addition) as well as the level they are on.
@@ -132,19 +109,6 @@ public class TataiFactory {
     	List<String> nums = new ArrayList<>();
     	nums.add(Integer.toString(num1) + " " + operand + " " + Integer.toString(num2));
     	nums.add(Integer.toString(answer));
-    	return nums;
-    }
-    
-    /**
-     * Generates a practice number.
-     * @param int level The level of the question to generate.
-     * @return List A list containing the number, repeated.
-     */
-    public static List<String> generateQuestionPractice(int level) {
-    	List<String> nums = new ArrayList<>();
-    	String num = Integer.toString(generateNum(level));
-    	nums.add(num);
-    	nums.add(num);
     	return nums;
     }
      

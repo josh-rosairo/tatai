@@ -19,7 +19,7 @@ public class SpeechHandler {
 	private static List<String> _maoriNumTranslations = Arrays.asList("tahi","rua", "toru", "whaa", "rima", "ono", "whitu", "waru", "iwa", "tekau");
 
 	// Filename base.
-	final static private String FILENAMEBASE = "recording";
+	final static private String FILENAME = "recording.wav";
 	
     /**
     ** Constructor.
@@ -59,13 +59,17 @@ public class SpeechHandler {
     **/
 	public static void recordAndProcess() {
 		// Remove any previous recording files so overwrite prompt doesn't hold up thread.
-		executeCommand("rm "+FILENAMEBASE+".wav ");
+		executeCommand("rm "+FILENAME);
 		// Record the user with ffmpeg.
-		executeCommand("ffmpeg -f alsa -ar 22050 -i default -loglevel quiet -t 3 "+FILENAMEBASE+".wav ");
+		executeCommand("ffmpeg -f alsa -ar 22050 -i default -loglevel quiet -t 3 "+FILENAME);
 		// Run HVite and write output to file.
-		executeCommand("cp " + FILENAMEBASE + ".wav /home/se206/Documents/HTK/MaoriNumbers/");
-		executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + FILENAMEBASE + ".wav ");
+		executeCommand("cp " + FILENAME + " /home/se206/Documents/HTK/MaoriNumbers/");
+		executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; HVite -H HMMs/hmm15/macros -H HMMs/hmm15/hmmdefs -C user/configLR  -w user/wordNetworkNum -o SWT -l '*' -i recout.mlf -p 0.0 -s 5.0  user/dictionaryD user/tiedList " + FILENAME);
 		executeCommand("cd -");
+	}
+	
+	public static void play() {
+		executeCommand("aplay "+FILENAME);
 	}
 
     /**

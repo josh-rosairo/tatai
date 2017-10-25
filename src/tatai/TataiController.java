@@ -8,8 +8,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
@@ -21,16 +19,16 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import tatai.generator.*;
-import tatai.model.*;
-import tatai.speech.*;
+import tatai.generator.Question;
+import tatai.model.TataiStatistic;
+import tatai.model.TataiTable;
+import tatai.model.TimedProgressBar;
+import tatai.speech.SpeechHandler;
  
 /**
 ** Controller class. Controls behaviour of the application.
@@ -53,11 +51,9 @@ public class TataiController {
 	// List of statistics.
 	private List<TataiStatistic> _statistics = new ArrayList<TataiStatistic>();
 	// Statistics table to update.
-	private TableView<TataiStatistic> _table = new TableView<TataiStatistic>();
+	private TataiTable _table = new TataiTable();
 	// Number that user has to pronounce in Maori
 	private int _numToSay = 0;
-	// Filename.
-	final static private String FILENAME = "recording.wav";
 	// Mode.
 	private String _mode;
 	// Correct streak.
@@ -150,9 +146,9 @@ public class TataiController {
 	public void init() {
 		
 		// Initialize the statistics page with a table.
-    	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
-		_table = TataiFactory.makeTable();
-		_table.setItems(data);
+    	
+		_table = new TataiTable();
+		_table.setTataiData(_statistics);
 		
         // Add the table to the panel.
         statsPanel.getChildren().addAll(_table);
@@ -341,14 +337,7 @@ public class TataiController {
     	// Ensure GUI concurrency by doing in background.
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
-				
-				String cmd = "aplay " + FILENAME;
-				ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
-				try {
-					builder.start();
-				} catch (Exception e) {
-					
-				}
+				SpeechHandler.play();
 				return null;
 		    }
 		};
@@ -522,8 +511,7 @@ public class TataiController {
     **/
     @FXML private void showStatistics() {
         // Update the table with the new list of data.
-    	ObservableList<TataiStatistic> data = FXCollections.observableArrayList(_statistics);
-    	_table.setItems(data);
+    	_table.setTataiData(_statistics);
 
         // Show the scene.
     	Scene scene = _loader.getScene("statistics");

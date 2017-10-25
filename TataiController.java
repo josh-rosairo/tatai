@@ -1,6 +1,7 @@
 package tatai;
  
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -58,6 +59,13 @@ public class TataiController {
 	private int _streak;
 	// Scene to return to.
 	private Scene _returnScene;
+	// Questions enabled.
+	private HashMap<String, Boolean> _questionTypes = new HashMap<String, Boolean>() {{
+	    put("addition",true);
+	    put("subtraction",true);
+	    put("division",false);
+	    put("multiplication",true);
+	}};;
 	
 	// Statistics.
 	private int _personalBest1 = 0;
@@ -92,6 +100,11 @@ public class TataiController {
 	@FXML private Text longestStreakPractice;
 	@FXML private Text longestStreakAssess;
 	@FXML private Text longestPractice;
+	
+	@FXML private Button chooseAdditionButton;
+	@FXML private Button chooseSubtractionButton;
+	@FXML private Button chooseDivisionButton;
+	@FXML private Button chooseMultiplicationButton;
 	
 	@FXML private Text achievementText;
 	
@@ -536,6 +549,20 @@ public class TataiController {
     		setLevel2();
     	}
     	
+    	if (_questionTypes.get("addition")) {
+    		setAddition(null);
+    		chooseAdditionButton.getStyleClass().add("depressedbutton");
+    	}
+    	if (_questionTypes.get("subtraction")) {
+    		chooseSubtractionButton.getStyleClass().add("depressedbutton");
+    	}
+    	if (_questionTypes.get("division")) {
+    		chooseDivisionButton.getStyleClass().add("depressedbutton");
+    	}
+    	if (_questionTypes.get("multiplication")) {
+    		chooseMultiplicationButton.getStyleClass().add("depressedbutton");
+    	}
+    	
     	_stage.setScene(scene);
         _stage.show();
     }
@@ -567,6 +594,70 @@ public class TataiController {
     	chooseLevel2Button.getStyleClass().add("button");
     	chooseLevel2Button.getStyleClass().add("depressedbutton");
     }
+    
+    /**
+     ** Add addition questions to the questions generated.
+     ** @arg ActionEvent event The event that caused this method to be called.
+     **/
+     @FXML private void setAddition(ActionEvent event) {
+    	 chooseAdditionButton.getStyleClass().clear();
+     	 chooseAdditionButton.getStyleClass().add("button");
+     	
+    	 if (_questionTypes.get("addition") == false) {
+    	 	 _questionTypes.put("addition", true);
+    	 	chooseAdditionButton.getStyleClass().add("depressedbutton");
+    	 } else {
+    		 _questionTypes.put("addition", false);
+    	 }
+     }
+     
+     /**
+      ** Add subtraction questions to the questions generated.
+      ** @arg ActionEvent event The event that caused this method to be called.
+      **/
+      @FXML private void setSubtraction(ActionEvent event) {
+     	 chooseSubtractionButton.getStyleClass().clear();
+      	 chooseSubtractionButton.getStyleClass().add("button");
+      	
+     	 if (_questionTypes.get("subtraction") == false) {
+     	 	 _questionTypes.put("subtraction", true);
+     	 	chooseSubtractionButton.getStyleClass().add("depressedbutton");
+     	 } else {
+     		 _questionTypes.put("subtraction", false);
+     	 }
+      }
+      
+      /**
+       ** Add division questions to the questions generated.
+       ** @arg ActionEvent event The event that caused this method to be called.
+       **/
+       @FXML private void setDivision(ActionEvent event) {
+      	 chooseDivisionButton.getStyleClass().clear();
+       	 chooseDivisionButton.getStyleClass().add("button");
+       	
+      	 if (_questionTypes.get("division") == false) {
+      	 	 _questionTypes.put("division", true);
+      	 	chooseDivisionButton.getStyleClass().add("depressedbutton");
+      	 } else {
+      		 _questionTypes.put("division", false);
+      	 }
+       }
+       
+       /**
+        ** Add multiplication questions to the questions generated.
+        ** @arg ActionEvent event The event that caused this method to be called.
+        **/
+        @FXML private void setMultiplication(ActionEvent event) {
+       	 	chooseMultiplicationButton.getStyleClass().clear();
+        	 chooseMultiplicationButton.getStyleClass().add("button");
+        	
+       	 if (_questionTypes.get("multiplication") == false) {
+       	 	 _questionTypes.put("multiplication", true);
+       	 	chooseMultiplicationButton.getStyleClass().add("depressedbutton");
+       	 } else {
+       		 _questionTypes.put("multiplication", false);
+       	 }
+        }
     
     /**
     ** Quits the application.

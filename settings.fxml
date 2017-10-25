@@ -18,12 +18,24 @@
 	    	<Text text="Settings" styleClass="heading"/>
 	    </HBox>
 	 
-	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
-	 		<Text text="Level" styleClass="heading2"/>
-	 		<HBox alignment = "center" spacing="10">
-	 		<Button text="Level 1 - 9" fx:id="chooseLevel1Button" onAction="#setLevel1"  styleClass="darkbutton" />
-	    	<Button text="Level 1 - 99" fx:id="chooseLevel2Button" onAction="#setLevel2" styleClass="darkbutton" />
-	 		</HBox>
+	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="28">
+	 		<VBox alignment="center" spacing="12">
+	 			<Text text="Level" styleClass="heading2" />
+		 		<HBox alignment = "center" spacing="10">
+		 		<Button text="Level 1 - 9" fx:id="chooseLevel1Button" onAction="#setLevel1"  />
+		    	<Button text="Level 1 - 99" fx:id="chooseLevel2Button" onAction="#setLevel2" />
+		 		</HBox>
+	 		</VBox>
+	 		
+	 		<VBox alignment="center" spacing="12">
+		 		<Text text="Test question types" styleClass="heading2"/>
+		 		<HBox alignment = "center" spacing="10">
+		 		<Button text="+" fx:id="chooseAdditionButton" onAction="#setAddition" prefWidth = "44" />
+		    	<Button text="-" fx:id="chooseSubtractionButton" onAction="#setSubtraction" prefWidth = "44" />
+		    	<Button text="×" fx:id="chooseMultiplicationButton" onAction="#setMultiplication" prefWidth = "44" />
+		    	<Button text="÷" fx:id="chooseDivisionButton" onAction="#setDivision" prefWidth = "44" />
+		    	</HBox>
+	 		</VBox>
 		</VBox>
 	</GridPane>
 	</center>

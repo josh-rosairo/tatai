@@ -9,8 +9,17 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Represents a Tatai statistics table to be used on the statistics page.
+ * @author dli294
+ *
+ */
 public class TataiTable extends TableView<TataiStatistic> {
 	
+	/**
+	 * Constructor. Creates the table and its columns.
+	 * @author dli294
+	 */
 	public TataiTable() {
 		// Add columns. Set widths.
 		TableColumn<TataiStatistic, String> timeCol = new TableColumn<TataiStatistic, String>("Time completed");
@@ -30,6 +39,11 @@ public class TataiTable extends TableView<TataiStatistic> {
 	    this.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 	}
 	
+	/**
+	 * Places list data in the table.
+	 * @param statistics A list of the TataiStatistics data to set.
+	 * @author dli294
+	 */
 	public void setTataiData(List<TataiStatistic> statistics) {
 		ObservableList<TataiStatistic> data = FXCollections.observableArrayList(statistics);
 		this.setItems(data);

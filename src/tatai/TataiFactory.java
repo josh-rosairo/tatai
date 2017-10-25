@@ -9,21 +9,17 @@ import java.util.Set;
 
 
 /**
-** Factory class for constructing nodes and numbers.
+** Factory class for utility functions.
+** @author dli294
 **/
 public class TataiFactory {
-
-    /**
-    ** Creates the table to be used on the statistics page.
-    ** @return TableView<TataiStatistic> The created table.
-    **/
-
 	
 	/**
 	 * Finds all values in a map where the value is a certain value.
 	 * @param map The map to search.
 	 * @param value The value to find.
 	 * @return A set of all the keys with this value.
+	 * @author dli294
 	 */
 	public static Set<String> getKeysByValue(Map<String, Boolean> map, Boolean value) {
 	    Set<String> keys = new HashSet<String>();
@@ -39,6 +35,7 @@ public class TataiFactory {
 	 * Gets a random string from a set of strings.
 	 * @param from The set to search in.
 	 * @return Returns a random string.
+	 * @author dli294
 	 */
 	public static String getRandomString(Set<String> from) {
 		Random r = new Random();

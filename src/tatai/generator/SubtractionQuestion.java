@@ -2,7 +2,7 @@ package tatai.generator;
 
 /**
  * Represents a subtraction question.
- * @author dli294
+ * @author dli294, jtha772
  *
  */
 public class SubtractionQuestion extends Question {
@@ -10,6 +10,7 @@ public class SubtractionQuestion extends Question {
 	@Override
 	/**
 	 * Generates a subtraction question.
+	 * @author dli294, jtha772
 	 */
 	protected void generate() {
 		int num1, num2;
@@ -24,6 +25,7 @@ public class SubtractionQuestion extends Question {
 	/**
 	 * Constructor.
 	 * @param level The level at which to generate questions.
+	 * @author dli294
 	 */
 	public SubtractionQuestion(int level) {
 		super(level);

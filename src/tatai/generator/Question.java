@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Represents a question to be displayed in Tatai.
- * @author dli294
+ * @author jtha772, dli294
  *
  */
 public class Question {
@@ -26,6 +26,7 @@ public class Question {
 	/**
 	 * Generates a question and assigns the question and answer to its own private fields.
 	 * Default is practice mode, i.e. number only.
+	 * @author dli294
 	 */
 	protected void generate() {
 		_answer = generateNum(_level);
@@ -36,6 +37,7 @@ public class Question {
     ** Generates a random number based on the level.
     ** @arg int level The level to generate numbers for.
     ** @return int The randomly generated number.
+    ** @author jtha772
     **/
     protected int generateNum(int level) {
      	// Define Random object and boundaries for random number generation.
@@ -48,6 +50,7 @@ public class Question {
     /**
      * Constructor
      * @param level The level to generate questions at.
+     * @author jtha772
      */
 	public Question(int level) {
 		// If on level 1, set upper boundary to 9.

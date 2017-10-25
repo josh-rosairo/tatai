@@ -10,6 +10,7 @@ public class DivisionQuestion extends Question {
 	@Override
 	/**
 	 * Generates a division question.
+	 * @author dli294, jtha772
 	 */
 	protected void generate() {
 		int num1, num2;

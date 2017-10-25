@@ -10,6 +10,7 @@ public class MultiplicationQuestion extends Question {
 	@Override
 	/**
 	 * Generates a multiplication question.
+	 * @author dli294, jtha772
 	 */
 	protected void generate() {
 		int num1, num2;

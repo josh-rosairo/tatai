@@ -32,6 +32,7 @@ import tatai.speech.SpeechHandler;
  
 /**
 ** Controller class. Controls behaviour of the application.
+** @author dli294
 **/
 public class TataiController {
 	// Stage to swap scenes in and out of.
@@ -115,6 +116,7 @@ public class TataiController {
     /**
     ** Constructor. Sets the stage to a private field so that it is usable everywhere. Loads the scenes.
     ** @arg Stage stage The stage to display the application on.
+    ** @author dli294
     **/
 	public TataiController(Stage stage) {
 		_stage = stage;
@@ -123,6 +125,7 @@ public class TataiController {
 	
     /**
     ** Executed after initialization of FXML-injected nodes.
+    ** @author dli294
     **/
 	@FXML private void initialize() {
 		// Bind "managed" to "visible", so that hiding a node also removes it from the flow of the scene.
@@ -144,6 +147,7 @@ public class TataiController {
 
     /**
     ** Initialization script to show the main menu and set up scenes and data.
+    ** @author dli294
     **/
 	public void init() {
 		
@@ -166,6 +170,7 @@ public class TataiController {
     /**
     ** Shows the first level.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML protected void showLevel1(ActionEvent event) {
     	_level = 1;
@@ -175,6 +180,7 @@ public class TataiController {
     /**
     ** Shows the second level.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML protected void showLevel2(ActionEvent event) {
     	_level = 2;
@@ -183,6 +189,7 @@ public class TataiController {
     
     /**
     ** Initializes each level at the start of a round.
+    ** @author dli294
     **/
     private void initLevel() {
     	_numCorrect = 0;
@@ -195,6 +202,7 @@ public class TataiController {
     
     /**
      ** Pops up an achievement unlocked modal box.
+     ** @author dli294
      **/
     private void showAchievement(String achieved) {
     	_returnScene = _stage.getScene();
@@ -208,6 +216,7 @@ public class TataiController {
     /**
      ** Returns to the previously stored scene.
      ** @arg ActionEvent event The event that caused this method to be called.
+     ** @author dli294
      **/
      @FXML protected void returnToScene(ActionEvent event) {
     	 _stage.setScene(_returnScene);
@@ -217,6 +226,7 @@ public class TataiController {
     /**
     ** Shows the menu.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML protected void showMenu(ActionEvent event) {
     	if(_stage.getScene().equals(_loader.getScene("level"))) {
@@ -239,6 +249,7 @@ public class TataiController {
     
     /**
      ** Shows the menu.
+     ** @author dli294
      **/
     private void showMenu() {
     	Scene scene = _loader.getScene("menu");
@@ -257,6 +268,7 @@ public class TataiController {
     /**
     ** Records the user and processes the recording.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294, jtha772
     **/
     @FXML protected void record(ActionEvent event) {
     	// Hide recording button, show recording dialog.
@@ -266,10 +278,12 @@ public class TataiController {
     	recordingArea.getChildren().addAll(_progress);
     	_progress.start();
     	
+    	SpeechHandler handler = new SpeechHandler();
+    	
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){				
-				SpeechHandler.recordAndProcess();
+				handler.recordAndProcess();
 				return null;
 		    }
 		};
@@ -282,7 +296,7 @@ public class TataiController {
 	        	minimizeButtons();
 	        	
 	        	// Process recording.
-	        	boolean isCorrect = SpeechHandler.isRecordingCorrect(_numToSay);
+	        	boolean isCorrect = handler.isRecordingCorrect(_numToSay);
 	        	
 	        	// If correct, hide the redo button and increase the number correct.
 	        	if (isCorrect) {
@@ -323,9 +337,9 @@ public class TataiController {
     /**
     ** Allows a user to redo their recording.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author jtha772
     **/
     @FXML protected void redo(ActionEvent event) {
-    	
     	_tries++;
     	record(null);
     }
@@ -333,6 +347,7 @@ public class TataiController {
     /**
     ** Plays audio.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author jtha772
     **/
     @FXML protected void play(ActionEvent event) {
     	// Play audio here.
@@ -340,7 +355,8 @@ public class TataiController {
     	// Ensure GUI concurrency by doing in background.
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){
-				SpeechHandler.play();
+				SpeechHandler handler = new SpeechHandler();
+				handler.play();
 				return null;
 		    }
 		};
@@ -352,6 +368,7 @@ public class TataiController {
     /**
     ** Shows the next question, or the end level screen, depending on which question the user is on.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML protected void next(ActionEvent event) {
     	_tries = 0;
@@ -371,6 +388,7 @@ public class TataiController {
     /**
     ** Shows the next level. Only two levels, so show level 2.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML protected void nextLevel(ActionEvent event) {
     	showLevel2(null);
@@ -379,6 +397,7 @@ public class TataiController {
     /**
     ** Replays the current level.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML protected void replay(ActionEvent event) {
     	initLevel();
@@ -386,6 +405,7 @@ public class TataiController {
     
     /**
     ** Function to minimize all the buttons. Show as necessary.
+    ** @author dli294
     **/
     private void minimizeButtons() {
     	// Hide redo button.
@@ -406,6 +426,7 @@ public class TataiController {
     
     /**
     ** Show a question for this level.
+    ** @author jtha772, dli294
     **/
     private void showLevel() {
     	Scene scene = _loader.getScene("level");
@@ -458,6 +479,7 @@ public class TataiController {
     /**
     ** Show the end level screen.
     ** @arg int numCorrect The number correct to display.
+    ** @author dli294
     **/
     private void showEndLevel(int numCorrect) {
     	// If on level 1 and number correct is greater than or equal to 8, show next level button, else hide it
@@ -512,6 +534,7 @@ public class TataiController {
     /**
     ** Show the statistics page.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML private void showStatistics() {
         // Update the table with the new list of data.
@@ -526,6 +549,7 @@ public class TataiController {
     /**
     ** Show the practice level.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML private void showPractice() {
         // Show the scene.
@@ -536,6 +560,7 @@ public class TataiController {
     /**
     ** Show the assess page.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML private void showAssess() {
         // Show the scene.
@@ -546,6 +571,7 @@ public class TataiController {
     /**
     ** Show the settings page.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML private void showSettings() {
         // Show the scene.
@@ -577,6 +603,7 @@ public class TataiController {
     /**
     ** Set the level to level 1. Make the level 1 button depressed and the level 2 button not depressed.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML private void setLevel1() {
         // Show the scene.
@@ -591,6 +618,7 @@ public class TataiController {
     /**
     ** Set the level to level 2. Make the level 2 button depressed and the level 2 button not depressed.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML private void setLevel2() {
         // Show the scene.
@@ -605,6 +633,7 @@ public class TataiController {
     /**
      ** Add addition questions to the questions generated.
      ** @arg ActionEvent event The event that caused this method to be called.
+     ** @author dli294
      **/
      @FXML private void setAddition(ActionEvent event) {
     	 chooseAdditionButton.getStyleClass().clear();
@@ -621,6 +650,7 @@ public class TataiController {
      /**
       ** Add subtraction questions to the questions generated.
       ** @arg ActionEvent event The event that caused this method to be called.
+      ** @author dli294
       **/
       @FXML private void setSubtraction(ActionEvent event) {
      	 chooseSubtractionButton.getStyleClass().clear();
@@ -637,6 +667,7 @@ public class TataiController {
       /**
        ** Add division questions to the questions generated.
        ** @arg ActionEvent event The event that caused this method to be called.
+       ** @author dli294
        **/
        @FXML private void setDivision(ActionEvent event) {
       	 chooseDivisionButton.getStyleClass().clear();
@@ -653,6 +684,7 @@ public class TataiController {
        /**
         ** Add multiplication questions to the questions generated.
         ** @arg ActionEvent event The event that caused this method to be called.
+        ** @author dli294
         **/
         @FXML private void setMultiplication(ActionEvent event) {
        	 	chooseMultiplicationButton.getStyleClass().clear();
@@ -669,6 +701,7 @@ public class TataiController {
     /**
     ** Quits the application.
     ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
     **/
     @FXML protected void quit() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);

@@ -10,6 +10,7 @@ public class AdditionQuestion extends Question {
 	@Override
 	/**
 	 * Generates an addition question.
+	 * @author dli294, jtha772
 	 */
 	protected void generate() {
 		int num1, num2;
@@ -23,7 +24,7 @@ public class AdditionQuestion extends Question {
 
 	/**
 	 * Constructor.
-	 * @param level The level at which to generate questions.
+	 * @param level The level at which to generate questions
 	 */
 	public AdditionQuestion(int level) {
 		super(level);

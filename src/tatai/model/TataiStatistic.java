@@ -24,16 +24,18 @@ public class TataiStatistic {
 	}
 	
 	/**
-	**  Returns the score, displayed neatly, e.g. 9/10, as a string.
+	** Returns the score, displayed neatly, e.g. 9/10, as a string.
 	** @return String The score as a string.
+	** @author dli294
 	**/
 	public String getScore() {
 		return Integer.toString(_score) + "/" + Integer.toString(NUMQUESTIONS);
 	}
 	
 	/**
-	**  Returns the level that was completed, as a string.
+	** Returns the level that was completed, as a string.
 	** @return String The level as a string.
+	** @author dli294
 	**/
 	public String getLevel() {
 		if (_level == 1) {
@@ -48,8 +50,9 @@ public class TataiStatistic {
 	}
 	
 	/**
-	**  Returns the time that was completed, as a string.
+	** Returns the time that was completed, as a string.
 	** @return String The time as a string.
+	** @author dli294
 	**/
 	public String getTime() {
 		return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT).format(_timestamp);

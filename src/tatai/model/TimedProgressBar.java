@@ -20,6 +20,7 @@ public class TimedProgressBar extends ProgressBar {
     
     /**
      * Starts the progress bar.
+     * @author dli294
      */
     public void start() {
     	_counter = 0;
@@ -30,7 +31,8 @@ public class TimedProgressBar extends ProgressBar {
     
     /**
      * Changes the progress.
-     * @param progress
+     * @param progress The updated progress.
+     * @author dli294
      */
     private void change(double progress) {
     	this.setProgress(progress);
@@ -38,6 +40,7 @@ public class TimedProgressBar extends ProgressBar {
     
     /**
      * Represents one tick of a timer.
+     * @author dli294
      */
     private void tick() {
     	Task<Void> task = new Task<Void>() {
@@ -63,6 +66,7 @@ public class TimedProgressBar extends ProgressBar {
     
     /**
      * Stops and hides the progress bar.
+     * @author dli294
      */
     public void stop() {
     	this.setVisible(false);
@@ -72,6 +76,7 @@ public class TimedProgressBar extends ProgressBar {
     /**
      * Initializes the progress bar.
      * @param progress Initial progress.
+     * @author dli294
      */
     public TimedProgressBar(double progress) {
     	super(progress);

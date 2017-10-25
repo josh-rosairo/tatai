@@ -11,7 +11,7 @@ import java.util.NoSuchElementException;
 
 /**
 ** Handles all speech and bash parts of speech recognition.
-** @author
+** @author jtha772, dli294
 **/
 public class SpeechHandler {
 
@@ -34,7 +34,7 @@ public class SpeechHandler {
     ** @return List<String> The output after running the command, as a list of strings.
     ** @author dli294
     **/
-	private static List<String> executeCommand(String cmd) {
+	private List<String> executeCommand(String cmd) {
 		// Read output from the bash.
 		List<String> output = new ArrayList<>();
 		ProcessBuilder builder = new ProcessBuilder("/bin/bash", "-c", cmd);
@@ -56,8 +56,9 @@ public class SpeechHandler {
 
     /**
     ** Records and processes the user audio.
+    ** @author jtha772
     **/
-	public static void recordAndProcess() {
+	public void recordAndProcess() {
 		// Remove any previous recording files so overwrite prompt doesn't hold up thread.
 		executeCommand("rm "+FILENAME);
 		// Record the user with ffmpeg.
@@ -68,7 +69,11 @@ public class SpeechHandler {
 		executeCommand("cd -");
 	}
 	
-	public static void play() {
+	/**
+	 * Plays the audio file.
+	 * @author jtha772
+	 */
+	public void play() {
 		executeCommand("aplay "+FILENAME);
 	}
 
@@ -76,8 +81,9 @@ public class SpeechHandler {
     ** Determines if the recording is the correct Maori word.
     ** @arg int numToSay The number to match the recording to.
     ** @return boolean True if the recording matches the number, false otherwise.
+    ** @author jtha772
     **/
-	public static boolean isRecordingCorrect(int numToSay) {
+	public boolean isRecordingCorrect(int numToSay) {
 		
     	// Get HVite speech recognition output as a list of strings.
     	List<String> maoriRecogOutput = executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; cat recout.mlf");
@@ -110,11 +116,12 @@ public class SpeechHandler {
     	return false;
 	}
 
-	 /**
-	    ** Converts the number to be said to a string containing the correct Maori pronunciation
-	    ** @arg int numToSay The number to match the recording to.
-	    ** @return String of correct Maori pronunciation of number
-	    **/
+	/**
+    ** Converts the number to be said to a string containing the correct Maori pronunciation
+    ** @arg int numToSay The number to match the recording to.
+    ** @return String of correct Maori pronunciation of number
+    ** @author jtha772
+    **/
 	public static String ConvertIntToMaori(int numToSay) {
 		String maoriAnswer;
 		String prefix;

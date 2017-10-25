@@ -2,6 +2,7 @@ package tatai;
  
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import javafx.application.Platform;
@@ -13,9 +14,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -197,6 +201,28 @@ public class TataiController {
     ** @arg ActionEvent event The event that caused this method to be called.
     **/
     @FXML protected void showMenu(ActionEvent event) {
+    	if(_stage.getScene().equals(_loader.getScene("level"))) {
+    		Alert alert = new Alert(AlertType.CONFIRMATION);
+    		alert.setTitle("Return to menu?");
+    		alert.setHeaderText("Return to menu?");
+    		alert.setContentText("Are you sure you wish to return to the main menu? You may lose unsaved progress.");
+
+    		Optional<ButtonType> result = alert.showAndWait();
+    		// Confirmed
+    		if (result.get() == ButtonType.OK){
+    			showMenu();
+    		} else {
+    		    // Cancelled
+    		}
+    	} else {
+    		showMenu();
+    	}
+    }
+    
+    /**
+     ** Shows the menu.
+     **/
+    private void showMenu() {
     	Scene scene = _loader.getScene("menu");
     	_stage.setScene(scene);
         _stage.show();
@@ -375,7 +401,6 @@ public class TataiController {
     ** Show a question for this level.
     **/
     private void showLevel() {
-    	
     	Scene scene = _loader.getScene("level");
     	// Hide all buttons.
     	minimizeButtons();
@@ -546,7 +571,18 @@ public class TataiController {
     ** @arg ActionEvent event The event that caused this method to be called.
     **/
     @FXML protected void quit() {
-    	Platform.exit();
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Quit Tātai?");
+		alert.setHeaderText("Quit Tātai?");
+		alert.setContentText("Are you sure you wish to quit Tātai? You may lose unsaved progress.");
+
+		Optional<ButtonType> result = alert.showAndWait();
+		// Confirmed
+		if (result.get() == ButtonType.OK){
+			Platform.exit();
+		} else {
+		    // Cancelled
+		}
     }
 
 }

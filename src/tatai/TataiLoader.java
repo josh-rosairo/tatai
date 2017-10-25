@@ -12,6 +12,7 @@ import javafx.scene.text.Font;
 
 /**
 ** Handles all scenes and loading operations.
+** @author dli294
 **/
 public class TataiLoader extends FXMLLoader {
 	
@@ -27,6 +28,7 @@ public class TataiLoader extends FXMLLoader {
 	/**
 	** Constructor. Loads the scenes when constructed.
 	** @arg TataiController controller The controller to assign to each scene when loaded.
+	** @author dli294
 	**/
 	public TataiLoader(TataiController controller) {
 		_controller = controller;
@@ -35,6 +37,7 @@ public class TataiLoader extends FXMLLoader {
 
 	/**
 	** Loads the scenes from their FXMl files.
+	** @author dli294
 	**/
 	private void loadScenes() {
 		
@@ -45,7 +48,7 @@ public class TataiLoader extends FXMLLoader {
 		for(String sceneName: scenes) {
 			try {
 				// Load the FXML file.
-			    FXMLLoader loader = new FXMLLoader(getClass().getResource(sceneName + ".fxml"));
+			    FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/" + sceneName + ".fxml"));
 			    loader.setController(_controller);
 			    Parent root = (Parent)loader.load();
 			    // Construct the scene.
@@ -72,6 +75,7 @@ public class TataiLoader extends FXMLLoader {
 	** Constructs a scene from a root node.
 	** @arg Parent root The root node to construct a scene from.
 	** @return Scene The constructed scene, fitted to the application height and width.
+	** @author dli294
 	**/
 	private Scene constructScene(Parent root) {
 		Scene scene = new Scene(root, WIDTH, HEIGHT);
@@ -82,6 +86,7 @@ public class TataiLoader extends FXMLLoader {
 	** Gets a scene from this class's private internal hashmap.
 	** @arg String sceneName The name of the scene.
 	** @return Scene The scene requested.
+	** @author dli294
 	**/
 	public Scene getScene(String sceneName) {
 		return _scenes.get(sceneName);

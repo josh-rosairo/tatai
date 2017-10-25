@@ -14,7 +14,7 @@
 	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="content">
 		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
 		<padding><Insets top="0" right="0" bottom="25" left="0"/></padding>
-	    	<Text text="Achievement unlocked!" styleClass="heading1,normal"/>
+	    	<Text text="Achievement unlocked" styleClass="heading1"/>
 	    </HBox>
 	 
 	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="25">
@@ -22,7 +22,7 @@
 			</HBox>
 			<VBox alignment="center" spacing="5">
 			<Text text="Personal best:" fx:id="" styleClass="headingtop"/>
-			<Text text="Achievement unlocked!" fx:id="achievementText" styleClass="heading2,bold"/>
+			<Text text="Achievement unlocked!" fx:id="achievementText" styleClass="heading2,normal"/>
 			</VBox>
 		    <Button text="Next" fx:id="level1Button" onAction="#returnToScene"/>
 		</VBox>

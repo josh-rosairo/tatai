@@ -1,4 +1,4 @@
-package tatai;
+package tatai.model;
 
 import java.util.Date;
 import java.text.DateFormat;

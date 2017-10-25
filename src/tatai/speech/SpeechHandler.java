@@ -1,4 +1,4 @@
-package tatai;
+package tatai.speech;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -11,6 +11,7 @@ import java.util.NoSuchElementException;
 
 /**
 ** Handles all speech and bash parts of speech recognition.
+** @author
 **/
 public class SpeechHandler {
 
@@ -31,6 +32,7 @@ public class SpeechHandler {
     ** Executes some bash command received as an argument.
     ** @arg String cmd The bash command to execute.
     ** @return List<String> The output after running the command, as a list of strings.
+    ** @author dli294
     **/
 	private static List<String> executeCommand(String cmd) {
 		// Read output from the bash.

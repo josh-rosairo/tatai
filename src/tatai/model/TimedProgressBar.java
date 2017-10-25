@@ -1,4 +1,4 @@
-package tatai;
+package tatai.model;
 
 import javafx.concurrent.Task;
 import javafx.scene.control.ProgressBar;
@@ -10,7 +10,7 @@ import javafx.scene.control.ProgressBar;
  * @author dli294
  *
  */
-class TimedProgressBar extends ProgressBar {
+public class TimedProgressBar extends ProgressBar {
 
     private int _counter = 0;
     // Number of updates.

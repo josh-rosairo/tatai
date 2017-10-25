@@ -27,7 +27,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
 import tatai.generator.*;
+import tatai.model.*;
+import tatai.speech.*;
  
 /**
 ** Controller class. Controls behaviour of the application.

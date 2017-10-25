@@ -1,13 +1,10 @@
 package tatai;
  
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import javafx.application.Platform;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
@@ -22,13 +19,12 @@ import javafx.scene.control.TableView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-// import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
-    /**
-    ** Controller class. Controls behaviour of the application.
-    **/
+/**
+** Controller class. Controls behaviour of the application.
+**/
 public class TataiController {
 	// Stage to swap scenes in and out of.
 	private Stage _stage = null;
@@ -44,16 +40,12 @@ public class TataiController {
 	private int _numCorrect = 0;
 	// Number of previous attempts.
 	private int _tries = 0;
-	// Player.
-	// private MediaPlayer _mediaPlayer;
 	// List of statistics.
 	private List<TataiStatistic> _statistics = new ArrayList<TataiStatistic>();
 	// Statistics table to update.
 	private TableView<TataiStatistic> _table = new TableView<TataiStatistic>();
 	// Number that user has to pronounce in Maori
 	private int _numToSay = 0;
-	// Boolean to determine if sounds should stop loading. If not on the same page as it was when it started loading, it will not play the sound.
-	// private boolean _samePage = true;
 	// Filename.
 	final static private String FILENAME = "recording.wav";
 	// Mode.

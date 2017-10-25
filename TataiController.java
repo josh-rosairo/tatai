@@ -20,9 +20,9 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
  
@@ -75,7 +75,6 @@ public class TataiController {
 	@FXML private Button nextButton;
 	@FXML private Text announceRight;
 	@FXML private Text announceWrong;
-	@FXML private Text announceRecording;
 	@FXML private Text numberCorrect;
 	@FXML private Button nextLevelButton;
 	@FXML private HBox statsPanel;
@@ -86,6 +85,7 @@ public class TataiController {
 	@FXML private BorderPane root;
 	@FXML private Button chooseLevel1Button;
 	@FXML private Button chooseLevel2Button;
+	@FXML private VBox recordingArea;
 	
 	@FXML private Text personalBest1;
 	@FXML private Text personalBest2;
@@ -117,7 +117,6 @@ public class TataiController {
 			nextButton.managedProperty().bind(nextButton.visibleProperty());
 			announceRight.managedProperty().bind(announceRight.visibleProperty());
 			announceWrong.managedProperty().bind(announceWrong.visibleProperty());
-			announceRecording.managedProperty().bind(announceRecording.visibleProperty());
 			imageRight.managedProperty().bind(imageRight.visibleProperty());
 			imageWrong.managedProperty().bind(imageWrong.visibleProperty());
 		}
@@ -243,7 +242,11 @@ public class TataiController {
     @FXML protected void record(ActionEvent event) {
     	// Hide recording button, show recording dialog.
     	minimizeButtons();
-		announceRecording.setVisible(true);
+    	
+    	TimedProgressBar progress = new TimedProgressBar(0);
+    	recordingArea.getChildren().addAll(progress);
+    	progress.start();
+    	
     	// Ensure GUI concurrency by doing in background
 		Task<Void> task = new Task<Void>() {
 			@Override public Void call(){				
@@ -389,7 +392,6 @@ public class TataiController {
     	recordButton.setVisible(false);
     	// Hide announcements.
     	announceRight.setVisible(false);
-    	announceRecording.setVisible(false);
     	announceWrong.setVisible(false);
     	// Hide images.
     	imageRight.setVisible(false);

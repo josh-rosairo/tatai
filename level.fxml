@@ -28,17 +28,18 @@
 	        <Text text="0" fx:id="number"/>
 	    </HBox>
 	    
-	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center" prefHeight ="40" spacing="8">
-	        <Text text="Correct" fx:id="announceRight"/>
-
-	        <HBox prefHeight="24" prefWidth="24" fx:id="imageRight"></HBox>
-
-	        <Text text="Incorrect" fx:id="announceWrong"/>
-	        
-	        <HBox prefHeight="24" prefWidth="24" fx:id="imageWrong"></HBox>
-	        
-	        <Text text="Recording..." fx:id="announceRecording"/>
-	    </HBox>
+	    <VBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center" spacing="8" fx:id="recordingArea">
+	        <HBox prefHeight ="24" spacing="8" alignment="center">
+		        <Text text="Correct" fx:id="announceRight"/>
+	
+		        <HBox prefHeight="24" prefWidth="24" fx:id="imageRight"></HBox>
+	
+		        <Text text="Incorrect" fx:id="announceWrong"/>
+		        
+		        <HBox prefHeight="24" prefWidth="24" fx:id="imageWrong"></HBox>
+		        
+	        </HBox>
+	    </VBox>
 	 
 	 	<HBox GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2" alignment="center" spacing="10" prefHeight="40">
 	    	<Button text="Play" fx:id="playButton" onAction="#play" styleClass="greenbutton" />

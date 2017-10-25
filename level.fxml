@@ -31,19 +31,11 @@
 	    <HBox GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="center" prefHeight ="40" spacing="8">
 	        <Text text="Correct" fx:id="announceRight"/>
 
-	        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" fx:id="imageRight">
-	          <image>
-	            <Image url="file:images/right.png" backgroundLoading="true" />
-	          </image>
-	        </ImageView>
+	        <HBox prefHeight="24" prefWidth="24" fx:id="imageRight"></HBox>
 
 	        <Text text="Incorrect" fx:id="announceWrong"/>
 	        
-	        <ImageView fitHeight="24" fitWidth="24" pickOnBounds="true" preserveRatio="true" fx:id="imageWrong">
-	          <image>
-	            <Image url="file:images/wrong.png" backgroundLoading="true" />
-	          </image>
-	        </ImageView>
+	        <HBox prefHeight="24" prefWidth="24" fx:id="imageWrong"></HBox>
 	        
 	        <Text text="Recording..." fx:id="announceRecording"/>
 	    </HBox>

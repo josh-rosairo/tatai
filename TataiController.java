@@ -77,8 +77,8 @@ public class TataiController {
 	@FXML private HBox statsPanel;
 	@FXML private Text questionNumber;
 	@FXML private ProgressBar progressBar;
-	@FXML private ImageView imageRight;
-	@FXML private ImageView imageWrong;
+	@FXML private HBox imageRight;
+	@FXML private HBox imageWrong;
 	@FXML private BorderPane root;
 	@FXML private Button chooseLevel1Button;
 	@FXML private Button chooseLevel2Button;

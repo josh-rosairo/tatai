@@ -156,3 +156,17 @@
   	-fx-background-repeat:no-repeat;
   	-fx-background-image:url('images/achievement.png');
 }
+
+#imageRight, #imageWrong {
+	-fx-background-position:center;
+	-fx-background-size:24px 24px;
+  	-fx-background-repeat:no-repeat;
+}
+
+#imageRight {
+	-fx-background-image:url('images/right.png');
+}
+
+#imageWrong {
+	-fx-background-image:url('images/wrong.png');
+}

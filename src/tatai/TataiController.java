@@ -298,6 +298,7 @@ public class TataiController {
 	        	else {
 	        		_streak = 0;
                     // If wrong, show the redo button and allow the user to try again.
+	        		announceWrong.setText("Incorrect, answer was: '" + SpeechHandler.ConvertIntToMaori(_numToSay) + "'");
 	        		announceWrong.setVisible(true);
 	        		imageWrong.setVisible(true);
 	        		root.setStyle("-fx-background-color:#D32F2F;");

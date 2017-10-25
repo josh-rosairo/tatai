@@ -79,8 +79,6 @@ public class SpeechHandler {
     **/
 	public static boolean isRecordingCorrect(int numToSay) {
 		
-		boolean isCorrect = false;
-		
     	// Get HVite speech recognition output as a list of strings.
     	List<String> maoriRecogOutput = executeCommand("cd /home/se206/Documents/HTK/MaoriNumbers/; cat recout.mlf");
     	executeCommand("cd -");
@@ -103,33 +101,40 @@ public class SpeechHandler {
         		break;
         	}
         	
-    		String maoriAnswer;
-    		String prefix;
-    		String suffix;
-    		
-    		// Converts a number to Maori.
-
-    		if (numToSay <= 10) {
-    			maoriAnswer = _maoriNumTranslations.get(numToSay-1);
-    		}
-    		else if (numToSay%10 == 0) {
-    			prefix = _maoriNumTranslations.get((numToSay/10)-1);
-    			maoriAnswer = prefix + " tekau";
-    		}
-    		else {
-    			prefix = _maoriNumTranslations.get((numToSay/10)-1);
-    			suffix = _maoriNumTranslations.get((numToSay%10)-1);
-    			maoriAnswer = prefix + " tekau maa " + suffix;
-    		}
-    		
-    		
-    		if (result.equals(maoriAnswer)) {
+    		if (result.equals(ConvertIntToMaori(numToSay))) {
     			return true;
     		}
     		
   		}
     	
-    	return isCorrect;
+    	return false;
 	}
 
+	 /**
+	    ** Converts the number to be said to a string containing the correct Maori pronunciation
+	    ** @arg int numToSay The number to match the recording to.
+	    ** @return String of correct Maori pronunciation of number
+	    **/
+	public static String ConvertIntToMaori(int numToSay) {
+		String maoriAnswer;
+		String prefix;
+		String suffix;
+		
+		// Converts a number to Maori.
+
+		if (numToSay <= 10) {
+			maoriAnswer = _maoriNumTranslations.get(numToSay-1);
+		}
+		else if (numToSay%10 == 0) {
+			prefix = _maoriNumTranslations.get((numToSay/10)-1);
+			maoriAnswer = prefix + " tekau";
+		}
+		else {
+			prefix = _maoriNumTranslations.get((numToSay/10)-1);
+			suffix = _maoriNumTranslations.get((numToSay%10)-1);
+			maoriAnswer = prefix + " tekau maa " + suffix;
+		}
+		
+		return maoriAnswer;
+	}
 }

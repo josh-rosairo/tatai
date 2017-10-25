@@ -57,6 +57,7 @@ public class TataiController {
 	private String _mode;
 	// Correct streak.
 	private int _streak;
+	private int _longestCurrentStreak;
 	// Scene to return to.
 	private Scene _returnScene;
 	// Questions enabled.
@@ -184,6 +185,8 @@ public class TataiController {
     	_numCorrect = 0;
     	_currentQuestionNumber = 1;
     	_tries = 0;
+    	_streak = 0;
+    	_longestCurrentStreak = 0;
     	showLevel();
     }
     
@@ -281,6 +284,9 @@ public class TataiController {
 	        	// If correct, hide the redo button and increase the number correct.
 	        	if (isCorrect) {
 	        		_streak++;
+	        		if(_streak > _longestCurrentStreak) {
+	        			_longestCurrentStreak = _streak;
+	        		}
 	        		_numCorrect++;
 	        		announceRight.setVisible(true);
 	        		imageRight.setVisible(true);
@@ -304,19 +310,7 @@ public class TataiController {
 	        	// Show play button.
 	        	playButton.setVisible(true);
 	        	
-	        	// Check for achievements.
-	        	if(_mode == "practice" && _streak > _longestStreakPractice) {
-	        		_longestStreakPractice = _streak;
-	        		showAchievement("Longest practice streak!");
-	        		longestStreakPractice.setText(Integer.toString(_longestStreakPractice));
-	        		return;
-	        	}
-	        	if(_mode == "assess" && _streak > _longestStreakAssess) {
-	        		_longestStreakAssess = _streak;
-	        		showAchievement("Longest test streak!");
-	        		longestStreakAssess.setText(Integer.toString(_longestStreakAssess));
-	        		return;
-	        	}
+	        	
 	        }
 	    });
     	
@@ -496,6 +490,19 @@ public class TataiController {
     		_personalBest1 = _numCorrect;
     		showAchievement("Most correct for level 2!");
     		personalBest2.setText(Integer.toString(_personalBest2));
+    		return;
+    	}
+    	// Check for achievements - streak.
+    	if(_mode == "practice" && _longestCurrentStreak > _longestStreakPractice) {
+    		_longestStreakPractice = _longestCurrentStreak;
+    		showAchievement("Longest practice streak!");
+    		longestStreakPractice.setText(Integer.toString(_longestStreakPractice));
+    		return;
+    	}
+    	if(_mode == "assess" && _longestCurrentStreak > _longestStreakAssess) {
+    		_longestStreakAssess = _longestCurrentStreak;
+    		showAchievement("Longest test streak!");
+    		longestStreakAssess.setText(Integer.toString(_longestStreakAssess));
     		return;
     	}
     }

@@ -31,8 +31,9 @@
 	</GridPane>
 	</center>
 	<bottom>
-	<HBox alignment="center_right">
+	<HBox alignment="center_right" spacing="12">
 		<padding><Insets top="25" right="0" bottom="0" left="25"/></padding>
+		<Button text="Help" GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="helpButton" onAction="#showHelp" styleClass="darkbutton" />
     	<Button text="Quit" GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="quitButton" onAction="#quit" styleClass="darkbutton" />
     </HBox>
     </bottom>

@@ -3,9 +3,7 @@ package tatai;
 import java.util.HashMap;
 
 import javafx.stage.Stage;
-import tatai.model.TimedProgressBar;
 import tatai.page.AchievementPage;
-import tatai.page.LevelPage;
 import tatai.page.Page;
 import tatai.page.StatisticsPage;
  
@@ -67,11 +65,23 @@ public class TataiController {
      ** @author dli294
      **/
     public void showAchievement(String achieved) {
-    	_returnPage = _currentPage;
+    	saveCurrentPage();
     	((AchievementPage)_loader.getPage("achievement")).setText(achieved);
     	_loader.getPage("achievement").show();
     }
     
+    /**
+     ** Saves the current page to be retrieved later.
+     ** @author dli294
+     **/
+    public void saveCurrentPage() {
+    	_returnPage = _currentPage;
+    }
+    
+    /**
+     * Returns to the previous page.
+     * @author
+     */
      public void returnToScene() {
     	 _returnPage.show();
      }

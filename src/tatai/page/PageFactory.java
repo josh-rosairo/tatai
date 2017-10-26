@@ -23,6 +23,8 @@ public class PageFactory {
 			return new MenuPage(stage, scene, sceneName, controller);
 		} else if (sceneName == "statistics") {
 			return new StatisticsPage(stage, scene, sceneName, controller);
+		} else if (sceneName == "help") {
+			return new HelpPage(stage, scene, sceneName, controller);
 		}
 		else return null;
 	}

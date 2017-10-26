@@ -66,4 +66,14 @@ public abstract class Page {
     @FXML protected void showMenu(ActionEvent event) {
     	_controller._loader.getPage("menu").show();
     }
+    
+    /**
+     ** Pops up the help screen.
+     ** @arg ActionEvent event The event that caused this method to be called.
+     ** @author dli294
+     **/
+    @FXML protected void showHelp(ActionEvent event) {
+    	_controller.saveCurrentPage();
+    	_controller._loader.getPage("help").show();
+    }
 }

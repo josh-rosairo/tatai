@@ -6,8 +6,11 @@
 	-fx-background-color: #37474F;
 }
 
-.content {
+.content, #helpPane, #helpPane .vBox {
 	-fx-background-color: #fafafa;
+}
+
+.content {
 	-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 20, 0.4, 0, 7);
 }
 

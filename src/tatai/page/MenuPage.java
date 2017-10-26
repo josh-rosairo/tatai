@@ -73,8 +73,6 @@ public class MenuPage extends Page {
     	_controller._loader.getPage("settings").show();
     }
     
-    
-	
     /**
     ** Quits the application.
     ** @arg ActionEvent event The event that caused this method to be called.
@@ -94,5 +92,4 @@ public class MenuPage extends Page {
 		    // Cancelled
 		}
     }
-
 }

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.paint.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root">
+<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+	<center>
+	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="content">
+	<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
+		<padding><Insets top="25" right="0" bottom="25" left="0"/></padding>
+	    	<Text text="Help" styleClass="heading"/>
+	    </HBox>
+	 
+	 	<ScrollPane GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" fx:id="helpPane" prefWidth="500">
+	 		<VBox alignment="center" spacing="24" styleClass="vBox">
+	 			<VBox alignment="CENTER_LEFT" spacing="12" styleClass="vBox">
+	 			<Text wrappingWidth="450" text="Welcome" styleClass="heading2" />
+		 		<Text wrappingWidth="450" text="Tatai is a game which tests your pronunciation of Maori numbers from 1 to 99."></Text>
+		 		<Text wrappingWidth="450" text="To play the game, select either practice or test mode from the main screen. The program will display a maths equation. Record the correct Maori pronunciation of the answer to that problem to score points. For example, if  '1 + 1' was displayed, you would record yourself saying 'rua', the Maori word for '2'."></Text>
+		 		</VBox>
+		 		
+		 		<VBox alignment="CENTER_LEFT" spacing="12" styleClass="vBox">
+			 		<Text text="Playing a level" styleClass="heading2" />
+			 		<Text wrappingWidth="450" text="The practice module has an infinite number of rounds and has only individual numbers to pronounce."></Text>
+			 		<Text wrappingWidth="450" text="You are allowed 2 attempts at each question and in test mode there are 10 questions in a round. Once complete, your progress is recorded and displayed on the statistics page so you can see how you fared in previous attempts, and look at your personal bests."></Text>
+			 		<Text wrappingWidth="450" text="In order to play the game, there are a few buttons that you must understand."></Text>
+			 		<Button fx:id="recordButton" text="Record"></Button>
+			 		<Text wrappingWidth="450" text="When you press this button, you have 3 seconds (signified by the progress bar that will appear) to record your answer to the question. Once that is done, the play, redo and next buttons will appear, and there will be a message telling you whether your pronunciation was correct or not."></Text>
+		 			<Button fx:id="playButton" text="Play"></Button>
+		 			<Text wrappingWidth="450" text="When you press this button, the answer that you recorded will be played back to you."></Text>
+		 			<Button fx:id="redoButton" text="Redo"></Button>
+		 			<Text wrappingWidth="450" text="Pressing the Redo button takes you back to the screen with the record button so you can reattempt an answer for the previous question. This button only appears if your first attempt was wrong."></Text>
+		 			<Button fx:id="nextButton" text="Next"></Button>
+		 			<Text wrappingWidth="450" text="The Next button is used for continuing on to the next question. At the final question, the next button will take you to the summmary screen which will show how you fared."></Text>
+		 			<Button fx:id="returnButton" text="Return"></Button>
+		 			<Text wrappingWidth="450" text="The Return button takes you back to the main menu."></Text>
+	 			</VBox>
+	 			
+	 			<VBox alignment="CENTER_LEFT" spacing="12" styleClass="vBox">
+			 		<Text text="Settings" styleClass="heading2" />
+			 		<Text wrappingWidth="450" text="There is a settings screen where you can choose the operations that you want to appear in the equations in the Test module. You can also choose whether to have numbers from 1 - 9 or 1 - 99. "></Text>
+			 		<HBox alignment = "center" spacing="10">
+				 		<Button text="Level 1 - 9" fx:id="chooseLevel1Button" />
+				    	<Button text="Level 1 - 99" fx:id="chooseLevel2Button" />
+			 		</HBox>
+			 		<Text wrappingWidth="450" text="These buttons allow you to select the level you wish to play at."></Text>
+			 		<HBox alignment = "center" spacing="10">
+				 		<Button text="+" fx:id="chooseAdditionButton" prefWidth = "44" />
+				    	<Button text="-" fx:id="chooseSubtractionButton" prefWidth = "44" />
+				    	<Button text="×" fx:id="chooseMultiplicationButton" prefWidth = "44" />
+				    	<Button text="÷" fx:id="chooseDivisionButton" prefWidth = "44" />
+			    	</HBox>
+			    	<Text wrappingWidth="450" text="These buttons allow you to select the operators you wish to include in test mode."></Text>
+	 			</VBox>
+	 			
+	 		</VBox>
+		</ScrollPane>
+	</GridPane>
+	</center>
+	<bottom>
+	<HBox alignment="center_right">
+		<padding><Insets top="25" right="0" bottom="0" left="25"/></padding>
+    	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" styleClass="darkbutton" />
+    </HBox>
+    </bottom>
+</BorderPane>

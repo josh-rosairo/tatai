@@ -36,7 +36,7 @@ import tatai.speech.SpeechHandler;
 **/
 public class TataiController {
 	// Stage to swap scenes in and out of.
-	private Stage _stage = null;
+	public Stage stage = null;
 	// Scenes.
 	private TataiLoader _loader;
 	// Current level.
@@ -118,8 +118,8 @@ public class TataiController {
     ** @arg Stage stage The stage to display the application on.
     ** @author dli294
     **/
-	public TataiController(Stage stage) {
-		_stage = stage;
+	public TataiController(Stage s) {
+		stage = s;
     	_loader = new TataiLoader(this);
 	}
 	
@@ -150,21 +150,17 @@ public class TataiController {
     ** @author dli294
     **/
 	public void init() {
-		
 		// Initialize the statistics page with a table.
-    	
 		_table = new TataiTable();
 		_table.setTataiData(_statistics);
 		
         // Add the table to the panel.
         statsPanel.getChildren().addAll(_table);
 		
+        stage.setTitle("Welcome to Tatai!");
+        
         // Show menu.
-		Scene scene = _loader.getScene("menu");
-	    
-        _stage.setTitle("Welcome to Tatai!");
-        _stage.setScene(scene);
-        _stage.show();
+        _loader.getPage("menu").show();
 	}
 
     /**
@@ -205,12 +201,10 @@ public class TataiController {
      ** @author dli294
      **/
     private void showAchievement(String achieved) {
-    	_returnScene = _stage.getScene();
+    	_returnScene = stage.getScene();
     	achievementText.setText(achieved);
     	
-    	Scene scene = _loader.getScene("achievement");
-    	_stage.setScene(scene);
-        _stage.show();
+    	_loader.getPage("achievement").show();
     }
     
     /**
@@ -219,8 +213,8 @@ public class TataiController {
      ** @author dli294
      **/
      @FXML protected void returnToScene(ActionEvent event) {
-    	 _stage.setScene(_returnScene);
-         _stage.show();
+    	 stage.setScene(_returnScene);
+         stage.show();
      }
     
     /**
@@ -229,7 +223,7 @@ public class TataiController {
     ** @author dli294
     **/
     @FXML protected void showMenu(ActionEvent event) {
-    	if(_stage.getScene().equals(_loader.getScene("level"))) {
+    	if(true) { // TODO if on a level
     		Alert alert = new Alert(AlertType.CONFIRMATION);
     		alert.setTitle("Return to menu?");
     		alert.setHeaderText("Return to menu?");
@@ -253,8 +247,8 @@ public class TataiController {
      **/
     private void showMenu() {
     	Scene scene = _loader.getScene("menu");
-    	_stage.setScene(scene);
-        _stage.show();
+    	stage.setScene(scene);
+        stage.show();
         
         // Check for achievements - practice length.
     	if (_mode == "practice" && _currentQuestionNumber > _longestPractice) {
@@ -472,8 +466,8 @@ public class TataiController {
     	// Edit display text to display question.
     	number.setText(question.getQuestion()); 
 
-    	_stage.setScene(scene);
-        _stage.show();
+    	stage.setScene(scene);
+        stage.show();
     }
     
     /**
@@ -500,8 +494,8 @@ public class TataiController {
     	_statistics.add(entry);
     	
     	Scene scene = _loader.getScene("endlevel");
-    	_stage.setScene(scene);
-        _stage.show();
+    	stage.setScene(scene);
+        stage.show();
         
         // Check for achievements - personal best.
     	if (_level == 1 && _numCorrect > _personalBest2) {
@@ -542,8 +536,8 @@ public class TataiController {
 
         // Show the scene.
     	Scene scene = _loader.getScene("statistics");
-    	_stage.setScene(scene);
-        _stage.show();
+    	stage.setScene(scene);
+        stage.show();
     }
     
     /**
@@ -596,8 +590,8 @@ public class TataiController {
     		setMultiplication(null);
     	}
     	
-    	_stage.setScene(scene);
-        _stage.show();
+    	stage.setScene(scene);
+        stage.show();
     }
     
     /**

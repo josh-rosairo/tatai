@@ -10,6 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 
+import tatai.page.*;
+
 /**
 ** Handles all scenes and loading operations.
 ** @author dli294
@@ -21,7 +23,7 @@ public class TataiLoader extends FXMLLoader {
 	// Height of the application.
 	private final static int HEIGHT = 600;
 	// Hashmap mapping human-readable names for each scene (as strings) to each loaded scene.
-	private HashMap<String,Scene> _scenes = new HashMap<String, Scene>();
+	private HashMap<String,Page> _scenes = new HashMap<String, Page>();
 	// The controller that controls each scene.
 	TataiController _controller;
 	
@@ -60,9 +62,9 @@ public class TataiLoader extends FXMLLoader {
 				Font.loadFont(getClass().getResourceAsStream("fonts/Roboto-Regular.ttf"), 14);
 				Font.loadFont(getClass().getResourceAsStream("fonts/Roboto-Thin.ttf"), 14);
 				Font.loadFont(getClass().getResourceAsStream("fonts/Roboto-Bold.ttf"), 14);
-
+				
 				// Add to the hashmap.
-				_scenes.put(sceneName, scene);
+				_scenes.put(sceneName, PageFactory.makePage(_controller.stage, scene, sceneName));
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -85,10 +87,10 @@ public class TataiLoader extends FXMLLoader {
 	/**
 	** Gets a scene from this class's private internal hashmap.
 	** @arg String sceneName The name of the scene.
-	** @return Scene The scene requested.
+	** @return Page The page requested.
 	** @author dli294
 	**/
-	public Scene getScene(String sceneName) {
-		return _scenes.get(sceneName);
+	public Page getPage(String pageName) {
+		return _scenes.get(pageName);
 	}
 }

@@ -85,6 +85,10 @@ public class EndlevelPage extends Page {
     **/
     @FXML protected void saveLevel(ActionEvent event) {
     	((LevelPage)_controller._loader.getPage("level")).saveCurrentLevel();
+    	saveButton.setOnAction(null);
+    	saveButton.getStyleClass().add("depressedbutton");
+    	saveButton.getStyleClass().add("done");
+    	saveButton.setText("Saved");
     }
     
 

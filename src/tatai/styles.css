@@ -185,3 +185,7 @@
 #saveButton {
 	-fx-background-image:url('images/save.png');
 }
+
+#saveButton.done {
+	-fx-background-image:url('images/tick.png');
+}

@@ -14,11 +14,12 @@
 	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="content">
 	<padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 		<HBox GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" alignment="center">
-		<padding><Insets top="25" right="0" bottom="25" left="0"/></padding>
-	    	<Text text="Settings" styleClass="heading"/>
+		<padding><Insets top="12" right="0" bottom="12" left="0"/></padding>
+	    	<Text text="Level settings" styleClass="heading"/>
 	    </HBox>
 	 
 	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="28">
+	 		<HBox alignment="center" spacing="8">
 	 		<VBox alignment="center" spacing="12">
 	 			<Text text="Level" styleClass="heading2" />
 		 		<HBox alignment = "center" spacing="10">
@@ -35,6 +36,17 @@
 		    	<Button text="×" fx:id="chooseMultiplicationButton" onAction="#setMultiplication" prefWidth = "44" />
 		    	<Button text="÷" fx:id="chooseDivisionButton" onAction="#setDivision" prefWidth = "44" />
 		    	</HBox>
+	 		</VBox>
+	 		
+	 		</HBox>
+
+	 		<VBox alignment="center" spacing="12" fx:id="savedQuestionPanel">
+	 			<Text text="Saved questions" styleClass="heading2" />
+	 			<HBox alignment="center">
+	 			<Text wrappingWidth="400" text = "If a saved question list is selected, it will be used instead of generating a new question list. To use new questions, press Clear." />
+		 		<Button text="Clear" fx:id="clearButton"></Button>
+	 			</HBox>
+		 		
 	 		</VBox>
 		</VBox>
 	</GridPane>

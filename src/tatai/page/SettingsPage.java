@@ -4,8 +4,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import tatai.TataiController;
+import tatai.model.QuestionTable;
 
 /**
  * Controller and representation for a settings page.
@@ -21,6 +23,10 @@ public class SettingsPage extends Page {
 	@FXML private Button chooseMultiplicationButton;
 	@FXML private Button chooseLevel1Button;
 	@FXML private Button chooseLevel2Button;
+	@FXML private VBox savedQuestionPanel;
+	
+	// Statistics table to update.
+	private QuestionTable _table = new QuestionTable();
 	
 	/**
 	 * Constructor.
@@ -32,32 +38,6 @@ public class SettingsPage extends Page {
 	 */
 	public SettingsPage(Stage stage, Scene scene, String sceneName, TataiController controller) {
 		super(stage, scene, sceneName, controller);
-	}
-	
-	/**
-	 * Setup of buttons and depressed states for the settings page.
-	 */
-	public void show() {
-		if (_controller._level == 1) {
-    		setLevel1();
-    	} else {
-    		setLevel2();
-    	}
-    	
-    	if (_controller._questionTypes.get("AdditionQuestion")) {
-    		setAddition(null);
-    	}
-    	if (_controller._questionTypes.get("SubtractionQuestion")) {
-    		setSubtraction(null);
-    	}
-    	if (_controller._questionTypes.get("DivisionQuestion")) {
-    		setDivision(null);
-    	}
-    	if (_controller._questionTypes.get("MultiplicationQuestion")) {
-    		setMultiplication(null);
-    	}
-    	
-    	super.show();
 	}
 	
     /**
@@ -185,4 +165,46 @@ public class SettingsPage extends Page {
         	}
 
         }
+        
+    	/**
+    	 * Initialization function to set data and nodes.
+    	 * @author dli294
+    	 */
+    	@FXML private void initialize() {
+    		// Initialize the statistics page with a table.
+    		_table = new QuestionTable();
+    		
+            // Add the table to the panel.
+            savedQuestionPanel.getChildren().addAll(_table);
+    	}
+        
+    	/**
+         ** Show the settings page.
+         ** @author dli294
+         **/
+     	public void show() {
+     		// Update the table with the new list of data.
+         	_table.setQuestionData(((LevelPage)_controller._loader.getPage("level")).getSavedQuestions());
+         	
+         	if (_controller._level == 1) {
+        		setLevel1();
+        	} else {
+        		setLevel2();
+        	}
+        	
+        	if (_controller._questionTypes.get("AdditionQuestion")) {
+        		setAddition(null);
+        	}
+        	if (_controller._questionTypes.get("SubtractionQuestion")) {
+        		setSubtraction(null);
+        	}
+        	if (_controller._questionTypes.get("DivisionQuestion")) {
+        		setDivision(null);
+        	}
+        	if (_controller._questionTypes.get("MultiplicationQuestion")) {
+        		setMultiplication(null);
+        	}
+        	
+     		super.show();
+     	}
 }

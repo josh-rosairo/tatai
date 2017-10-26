@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 import tatai.TataiController;
 import tatai.TataiFactory;
 import tatai.generator.Question;
+import tatai.model.SavedQuestionList;
 import tatai.model.TataiStatistic;
 import tatai.model.TimedProgressBar;
 import tatai.speech.SpeechHandler;
@@ -70,7 +71,7 @@ public class LevelPage extends Page {
 	// List of questions for this level.
 	private List<Question> _questionList;
 	// List of list of questions saved.
-	private List<List<Question>> _questionsSaved;
+	private List<SavedQuestionList> _questionsSaved = new ArrayList<SavedQuestionList>();
 	
 	/**
 	 * Constructor.
@@ -82,7 +83,6 @@ public class LevelPage extends Page {
 	 */
 	public LevelPage(Stage stage, Scene scene, String sceneName, TataiController controller) {
 		super(stage, scene, sceneName, controller);
-		_questionsSaved = new ArrayList<List<Question>>();
 	}
 	
     /**
@@ -413,13 +413,13 @@ public class LevelPage extends Page {
      * Saves the current list of questions.
      */
     public void saveCurrentLevel() {
-    	_questionsSaved.add(_questionList);
+    	_questionsSaved.add(new SavedQuestionList(_controller._level, _questionList));
     }
     
     /**
      * Gets the current list of saved questions.
      */
-    public List<List<Question>> getSavedQuestions() {
+    public List<SavedQuestionList> getSavedQuestions() {
     	return _questionsSaved;
     }
 

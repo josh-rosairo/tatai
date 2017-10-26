@@ -3,7 +3,9 @@ package tatai;
 import java.util.HashMap;
 
 import javafx.stage.Stage;
+import tatai.model.TimedProgressBar;
 import tatai.page.AchievementPage;
+import tatai.page.LevelPage;
 import tatai.page.Page;
 import tatai.page.StatisticsPage;
  
@@ -13,7 +15,7 @@ import tatai.page.StatisticsPage;
 **/
 public class TataiController {
 	// Stage to swap scenes in and out of.
-	public Stage stage = null;
+	public Stage _stage;
 	// Scenes.
 	public TataiLoader _loader;
 	// Current level.
@@ -38,8 +40,9 @@ public class TataiController {
     ** @arg Stage stage The stage to display the application on.
     ** @author dli294
     **/
-	public TataiController(Stage s) {
-		stage = s;
+	public TataiController(Stage stage) {
+		_stage = stage;
+		// Initialize the question enabled states.
 		_questionTypes.put("AdditionQuestion",true);
 		_questionTypes.put("SubtractionQuestion",true);
 		_questionTypes.put("DivisionQuestion",false);
@@ -53,7 +56,7 @@ public class TataiController {
     ** @author dli294
     **/
 	public void init() {
-        stage.setTitle("Welcome to Tatai!");
+        _stage.setTitle("Welcome to Tatai!");
         
         // Show menu.
         _loader.getPage("menu").show();
@@ -75,6 +78,7 @@ public class TataiController {
      
      /**
       * Updates the achievements displayed on the statistics screen.
+      * @author dli294
       */
      public void updateAchievements() {
     	 ((StatisticsPage)_loader.getPage("statistics")).updateAchievements();

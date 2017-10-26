@@ -12,6 +12,11 @@ import tatai.TataiController;
 import tatai.model.TataiStatistic;
 import tatai.model.TataiTable;
 
+/**
+ * Controller and data model of the statistics page.
+ * @author dli294
+ *
+ */
 public class StatisticsPage extends Page {
 	
 	// FXML injected nodes.
@@ -39,6 +44,10 @@ public class StatisticsPage extends Page {
 		super(stage, scene, sceneName, controller);
 	}
 	
+	/**
+	 * Initialization function to set data and nodes.
+	 * @author dli294
+	 */
 	@FXML private void initialize() {
 		// Initialize the statistics page with a table.
 		_table = new TataiTable();
@@ -58,6 +67,10 @@ public class StatisticsPage extends Page {
 		super.show();
 	}
 	
+	/**
+	 * Updates the statistics text for achievements.
+	 * @author dli294
+	 */
 	public void updateAchievements() {
 		personalBest1.setText(Integer.toString(_controller._personalBest1));
 		personalBest2.setText(Integer.toString(_controller._personalBest2));

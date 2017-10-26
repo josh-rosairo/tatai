@@ -63,7 +63,7 @@ public class LevelPage extends Page {
 	// Number that user has to pronounce in Maori
 	private int _numToSay = 0;
 	// Progress bar to display time for recording
-	TimedProgressBar _progress;
+	public TimedProgressBar _progress;
 	
 	/**
 	 * Constructor.
@@ -112,6 +112,10 @@ public class LevelPage extends Page {
 		// Hide images.
 		imageRight.setVisible(false);
 		imageWrong.setVisible(false);
+		// Hide progress bar.
+		if (_progress != null) {
+     		 _progress.stop();
+     	 }
 		
 	}
 	
@@ -166,6 +170,11 @@ public class LevelPage extends Page {
     	this.show();
     }
     
+    /**
+     * Generates a test question.
+     * @return A test question, based on the currently available operators.
+     * @author dli294
+     */
     private Question getTestQuestion() {
     	// Numbers to test for current question.
     	Question question = new Question(_controller._level);
@@ -184,7 +193,6 @@ public class LevelPage extends Page {
 	    		if(questions.isEmpty()) {
 	    			// No operators enabled. Continue forward.
 	    		}
-	    		e.printStackTrace();
 	    	}
     	}
     	return question;
@@ -235,7 +243,6 @@ public class LevelPage extends Page {
     		_currentQuestionNumber++;
     		showLevel();
     	}
-    	_progress.stop();
     }
     
     /**

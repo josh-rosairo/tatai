@@ -251,6 +251,7 @@ public class LevelPage extends Page {
      * @author dli294
      */
     private void showEndLevel(int numCorrect) {
+    	_controller._loader.getPage("endlevel").show();
     	// Check for achievements - personal best.
     	if (_controller._level == 1 && _numCorrect > _controller._personalBest2) {
     		_controller._personalBest1 = _numCorrect;
@@ -277,7 +278,6 @@ public class LevelPage extends Page {
     		_controller.updateAchievements();
     		return;
     	}
-    	_controller._loader.getPage("endlevel").show();
     }
     
     /**

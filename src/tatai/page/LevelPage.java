@@ -304,7 +304,7 @@ public class LevelPage extends Page {
     		anyAchievement = true;
     	}
     	if (_controller._level == 2 && _numCorrect > _controller._personalBest2) {
-    		_controller._personalBest1 = _numCorrect;
+    		_controller._personalBest2 = _numCorrect;
     		achieved = "Most correct for level 2!";
     		anyAchievement = true;
     	}

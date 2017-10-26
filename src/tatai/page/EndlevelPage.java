@@ -72,7 +72,7 @@ public class EndlevelPage extends Page {
     	}
     	
     	// Show number correct.
-    	numberCorrect.setText(Integer.toString(numCorrect) + "/" + NUM_QUESTIONS);
+    	numberCorrect.setText(Integer.toString(numCorrect) + "/" + Integer.toString(NUM_QUESTIONS));
     	
     	super.show();
 	}

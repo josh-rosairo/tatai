@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import tatai.TataiController;
 import tatai.TataiFactory;
 import tatai.generator.Question;
+import tatai.model.TataiStatistic;
 import tatai.model.TimedProgressBar;
 import tatai.speech.SpeechHandler;
 
@@ -217,11 +218,22 @@ public class LevelPage extends Page {
 		    // Cancelled
 		}
 		
+		boolean anyAchievement = false;
+		String achieved = "";
 		// Check for achievements - practice length.
     	if (_controller._mode == "practice" && _currentQuestionNumber > _controller._longestPractice) {
     		_controller._longestPractice = _currentQuestionNumber;
-    		_controller.showAchievement("Longest practice session!");
+    		achieved = "Longest practice session!";
+    		anyAchievement = true;
+    	}
+    	if(_controller._mode == "practice" && _longestCurrentStreak > _controller._longestStreakPractice) {
+    		_controller._longestStreakPractice = _longestCurrentStreak;
+    		achieved = "Longest practice streak!";
+    		anyAchievement = true;
+    	}
+    	if (anyAchievement) {
     		_controller.updateAchievements();
+    		_controller.showAchievement(achieved);
     		return;
     	}
     }
@@ -251,32 +263,33 @@ public class LevelPage extends Page {
      * @author dli294
      */
     private void showEndLevel(int numCorrect) {
-    	_controller._loader.getPage("endlevel").show();
+    	// Add statistic.
+    	TataiStatistic stat = new TataiStatistic(numCorrect, _controller._level);
+    	((StatisticsPage)_controller._loader.getPage("statistics")).addStatistic(stat);
+    	
+    	((EndlevelPage)_controller._loader.getPage("endlevel")).show(numCorrect);
+    	boolean anyAchievement = false;
+    	String achieved = "";
     	// Check for achievements - personal best.
     	if (_controller._level == 1 && _numCorrect > _controller._personalBest2) {
     		_controller._personalBest1 = _numCorrect;
-    		_controller.showAchievement("Most correct for level 1!");
-    		_controller.updateAchievements();
-    		return;
+    		achieved = "Most correct for level 1!";
+    		anyAchievement = true;
     	}
     	if (_controller._level == 2 && _numCorrect > _controller._personalBest2) {
     		_controller._personalBest1 = _numCorrect;
-    		_controller.showAchievement("Most correct for level 2!");
-    		_controller.updateAchievements();
-    		return;
+    		achieved = "Most correct for level 2!";
+    		anyAchievement = true;
     	}
     	// Check for achievements - streak.
-    	if(_controller._mode == "practice" && _longestCurrentStreak > _controller._longestStreakPractice) {
-    		_controller._longestStreakPractice = _longestCurrentStreak;
-    		_controller.showAchievement("Longest practice streak!");
-    		_controller.updateAchievements();
-    		return;
-    	}
     	if(_controller._mode == "assess" && _longestCurrentStreak > _controller._longestStreakAssess) {
     		_controller._longestStreakAssess = _longestCurrentStreak;
-    		_controller.showAchievement("Longest test streak!");
+    		achieved = "Longest test streak!";
+    		anyAchievement = true;
+    	}
+    	if (anyAchievement) {
     		_controller.updateAchievements();
-    		return;
+    		_controller.showAchievement(achieved);
     	}
     }
     

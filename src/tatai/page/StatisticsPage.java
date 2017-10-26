@@ -78,5 +78,14 @@ public class StatisticsPage extends Page {
 		longestStreakAssess.setText(Integer.toString(_controller._longestStreakAssess));
 		longestPractice.setText(Integer.toString(_controller._longestPractice));
 	}
+	
+	/**
+	 * Adds a statistic to the table.
+	 * @param TataiStatistic statistic The statistic to add.
+	 * @author dli294
+	 */
+	public void addStatistic(TataiStatistic statistic) {
+		_statistics.add(statistic);
+	}
 
 }

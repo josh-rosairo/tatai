@@ -357,14 +357,19 @@ public class LevelPage extends Page {
 	        	else {
 	        		_streak = 0;
                     // If wrong, show the redo button and allow the user to try again.
-	        		announceWrong.setText("Incorrect, answer was: '" + SpeechHandler.ConvertIntToMaori(_numToSay) + "'");
-	        		announceWrong.setVisible(true);
+	        		
 	        		imageWrong.setVisible(true);
 	        		root.setStyle("-fx-background-color:#D32F2F;");
 	        		// If this is your first time wrong, you get to try again.
 	        		if (_tries == 0) {
 	        			redoButton.setVisible(true);
+	        			announceWrong.setText("Incorrect, try again, answer will be displayed if incorrect");
 	        		}
+	        		else {
+	        			announceWrong.setText("Incorrect, answer was: '" + SpeechHandler.ConvertIntToMaori(_numToSay) + "'");
+	        		}
+	        		
+	        		announceWrong.setVisible(true);
 	        	}
 	        	
 	        	// Always show the play button and the next button and hide the record button.

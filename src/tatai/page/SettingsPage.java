@@ -56,6 +56,8 @@ public class SettingsPage extends Page {
     	if (_controller._questionTypes.get("MultiplicationQuestion")) {
     		setMultiplication(null);
     	}
+    	
+    	super.show();
 	}
 	
     /**
@@ -97,12 +99,19 @@ public class SettingsPage extends Page {
     	 chooseAdditionButton.getStyleClass().clear();
      	 chooseAdditionButton.getStyleClass().add("button");
      	
-    	 if (_controller._questionTypes.get("AdditionQuestion") == false) {
-    	 	 _controller._questionTypes.put("AdditionQuestion", true);
-    	 	chooseAdditionButton.getStyleClass().add("depressedbutton");
-    	 } else {
-    		 _controller._questionTypes.put("AdditionQuestion", false);
-    	 }
+     	 if (event != null) {
+        	 if (_controller._questionTypes.get("AdditionQuestion") == false) {
+        	 	 _controller._questionTypes.put("AdditionQuestion", true);
+        	 	chooseAdditionButton.getStyleClass().add("depressedbutton");
+        	 } else {
+        		 _controller._questionTypes.put("AdditionQuestion", false);
+        	 }
+     	 } else {
+     		if (_controller._questionTypes.get("AdditionQuestion") == true) {
+     			chooseAdditionButton.getStyleClass().add("depressedbutton");
+     		}
+     	 }
+
      }
      
      /**
@@ -114,12 +123,19 @@ public class SettingsPage extends Page {
      	 chooseSubtractionButton.getStyleClass().clear();
       	 chooseSubtractionButton.getStyleClass().add("button");
       	
-     	 if (_controller._questionTypes.get("SubtractionQuestion") == false) {
-     		_controller._questionTypes.put("SubtractionQuestion", true);
-     	 	chooseSubtractionButton.getStyleClass().add("depressedbutton");
-     	 } else {
-     		_controller._questionTypes.put("SubtractionQuestion", false);
-     	 }
+      	 if (event != null) {
+         	 if (_controller._questionTypes.get("SubtractionQuestion") == false) {
+          		_controller._questionTypes.put("SubtractionQuestion", true);
+          	 	chooseSubtractionButton.getStyleClass().add("depressedbutton");
+          	 } else {
+          		_controller._questionTypes.put("SubtractionQuestion", false);
+          	 }
+      	 } else {
+      		 if (_controller._questionTypes.get("SubtractionQuestion") == true) {
+      			chooseSubtractionButton.getStyleClass().add("depressedbutton");
+      		 }
+      	 }
+
       }
       
       /**
@@ -131,12 +147,19 @@ public class SettingsPage extends Page {
       	 chooseDivisionButton.getStyleClass().clear();
        	 chooseDivisionButton.getStyleClass().add("button");
        	
-      	 if (_controller._questionTypes.get("DivisionQuestion") == false) {
-      		_controller._questionTypes.put("DivisionQuestion", true);
-      	 	chooseDivisionButton.getStyleClass().add("depressedbutton");
-      	 } else {
-      		_controller._questionTypes.put("DivisionQuestion", false);
-      	 }
+       	 if (event != null) {
+       		if (_controller._questionTypes.get("DivisionQuestion") == false) {
+          		_controller._questionTypes.put("DivisionQuestion", true);
+          	 	chooseDivisionButton.getStyleClass().add("depressedbutton");
+          	 } else {
+          		_controller._questionTypes.put("DivisionQuestion", false);
+          	 }
+       	 } else {
+       		 if (_controller._questionTypes.get("DivisionQuestion") == true) {
+       			chooseDivisionButton.getStyleClass().add("depressedbutton");
+       		 }
+       	 }
+      	 
        }
        
        /**
@@ -146,13 +169,20 @@ public class SettingsPage extends Page {
         **/
         @FXML private void setMultiplication(ActionEvent event) {
        	 	chooseMultiplicationButton.getStyleClass().clear();
-        	 chooseMultiplicationButton.getStyleClass().add("button");
+        	chooseMultiplicationButton.getStyleClass().add("button");
         	
-       	 if (_controller._questionTypes.get("MultiplicationQuestion") == false) {
-       		_controller._questionTypes.put("MultiplicationQuestion", true);
-       	 	chooseMultiplicationButton.getStyleClass().add("depressedbutton");
-       	 } else {
-       		_controller._questionTypes.put("MultiplicationQuestion", false);
-       	 }
+        	if (event != null) {
+	   	       	 if (_controller._questionTypes.get("MultiplicationQuestion") == false) {
+	 	       		_controller._questionTypes.put("MultiplicationQuestion", true);
+	 	       	 	chooseMultiplicationButton.getStyleClass().add("depressedbutton");
+	 	       	 } else {
+	 	       		_controller._questionTypes.put("MultiplicationQuestion", false);
+	 	       	 }
+        	} else {
+        		if (_controller._questionTypes.get("MultiplicationQuestion") == true) {
+        			chooseMultiplicationButton.getStyleClass().add("depressedbutton");
+        		}
+        	}
+
         }
 }

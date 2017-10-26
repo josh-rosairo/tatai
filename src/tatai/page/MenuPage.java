@@ -68,7 +68,7 @@ public class MenuPage extends Page {
     ** @arg ActionEvent event The event that caused this method to be called.
     ** @author dli294
     **/
-    @FXML private void showSettings() {
+    @FXML private void showSettings(ActionEvent event) {
         // Show the scene.
     	_controller._loader.getPage("settings").show();
     }

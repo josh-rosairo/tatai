@@ -95,7 +95,7 @@
 	-fx-font-family: "Roboto";
 }
 
-#progressBar {
+#progressBar, #recordingBar {
 	-fx-accent: #2196F3;
 }
 

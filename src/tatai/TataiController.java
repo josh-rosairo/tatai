@@ -21,12 +21,7 @@ public class TataiController {
 	// Mode.
 	public String _mode;
 	// Questions enabled.
-	public HashMap<String, Boolean> _questionTypes = new HashMap<String, Boolean>() {{
-	    put("AdditionQuestion",true);
-	    put("SubtractionQuestion",true);
-	    put("DivisionQuestion",false);
-	    put("MultiplicationQuestion",true);
-	}};;
+	public HashMap<String, Boolean> _questionTypes = new HashMap<String, Boolean>();
 	// Pages to return to.
 	public Page _currentPage;
 	private Page _returnPage;
@@ -45,6 +40,10 @@ public class TataiController {
     **/
 	public TataiController(Stage s) {
 		stage = s;
+		_questionTypes.put("AdditionQuestion",true);
+		_questionTypes.put("SubtractionQuestion",true);
+		_questionTypes.put("DivisionQuestion",false);
+		_questionTypes.put("MultiplicationQuestion",true);
     	_loader = new TataiLoader(this);
 	}
 

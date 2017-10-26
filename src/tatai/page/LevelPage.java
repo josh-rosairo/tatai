@@ -151,20 +151,7 @@ public class LevelPage extends Page {
         	progressBar.setProgress((float) _currentQuestionNumber/NUM_QUESTIONS);
         	// Show question number.
         	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/" + Integer.toString(NUM_QUESTIONS));
-        	
-        	// Generate assessment questions.
-        	try {
-        		// Get all the question types that are currently enabled.
-        		Set<String> questions = TataiFactory.getKeysByValue(_controller._questionTypes, true);
-        		// Select a random question.
-        		String questionType = TataiFactory.getRandomString(questions);
-        		// Create a class.
-	        	Class<?> questionClass = Class.forName("tatai.generator." + questionType);
-	        	Constructor<?> constructorQuestion = questionClass.getConstructor(new Class<?>[]{Integer.TYPE});
-	        	question = (Question) constructorQuestion.newInstance(_controller._level); 
-        	} catch (Exception e) {
-        		e.printStackTrace();
-        	}
+        	question = getTestQuestion();
     	} else {
     		progressBar.setProgress(0);
     		// Show question number.
@@ -177,6 +164,30 @@ public class LevelPage extends Page {
     	number.setText(question.getQuestion()); 
     	
     	this.show();
+    }
+    
+    private Question getTestQuestion() {
+    	// Numbers to test for current question.
+    	Question question = new Question(_controller._level);
+    	// Get all the question types that are currently enabled.
+    	Set<String> questions = TataiFactory.getKeysByValue(_controller._questionTypes, true);
+    	// Generate assessment questions.
+    	if (_controller._mode == "assess") {
+	    	try {
+	    		// Select a random question.
+	    		String questionType = TataiFactory.getRandomString(questions);
+	    		// Create a class.
+	        	Class<?> questionClass = Class.forName("tatai.generator." + questionType);
+	        	Constructor<?> constructorQuestion = questionClass.getConstructor(new Class<?>[]{Integer.TYPE});
+	        	question = (Question) constructorQuestion.newInstance(_controller._level); 
+	    	} catch (Exception e) {
+	    		if(questions.isEmpty()) {
+	    			// No operators enabled. Continue forward.
+	    		}
+	    		e.printStackTrace();
+	    	}
+    	}
+    	return question;
     }
     
     /**
@@ -230,6 +241,7 @@ public class LevelPage extends Page {
     /**
      * Checks for achievements then shows the end-of-level screen.
      * @param numCorrect
+     * @author dli294
      */
     private void showEndLevel(int numCorrect) {
     	// Check for achievements - personal best.
@@ -300,6 +312,7 @@ public class LevelPage extends Page {
     	minimizeButtons();
     	
     	_progress = new TimedProgressBar(0);
+    	_progress.setId("recordingBar");
     	recordingArea.getChildren().addAll(_progress);
     	_progress.start();
     	

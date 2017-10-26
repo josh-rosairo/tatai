@@ -51,10 +51,12 @@ public class TataiLoader extends FXMLLoader {
 			try {
 				// Load the FXML file.
 			    FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/" + sceneName + ".fxml"));
-			    loader.setController(_controller);
 			    Parent root = (Parent)loader.load();
 			    // Construct the scene.
 				Scene scene = constructScene(root);
+				
+				// Set controller.
+				Page controller = loader.getController();//PageFactory.makePage(_controller.stage, scene, sceneName, _controller);
 
 				// Add stylesheets.
 				scene.getStylesheets().add (TataiLoader.class.getResource("styles.css").toExternalForm());
@@ -64,7 +66,7 @@ public class TataiLoader extends FXMLLoader {
 				Font.loadFont(getClass().getResourceAsStream("fonts/Roboto-Bold.ttf"), 14);
 				
 				// Add to the hashmap.
-				_scenes.put(sceneName, PageFactory.makePage(_controller.stage, scene, sceneName));
+				_scenes.put(sceneName, controller);
 			}
 			catch (Exception e) {
 				e.printStackTrace();

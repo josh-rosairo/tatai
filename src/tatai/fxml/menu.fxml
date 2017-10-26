@@ -8,7 +8,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.paint.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root" fx:controller="tatai.page.MenuPage">
 <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 	<center>
 	<GridPane xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10" styleClass="content">

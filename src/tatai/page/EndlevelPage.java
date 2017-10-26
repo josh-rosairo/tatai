@@ -79,6 +79,7 @@ public class EndlevelPage extends Page {
     	// Reset saved status.
     	saveButton.getStyleClass().clear();
     	saveButton.getStyleClass().add("button");
+    	saveButton.setText("Save level");
     	saveButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {

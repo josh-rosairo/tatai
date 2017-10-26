@@ -274,7 +274,7 @@ public class LevelPage extends Page {
     	_tries = 0;
     	    	
         // If the current question number is the last question, show the end level screen.
-    	if(_currentQuestionNumber >= NUM_QUESTIONS) {
+    	if(_currentQuestionNumber >= NUM_QUESTIONS && _controller._mode == "assess") {
     		showEndLevel(_numCorrect);
     	}
     	else {

@@ -9,7 +9,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.paint.*?>
 
-<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root" fx:id="root" fx:controller="tatai.page.LevelPage">
+<BorderPane xmlns:fx="http://javafx.com/fxml" prefHeight="600" prefWidth="800" styleClass="root" fx:id="root">
 <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 	<center>
 	

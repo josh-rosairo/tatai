@@ -2,8 +2,6 @@ package tatai;
  
 import java.util.HashMap;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.stage.Stage;
 import tatai.page.AchievementPage;
 import tatai.page.Page;
@@ -72,12 +70,7 @@ public class TataiController {
     	_loader.getPage("achievement").show();
     }
     
-    /**
-     ** Returns to the previously stored scene.
-     ** @arg ActionEvent event The event that caused this method to be called.
-     ** @author dli294
-     **/
-     @FXML protected void returnToScene(ActionEvent event) {
+     public void returnToScene() {
     	 _returnPage.show();
      }
      

@@ -208,15 +208,6 @@ public class LevelPage extends Page {
     }
     
     /**
-    ** Replays the current level.
-    ** @arg ActionEvent event The event that caused this method to be called.
-    ** @author dli294
-    **/
-    @FXML protected void replay(ActionEvent event) {
-    	initLevel();
-    }
-    
-    /**
     ** Shows the next question, or the end level screen, depending on which question the user is on.
     ** @arg ActionEvent event The event that caused this method to be called.
     ** @author dli294

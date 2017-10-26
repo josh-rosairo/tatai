@@ -43,6 +43,13 @@ public abstract class Page {
 	}
 	
 	/**
+	 * Functionality to set a scene to this controller.
+	 */
+	public void setScene(Scene scene) {
+		_scene = scene;
+	}
+	
+	/**
 	 * Returns the name of a scene.
 	 * @return The name of the scene.
 	 * @author dli294

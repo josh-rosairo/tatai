@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import tatai.TataiController;
-import tatai.model.TataiStatistic;
 
 public class EndlevelPage extends Page {
 	
@@ -45,6 +44,15 @@ public class EndlevelPage extends Page {
     **/
     @FXML protected void nextLevel(ActionEvent event) {
     	_controller._level = 2;
+    	((LevelPage)_controller._loader.getPage("level")).initLevel();
+    }
+    
+    /**
+    ** Replays the current level.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
+    **/
+    @FXML protected void replay(ActionEvent event) {
     	((LevelPage)_controller._loader.getPage("level")).initLevel();
     }
     

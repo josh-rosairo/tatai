@@ -51,12 +51,14 @@ public class TataiLoader extends FXMLLoader {
 			try {
 				// Load the FXML file.
 			    FXMLLoader loader = new FXMLLoader(getClass().getResource("fxml/" + sceneName + ".fxml"));
+			    Page controller = PageFactory.makePage(_controller.stage, null, sceneName, _controller);
+			    loader.setController(controller);
 			    Parent root = (Parent)loader.load();
 			    // Construct the scene.
 				Scene scene = constructScene(root);
 				
-				// Set controller.
-				Page controller = loader.getController();//PageFactory.makePage(_controller.stage, scene, sceneName, _controller);
+				// Set Scene.
+				controller.setScene(scene);
 
 				// Add stylesheets.
 				scene.getStylesheets().add (TataiLoader.class.getResource("styles.css").toExternalForm());

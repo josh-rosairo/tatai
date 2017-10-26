@@ -1,6 +1,5 @@
 package tatai.page;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -29,12 +28,4 @@ public class HelpPage extends Page {
 		super(stage, scene, sceneName, controller);
 	}
 	
-    /**
-     ** Returns to the previously stored scene.
-     ** @arg ActionEvent event The event that caused this method to be called.
-     ** @author dli294
-     **/
-     @FXML protected void returnToScene(ActionEvent event) {
-    	 _controller.returnToScene();
-     }
 }

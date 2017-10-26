@@ -36,13 +36,4 @@ public class AchievementPage extends Page {
 	public void setText(String text) {
 		achievementText.setText(text);
 	}
-	
-    /**
-     ** Returns to the previously stored scene.
-     ** @arg ActionEvent event The event that caused this method to be called.
-     ** @author dli294
-     **/
-     @FXML protected void returnToScene(ActionEvent event) {
-    	 _controller.returnToScene();
-     }
 }

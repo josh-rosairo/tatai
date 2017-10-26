@@ -76,4 +76,13 @@ public abstract class Page {
     	_controller.saveCurrentPage();
     	_controller._loader.getPage("help").show();
     }
+    
+    /**
+     ** Returns to the previously stored scene.
+     ** @arg ActionEvent event The event that caused this method to be called.
+     ** @author dli294
+     **/
+     @FXML protected void returnToScene(ActionEvent event) {
+    	 _controller.returnToScene();
+     }
 }

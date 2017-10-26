@@ -35,6 +35,7 @@
 	<bottom>
 	<HBox alignment="center_right">
 	<padding><Insets top="25" right="0" bottom="0" left="25"/></padding>
+		<Button text="Help" GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="helpButton" onAction="#showHelp" styleClass="darkbutton" />
     	<Button text="Return" GridPane.columnIndex="0" GridPane.rowIndex="3" fx:id="returnButton" onAction="#showMenu" styleClass="darkbutton" />
     </HBox>
     </bottom>

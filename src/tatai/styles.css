@@ -138,7 +138,7 @@
 	-fx-background-image:url('images/settings.png');
 }
 
-#playButton, #redoButton, #replayButton, #nextButton, #nextLevelButton, #quitButton, #returnButton, #level1Button, #level2Button, #statisticsButton, #recordButton, #practiceButton, #assessButton, #settingsButton {
+#playButton, #redoButton, #replayButton, #nextButton, #nextLevelButton, #quitButton, #returnButton, #level1Button, #level2Button, #statisticsButton, #recordButton, #practiceButton, #assessButton, #settingsButton, #helpButton {
 	-fx-background-position:right 8px center;
 	-fx-background-size:18px 18px;
   	-fx-padding: 8px 32px 6px 8px;
@@ -176,4 +176,8 @@
 
 #imageWrong {
 	-fx-background-image:url('images/wrong.png');
+}
+
+#helpButton {
+	-fx-background-image:url('images/help.png');
 }

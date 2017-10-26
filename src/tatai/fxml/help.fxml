@@ -22,7 +22,7 @@
 	 		<VBox alignment="center" spacing="24" styleClass="vBox">
 	 			<VBox alignment="CENTER_LEFT" spacing="12" styleClass="vBox">
 	 			<Text wrappingWidth="450" text="Welcome" styleClass="heading2" />
-		 		<Text wrappingWidth="450" text="Tatai is a game which tests your pronunciation of Maori numbers from 1 to 99."></Text>
+		 		<Text wrappingWidth="450" text="Tātai is a game which tests your pronunciation of Maori numbers from 1 to 99."></Text>
 		 		<Text wrappingWidth="450" text="To play the game, select either practice or test mode from the main screen. The program will display a maths equation. Record the correct Maori pronunciation of the answer to that problem to score points. For example, if  '1 + 1' was displayed, you would record yourself saying 'rua', the Maori word for '2'."></Text>
 		 		</VBox>
 		 		
@@ -33,13 +33,13 @@
 			 		<Text wrappingWidth="450" text="In order to play the game, there are a few buttons that you must understand."></Text>
 			 		<Button fx:id="recordButton" text="Record"></Button>
 			 		<Text wrappingWidth="450" text="When you press this button, you have 3 seconds (signified by the progress bar that will appear) to record your answer to the question. Once that is done, the play, redo and next buttons will appear, and there will be a message telling you whether your pronunciation was correct or not."></Text>
-		 			<Button fx:id="playButton" text="Play"></Button>
+		 			<Button fx:id="playButton" text="Play" styleClass="greenbutton"></Button>
 		 			<Text wrappingWidth="450" text="When you press this button, the answer that you recorded will be played back to you."></Text>
-		 			<Button fx:id="redoButton" text="Redo"></Button>
+		 			<Button fx:id="redoButton" text="Redo" styleClass="orangebutton"></Button>
 		 			<Text wrappingWidth="450" text="Pressing the Redo button takes you back to the screen with the record button so you can reattempt an answer for the previous question. This button only appears if your first attempt was wrong."></Text>
 		 			<Button fx:id="nextButton" text="Next"></Button>
 		 			<Text wrappingWidth="450" text="The Next button is used for continuing on to the next question. At the final question, the next button will take you to the summmary screen which will show how you fared."></Text>
-		 			<Button fx:id="returnButton" text="Return"></Button>
+		 			<Button fx:id="returnButton" text="Return" styleClass="darkbutton"></Button>
 		 			<Text wrappingWidth="450" text="The Return button takes you back to the main menu."></Text>
 	 			</VBox>
 	 			

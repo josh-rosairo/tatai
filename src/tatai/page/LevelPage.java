@@ -277,6 +277,7 @@ public class LevelPage extends Page {
     		_controller.updateAchievements();
     		return;
     	}
+    	_controller._loader.getPage("endlevel").show();
     }
     
     /**

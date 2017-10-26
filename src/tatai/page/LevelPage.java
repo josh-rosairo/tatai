@@ -1,6 +1,8 @@
 package tatai.page;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -65,6 +67,10 @@ public class LevelPage extends Page {
 	private int _numToSay = 0;
 	// Progress bar to display time for recording
 	public TimedProgressBar _progress;
+	// List of questions for this level.
+	private List<Question> _questionList;
+	// List of list of questions saved.
+	private List<List<Question>> _questionsSaved;
 	
 	/**
 	 * Constructor.
@@ -76,6 +82,7 @@ public class LevelPage extends Page {
 	 */
 	public LevelPage(Stage stage, Scene scene, String sceneName, TataiController controller) {
 		super(stage, scene, sceneName, controller);
+		_questionsSaved = new ArrayList<List<Question>>();
 	}
 	
     /**
@@ -125,6 +132,7 @@ public class LevelPage extends Page {
     ** @author dli294
     **/
     public void initLevel() {
+    	_questionList = new ArrayList<Question>();
     	_numCorrect = 0;
     	_currentQuestionNumber = 1;
     	_tries = 0;
@@ -162,6 +170,9 @@ public class LevelPage extends Page {
     		// Show question number.
         	questionNumber.setText(Integer.toString(_currentQuestionNumber) + "/?");
     	}
+    	
+    	// Add to saved list.
+    	_questionList.add(question);
     	
     	// Number to say.
     	_numToSay = question.getAnswer();
@@ -396,6 +407,20 @@ public class LevelPage extends Page {
 	        }
 	    });
     	
+    }
+    
+    /**
+     * Saves the current list of questions.
+     */
+    public void saveCurrentLevel() {
+    	_questionsSaved.add(_questionList);
+    }
+    
+    /**
+     * Gets the current list of saved questions.
+     */
+    public List<List<Question>> getSavedQuestions() {
+    	return _questionsSaved;
     }
 
 }

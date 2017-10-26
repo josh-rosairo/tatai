@@ -16,6 +16,7 @@ public class EndlevelPage extends Page {
 	// FXML-injected nodes.
 	@FXML private Button nextLevelButton;
 	@FXML private Text numberCorrect;
+	@FXML private Button saveButton;
 	
 	/**
 	 * Constructor.
@@ -76,5 +77,15 @@ public class EndlevelPage extends Page {
     	
     	super.show();
 	}
+	
+    /**
+    ** Saves the current level.
+    ** @arg ActionEvent event The event that caused this method to be called.
+    ** @author dli294
+    **/
+    @FXML protected void saveLevel(ActionEvent event) {
+    	((LevelPage)_controller._loader.getPage("level")).saveCurrentLevel();
+    }
+    
 
 }

@@ -27,6 +27,7 @@
 	 	<VBox GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2" alignment="center" spacing="10">
 	 		<Button text="Replay this level" fx:id="replayButton" onAction="#replay" styleClass="greenbutton" />
 	    	<Button text="Next level" fx:id="nextLevelButton" onAction="#nextLevel" styleClass="greenbutton"/>
+	    	<Button text="Save this level" fx:id="saveButton" onAction="#saveLevel" styleClass="button" />
 	    	<Button text="Return to menu" fx:id="returnButton" onAction="#showMenu"/>
 	    </VBox>
 	    

@@ -66,4 +66,13 @@ public class SavedQuestionList {
 	public List<Question> getQuestions() {
 		return _questions;
 	}
+	
+	/**
+	 * Returns the question at a specific index.
+	 * @param int index The index to get the question at.
+	 * @author dli294
+	 */
+	public Question get(int i) {
+		return _questions.get(i);
+	}
 }

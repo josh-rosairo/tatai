@@ -176,6 +176,11 @@ public class SettingsPage extends Page {
     		
             // Add the table to the panel.
             savedQuestionPanel.getChildren().addAll(_table);
+            
+            // Add listener to update the selected level when the level changes.
+         	_table.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+         	    ((LevelPage)_controller._loader.getPage("level")).setQuestionList(newSelection);
+         	});
     	}
         
     	/**
@@ -206,5 +211,14 @@ public class SettingsPage extends Page {
         	}
         	
      		super.show();
+     	}
+     	
+        /**
+         ** Clears the table of a selection.
+         ** @arg ActionEvent event The event that caused this method to be called.
+         ** @author dli294
+         **/
+     	@FXML protected void clearTable(ActionEvent event) {
+     		_table.getSelectionModel().clearSelection();
      	}
 }

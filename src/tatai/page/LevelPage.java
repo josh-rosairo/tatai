@@ -72,6 +72,8 @@ public class LevelPage extends Page {
 	private List<Question> _questionList;
 	// List of list of questions saved.
 	private List<SavedQuestionList> _questionsSaved = new ArrayList<SavedQuestionList>();
+	// Loaded list of questions.
+	private SavedQuestionList _loadedQuestionList;
 	
 	/**
 	 * Constructor.
@@ -183,11 +185,25 @@ public class LevelPage extends Page {
     }
     
     /**
+     * Sets the current question list.
+     * @param questions The list to be loaded.
+     * @author dli294
+     */
+    public void setQuestionList(SavedQuestionList questions) {
+    	_loadedQuestionList = questions;
+    }
+    
+    /**
      * Generates a test question.
      * @return A test question, based on the currently available operators.
      * @author dli294
      */
     private Question getTestQuestion() {
+    	// A saved question list is being used.
+    	if (_loadedQuestionList != null) {
+    		return _loadedQuestionList.get(_currentQuestionNumber - 1);
+    	}
+    	
     	// Numbers to test for current question.
     	Question question = new Question(_controller._level);
     	// Get all the question types that are currently enabled.

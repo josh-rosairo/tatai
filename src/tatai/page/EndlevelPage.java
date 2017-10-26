@@ -1,6 +1,7 @@
 package tatai.page;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -74,6 +75,16 @@ public class EndlevelPage extends Page {
     	
     	// Show number correct.
     	numberCorrect.setText(Integer.toString(numCorrect) + "/" + Integer.toString(NUM_QUESTIONS));
+    	
+    	// Reset saved status.
+    	saveButton.getStyleClass().clear();
+    	saveButton.getStyleClass().add("button");
+    	saveButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				saveLevel(null);
+			}
+    	});
     	
     	super.show();
 	}

@@ -137,9 +137,13 @@ public class SpeechHandler {
 			maoriAnswer = prefix + " tekau";
 		}
 		else {
-			prefix = _maoriNumTranslations.get((numToSay/10)-1);
+			if (numToSay/10 == 1) {
+				prefix = "";
+			} else {
+				prefix = _maoriNumTranslations.get((numToSay/10)-1) + " ";
+			}
 			suffix = _maoriNumTranslations.get((numToSay%10)-1);
-			maoriAnswer = prefix + " tekau maa " + suffix;
+			maoriAnswer = prefix + "tekau maa " + suffix;
 		}
 		
 		return maoriAnswer;

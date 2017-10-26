@@ -43,7 +43,7 @@
 	 		<VBox alignment="center" spacing="12" fx:id="savedQuestionPanel">
 	 			<Text text="Saved questions" styleClass="heading2" />
 	 			<HBox alignment="center">
-	 			<Text wrappingWidth="400" text = "If a saved question list is selected, it will be used instead of generating a new question list. To use new questions, press Clear." />
+	 			<Text wrappingWidth="400" text = "If a saved question list is selected, it will be used instead of generating a new question list. To use new questions, press Clear to clear your selection." />
 		 		<Button text="Clear" fx:id="clearButton" onAction="#clearTable"></Button>
 	 			</HBox>
 		 		
